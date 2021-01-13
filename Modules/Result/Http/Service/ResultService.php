@@ -24,4 +24,8 @@ class ResultService
         return $this->resultRepo->getResultsOfQuiz($quiz_id);
     }
 
+    public function createResultSegment ($data){
+        return $this->resultRepo->create($data);
+    }
+
 }
