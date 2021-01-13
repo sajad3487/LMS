@@ -8,6 +8,7 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('/create','QuizController@create');
             Route::post('/store','QuizController@store');
             Route::get('/{quiz_id}/edit','QuizController@edit');
+            Route::put('/{quiz_id}/update','QuizController@update');
 
         });
 

@@ -68,6 +68,12 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $data=$request->all();
+        if (!isset($data['requirement'])){
+            $data['requirement'] = 0 ;
+        }
+        if (!isset($data['additional_info'])){
+            $data['additional_info']= 0 ;
+        }
         $this->questionService->updateQuestion($data,$id);
         return redirect("questions/$id/edit");
     }

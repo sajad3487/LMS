@@ -39,8 +39,18 @@
                                             <div class="card-body">
                                                 <div class="pl-5 pl-md-30">
                                                     <!--begin::Form-->
-                                                    <form class="form" action="{{url("quizzes/store")}}" method="post" enctype="multipart/form-data">
+                                                    <form class="form" action="
+                                                        @if(isset($quiz))
+                                                            {{url("quizzes/$quiz->id/update")}}
+                                                        @else
+                                                            {{url("quizzes/store")}}
+                                                        @endif
+                                                        " method="post" enctype="multipart/form-data">
+
                                                         @csrf
+                                                        @if(isset($quiz))
+                                                            @method('PUT')
+                                                        @endif
                                                         <div class="">
                                                             @include('fragment.error')
                                                             <div class="form-group row">
@@ -56,12 +66,12 @@
                                                                 </div>
                                                                 <div class="radio-inline ml-md-10 pl-5 mt-3 mt-md-0">
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="first_name_requirement" value="1" checked="checked" />
+                                                                        <input type="radio" name="first_name_requirement" value="1" @if(isset($quiz) && $quiz->first_name_requirement == 0)  @else checked="checked" @endif />
                                                                         <span></span>
                                                                         Required
                                                                     </label>
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="first_name_requirement" value="0"/>
+                                                                        <input type="radio" name="first_name_requirement" value="0" @if(isset($quiz) && $quiz->first_name_requirement == 0) checked="checked" @endif/>
                                                                         <span></span>
                                                                         Optional
                                                                     </label>
@@ -74,12 +84,12 @@
                                                                 </div>
                                                                 <div class="radio-inline ml-md-10 pl-5 mt-3 mt-md-0">
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="last_name_requirement" value="1" checked="checked" />
+                                                                        <input type="radio" name="last_name_requirement" value="1" @if(isset($quiz) && $quiz->last_name_requirement == 0)  @else checked="checked" @endif />
                                                                         <span></span>
                                                                         Required
                                                                     </label>
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="last_name_requirement" value="0"/>
+                                                                        <input type="radio" name="last_name_requirement" value="0" @if(isset($quiz) && $quiz->last_name_requirement == 0) checked="checked" @endif/>
                                                                         <span></span>
                                                                         Optional
                                                                     </label>
@@ -92,12 +102,12 @@
                                                                 </div>
                                                                 <div class="radio-inline ml-md-10 pl-5 mt-3 mt-md-0">
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="email_requirement" value="1" checked="checked" />
+                                                                        <input type="radio" name="email_requirement" value="1" @if(isset($quiz) && $quiz->email_requirement == 0)  @else checked="checked" @endif />
                                                                         <span></span>
                                                                         Required
                                                                     </label>
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="email_requirement" value="0"/>
+                                                                        <input type="radio" name="email_requirement" value="0" @if(isset($quiz) && $quiz->email_requirement == 0) checked="checked" @endif/>
                                                                         <span></span>
                                                                         Optional
                                                                     </label>
@@ -106,12 +116,12 @@
                                                             <div class="form-group row">
                                                                 <div class="radio-inline ml-md-10 pl-5 mt-3 mt-md-0">
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="use_placeholder" value="1" checked="checked" />
+                                                                        <input type="radio" name="placeholder" value="1" @if(isset($quiz) && $quiz->placeholder == 0)  @else checked="checked" @endif />
                                                                         <span></span>
                                                                         Use Placeholder
                                                                     </label>
                                                                     <label class="radio radio-rounded radio-success">
-                                                                        <input type="radio" name="use_placeholder" value="0"/>
+                                                                        <input type="radio" name="placeholder" value="0" @if(isset($quiz) && $quiz->placeholder == 0) checked="checked" @endif/>
                                                                         <span></span>
                                                                         Don't Use Placeholder
                                                                     </label>
@@ -136,7 +146,7 @@
                                             Questions
                                         </div>
                                     </div>
-                                    <div id="collapse-questions" class="collapse"  data-parent="#category-questions">
+                                    <div id="collapse-questions" class="collapse @if(isset($quiz)) show @endif"  data-parent="#category-questions">
                                         <div class="card-body">
                                             <div class="overflow-auto">
 
@@ -177,64 +187,40 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endif
+
                                 <div class="card">
-                                    <div class="card-header" id="category-footer">
-                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-footer">
-                                            Footer
+                                        <div class="card-header" id="category-footer">
+                                            <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-footer">
+                                                Footer
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div id="collapse-footer" class="collapse"  data-parent="#category-footer">
-                                        <div class="card-body">
-                                            <div class="overflow-auto">
+                                        <div id="collapse-footer" class="collapse"  data-parent="#category-footer">
+                                            <div class="card-body">
+                                                <div class="pl-5 pl-md-30">
+                                                    <!--begin::Form-->
+                                                    <form class="form" action="{{url("quizzes/$quiz->id/update")}}" method="post" enctype="multipart/form-data">
 
-                                                <div class="btn-group">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="">
+                                                            @include('fragment.error')
+                                                            <div class="form-group row align-center">
+                                                                <label class="col-form-label text-center">Button Text :</label>
+                                                                <div class=" mx-5 ">
+                                                                    <input type="text" name="button_text" class="form-control" placeholder="Enter quiz title" value="{{$quiz->button_text  ?? ''}}" />
+                                                                </div>
+                                                                <button type="submit" class="btn btn-success w-100px">Save</button>
 
-                                                    <form  method="post">
-                                                        <a href="{{url("/admin/products/createWithCat/'test'")}}" class="btn btn-outline-success font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                            <i class="la la-plus p-0"></i></a>
-                                                        <a href="{{url("/admin/categories/'test'/edit")}}" class="btn btn-outline-warning font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                            <i class="la la-edit p-0"></i></a>
-                                                        <a href="{{url("/admin/categories/'test'/delete")}}" class="btn btn-outline-danger font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                            <i class="la la-trash p-0"></i></a>
+                                                            </div>
+                                                        </div>
                                                     </form>
+                                                    <!--end::Form-->
                                                 </div>
-                                                <table class="table table-bordered table-checkable" id="kt_datatable">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Title</th>
-                                                        <th>Description</th>
-                                                        <th>Material</th>
-                                                        <th>Dimension</th>
-                                                        <th>Image</th>
-                                                        <th>Price</th>
-                                                    </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                    {{--                                                    @foreach($category->product as $product)--}}
-                                                    {{--                                                        <tr>--}}
-                                                    {{--                                                            <td>{{$product->id}}</td>--}}
-                                                    {{--                                                            <td>{{$product->title}}</td>--}}
-                                                    {{--                                                            <td>{{$product->description}}</td>--}}
-                                                    {{--                                                            <td>{{$product->material}}</td>--}}
-                                                    {{--                                                            <td>{{$product->dimension}}</td>--}}
-                                                    {{--                                                            <td>{{$product->image}}</td>--}}
-                                                    {{--                                                            <td>{{$product->price}}</td>--}}
-                                                    {{--                                                            <td style='white-space: nowrap'>--}}
-                                                    {{--                                                                <a href="{{url("/admin/products/$product->id/edit")}}"><i class="far fa-edit text-warning mr-5"></i></a>--}}
-                                                    {{--                                                                <a href="{{url("/admin/products/$product->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>--}}
-                                                    {{--                                                            </td>--}}
-                                                    {{--                                                         </tr>--}}
-                                                    {{--                                                     @endforeach--}}
-                                                    </tbody>
-
-                                                </table>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
+
                             </div>
                             <!--end::Accordion-->
 

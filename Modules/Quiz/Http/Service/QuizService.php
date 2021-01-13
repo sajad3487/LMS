@@ -32,4 +32,8 @@ class QuizService
         return $this->quizRepo->getQuizById ($id);
     }
 
+    public function updateQuiz ($data,$id){
+        return $this->quizRepo->update($data,$id);
+    }
+
 }

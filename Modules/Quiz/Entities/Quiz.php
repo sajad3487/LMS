@@ -20,6 +20,7 @@ class quiz extends Model
         'taken',
         'average_score',
         'average_percentage',
+        'button_text',
     ];
 
     public function question (){

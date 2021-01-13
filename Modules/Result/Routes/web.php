@@ -1,16 +1,16 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::group(['middleware'=>'auth'],function(){
+    Route::group(['middleware'=>'CheckUser'],function (){
+        Route::group(['prefix'=>'segments'],function (){
 
-Route::prefix('result')->group(function() {
-    Route::get('/', 'ResultController@index');
+            Route::get('/{quiz_id}/show','ResultController@index');
+            Route::get('/{quiz_id}/create','ResultController@create');
+            Route::post('/store','ResultController@store');
+            Route::get('/{quiz_id}/edit','ResultController@edit');
+            Route::put('/{quiz_id}/update','ResultController@update');
+
+        });
+
+    });
 });

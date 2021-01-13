@@ -2,76 +2,76 @@
 
 namespace Modules\Result\Http\Controllers;
 
+use App\Http\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Quiz\Http\Service\QuizService;
+use Modules\Result\Http\Service\ResultService;
 
 class ResultController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * @var ResultService
      */
-    public function index()
+    private $resultService;
+    /**
+     * @var UserService
+     */
+    private $userService;
+    /**
+     * @var QuizService
+     */
+    private $quizService;
+
+    public function __construct(
+        ResultService $resultService,
+        UserService $userService,
+        QuizService $quizService
+    )
     {
-        return view('result::index');
+        $this->resultService = $resultService;
+        $this->userService = $userService;
+        $this->quizService = $quizService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function index($quiz_id)
     {
-        return view('result::create');
+        $active = 2;
+        $user = $this->userService->getUserById(auth()->id());
+        $quiz = $this->quizService->getQuiz ($quiz_id);
+        $results = $this->resultService->getResultSegments($quiz_id);
+        return view('customer.results',compact('active','user','quiz','results'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
+    public function create($quiz_id)
+    {
+        $active = 2;
+        $user = $this->userService->getUserById(auth()->id());
+        $quiz = $this->quizService->getQuiz ($quiz_id);
+        return view('customer.new_segment',compact('active','user','quiz'));
+    }
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         return view('result::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
         return view('result::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
         //

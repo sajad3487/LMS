@@ -71,7 +71,9 @@ class QuizController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $this->quizService->updateQuiz($data,$id);
+        return back();
     }
 
 

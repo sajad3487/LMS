@@ -28,6 +28,7 @@ class CreateQuizzesTable extends Migration
             $table->integer('taken')->default(0);
             $table->integer('average_score')->default(0);
             $table->integer('average_percentage')->default(0);
+            $table->string('button_text')->nullable();
 
             $table->timestamps();
         });
