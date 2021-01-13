@@ -1,0 +1,34 @@
+<?php
+
+
+namespace Modules\Quiz\Repository;
+
+
+use App\DesignPatterns\Repository;
+use Modules\Quiz\Entities\Question;
+
+class QuestionRepository extends Repository
+{
+    /**
+     * @var question
+     */
+    public $model;
+
+    public function __construct()
+    {
+        $this->model = new Question();
+    }
+
+    public function getLastPositionOfForm ($form_id){
+        return Question::where('form_id',$form_id)
+            ->orderBy('position','DESC')
+            ->first();
+    }
+
+    public function getQuestionById ($id){
+        return Question::where('id',$id)
+            ->with('option')
+            ->first();
+    }
+
+}

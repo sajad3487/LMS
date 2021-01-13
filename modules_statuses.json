@@ -3,5 +3,7 @@
     "Customer": true,
     "Category": true,
     "Product": true,
-    "Order": true
+    "Order": true,
+    "Quiz": true,
+    "Result": true
 }
