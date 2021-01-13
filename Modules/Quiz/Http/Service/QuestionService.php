@@ -37,4 +37,12 @@ class QuestionService
         return $this->questionRepo->getQuestionById($id);
     }
 
+    public function updateQuestion ($data,$id){
+        return $this->questionRepo->update($data,$id);
+    }
+
+    public function deleteQuestion ($id){
+        return $this->questionRepo->delete($id);
+    }
+
 }

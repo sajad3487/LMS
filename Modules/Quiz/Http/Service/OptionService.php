@@ -28,4 +28,9 @@ class OptionService
         return $this->optionRepo->update($data,$id);
     }
 
+    public function deleteOption ($id){
+        return $this->optionRepo->delete($id);
+    }
+
+
 }

@@ -19,8 +19,18 @@
                             <!--begin::Form-->
 
                                 <div class="card-body px-md-10">
-                                    <form class="form" action="{{url("/questions/store")}}" method="post" enctype="multipart/form-data">
+                                    <form class="form" action="
+                                        @if(isset($question))
+                                            {{url("/questions/$question->id/update")}}
+                                        @else
+                                            {{url("/questions/store")}}
+                                        @endif
+                                        " method="post" enctype="multipart/form-data">
+
                                         @csrf
+                                        @if(isset($question))
+                                            @method('PUT')
+                                        @endif
                                     <div class="">
                                         @include('fragment.error')
                                         <div class="form-group row">
@@ -129,7 +139,7 @@
                                                         <td>{{$option->score ?? ''}}</td>
                                                         <td style='white-space: nowrap'>
                                                             <a href="" data-toggle="modal" data-target="#option_form_{{$key}}"><i class="far fa-edit text-warning mr-5"></i></a>
-                                                            <a href="{{url("/questions/options/$option->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                                            <a href="{{url("/options/$option->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
 {{--                                                            <a href="" class="btn btn-light-primary font-weight-bold mb-3 mr-3 ml-auto" data-toggle="modal" data-target="#option_form_{{$key}}">A</a>--}}
 
                                                         </td>

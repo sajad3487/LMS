@@ -60,17 +60,21 @@ class QuestionController extends Controller
     {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
-        $quiz = $this->quizService->getQuiz($id);
         $question = $this->questionService->getQuestion ($id);
+        $quiz = $this->quizService->getQuiz($question->form_id);
         return view('customer.new_question',compact('active','user','quiz','question'));
     }
 
     public function update(Request $request, $id)
     {
+        $data=$request->all();
+        $this->questionService->updateQuestion($data,$id);
+        return redirect("questions/$id/edit");
     }
 
     public function destroy($id)
     {
-        //
+        $this->questionService->deleteQuestion($id);
+        return back();
     }
 }

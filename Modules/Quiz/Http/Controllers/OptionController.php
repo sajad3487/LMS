@@ -37,6 +37,7 @@ class OptionController extends Controller
 
     public function destroy($id)
     {
-        //
+        $this->optionService->deleteOption($id);
+        return back();
     }
 }
