@@ -13,43 +13,43 @@
                         <div class="card card-custom">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    @if(isset($result)) Segment No : {{$result->id }} @else New Segment for Result @endif
+                                    @if(isset($segment)) Segment Range- Min : {{$segment->min_score }} - Max : {{$segment->max_score }} @else New Segment for Result @endif
                                 </h3>
                             </div>
                             <!--begin::Form-->
 
                                 <div class="card-body px-md-10">
                                     <form class="form" action="
-                                        @if(isset($result))
-                                            {{url("/segments/$result->id/update")}}
+                                        @if(isset($segment))
+                                            {{url("/segments/$segment->id/update")}}
                                         @else
                                             {{url("/segments/store")}}
                                         @endif
                                         " method="post" enctype="multipart/form-data">
 
                                         @csrf
-                                        @if(isset($result))
+                                        @if(isset($segment))
                                             @method('PUT')
                                         @endif
                                         <div class="">
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label>Segment Title</label>
-                                                    <input type="text" name="segment_title" class="form-control form-control-solid" placeholder="Enter result title"/>
+                                                    <input type="text" name="segment_title" class="form-control form-control-solid" value="{{old('segment_title') ?? $segment->segment_title  ?? ''}}" placeholder="Enter result title"/>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label>Min Score</label>
-                                                    <input type="number" name="min_score" class="form-control form-control-solid" placeholder="Enter min score"/>
+                                                    <input type="number" name="min_score" class="form-control form-control-solid" value="{{old('min_score') ?? $segment->min_score  ?? ''}}" placeholder="Enter min score"/>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label>Max Score</label>
-                                                    <input type="number" name="max_score" class="form-control form-control-solid" placeholder="Enter max score"/>
+                                                    <input type="number" name="max_score" class="form-control form-control-solid" value="{{old('max_score') ?? $segment->max_score  ?? ''}}" placeholder="Enter max score"/>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="exampleTextarea">Result Description:</label>
-                                                <textarea name="result_body" class="form-control form-control-solid" rows="3"></textarea>
+                                                <textarea name="result_body" class="form-control form-control-solid" rows="3">{{old('result_body') ?? $segment->result_body  ?? ''}}</textarea>
                                             </div>
                                             <input type="number" name="form_id" value="{{$quiz->id}}" class="d-none">
                                             <div class="row">
@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                                            <a href="{{url("segments/$quiz->id/show")}}" class="btn btn-secondary">Cancel</a>
                                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                         </div>
                                     </form>

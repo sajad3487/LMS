@@ -28,6 +28,7 @@ class QuizRepository extends Repository
     public function getQuizById ($id){
         return Quiz::where('id',$id)
             ->with('question')
+            ->with('question.option')
             ->first();
     }
 

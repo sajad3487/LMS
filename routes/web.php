@@ -19,7 +19,7 @@ Auth::routes();
 //});
 Route::group(['middleware'=>'auth'],function (){
    Route::group(['middleware'=>'CheckUser'],function (){
-       Route::get('/', 'HomeController@index');
+//       Route::get('/', 'HomeController@index');
 
        Route::get('/home', 'HomeController@index')->name('home');
 
@@ -41,4 +41,8 @@ Route::group(['middleware'=>'auth'],function (){
            Route::post('/update','HomeController@updateProfile');
        });
    });
+});
+
+Route::get('/',function (){
+    return view('welcome');
 });

@@ -32,3 +32,9 @@ Route::group(['middleware'=>'auth'],function(){
 
     });
 });
+
+Route::group(['prefix'=>'quiz'],function (){
+
+    Route::get('{quiz_id}/view','QuizController@view');
+
+});

@@ -65,7 +65,9 @@
                                     <td>{{$result->max_score ?? ''}}</td>
                                     <td>{{$result->segment_title ?? ''}}</td>
                                     <td>{{$result->result_body ?? ''}}</td>
-                                    <td>{{$result->result_media ?? ''}}</td>
+                                    <td>
+                                        <img src="{{$result->result_media ?? ''}}" class="w-100px h-100px" alt="">
+                                    </td>
                                     <td>
                                         @if($result->status == 1)
                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">
@@ -78,8 +80,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{url("quizzes/$result->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
-                                        <a href="{{url("segments/$result->id/show")}}"><i class="flaticon-web  text-info mr-5"></i></a>
+                                        <a href="{{url("segments/$result->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
+                                        <a href="{{url("segments/$result->id/delete")}}"><i class="flaticon-delete text-danger mr-5"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

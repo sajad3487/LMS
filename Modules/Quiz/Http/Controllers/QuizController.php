@@ -33,7 +33,7 @@ class QuizController extends Controller
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
         $quizzes = $this->quizService->getUserQuizzes(auth()->id());
-        return view('customer.quizzes',compact('active','user','quizzes'));
+        return view('customer.quizzes', compact('active', 'user', 'quizzes'));
     }
 
 
@@ -41,15 +41,15 @@ class QuizController extends Controller
     {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
-        return view('customer.new_quiz',compact('active','user'));
+        return view('customer.new_quiz', compact('active', 'user'));
     }
 
 
     public function store(Request $request)
     {
-        $data =$request->all();
-        $data['user_id']= auth()->id();
-        $quiz =$this->quizService->createQuiz($data);
+        $data = $request->all();
+        $data['user_id'] = auth()->id();
+        $quiz = $this->quizService->createQuiz($data);
         return redirect("quizzes/$quiz->id/edit");
     }
 
@@ -64,15 +64,15 @@ class QuizController extends Controller
     {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
-        $quiz = $this->quizService->getQuiz ($id);
-        return view('customer.new_quiz',compact('active','user','quiz'));
+        $quiz = $this->quizService->getQuiz($id);
+        return view('customer.new_quiz', compact('active', 'user', 'quiz'));
     }
 
 
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $this->quizService->updateQuiz($data,$id);
+        $this->quizService->updateQuiz($data, $id);
         return back();
     }
 
@@ -80,5 +80,14 @@ class QuizController extends Controller
     public function destroy($id)
     {
         dd($id);
+    }
+
+    public function view($id)
+    {
+        $quiz = $this->quizService->getQuiz($id);
+        if ($quiz->status){
+            return view('quiz', compact('quiz'));
+        }
+        return redirect('/');
     }
 }

@@ -24,4 +24,5 @@ class ResultRepository extends Repository
             ->get();
     }
 
+
 }

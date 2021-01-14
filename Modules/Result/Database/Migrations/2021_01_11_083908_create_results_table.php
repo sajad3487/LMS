@@ -21,7 +21,7 @@ class CreateResultsTable extends Migration
             $table->string('segment_title')->nullable();
             $table->string('result_body')->nullable();
             $table->string('result_media')->nullable();
-            $table->integer('status');
+            $table->integer('status')->default(1);
 
             $table->timestamps();
         });

@@ -55,8 +55,17 @@ class ResultController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
-        $data = $this->resultService->createResultSegment();
+        if(isset($request->file)){
+            $data['result_media'] = $this->resultService->uploadMedia($request->file);
+            unset($data['file']);
+        }
+        $check_range = $this->resultService->checkRangeOfSegment ($data['min_score'],$data['max_score'],$data['form_id']);
+        if ($check_range == 'ok'){
+            $segment = $this->resultService->createResultSegment($data);
+            return redirect("segments/$segment->id/edit");
+        }else{
+            return back();
+        }
     }
 
     public function show($id)
@@ -66,16 +75,32 @@ class ResultController extends Controller
 
     public function edit($id)
     {
-        return view('result::edit');
+        $active = 2;
+        $user = $this->userService->getUserById(auth()->id());
+        $segment= $this->resultService->getSegment($id);
+        $quiz = $this->quizService->getQuiz ($segment->form_id);
+        return view('customer.new_segment',compact('active','user','quiz','segment'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        if(isset($request->file)){
+            $data['result_media'] = $this->resultService->uploadMedia($request->file);
+            unset($data['file']);
+        }
+        $check_range = $this->resultService->checkRangeOfSegmentForUpdate ($data['min_score'],$data['max_score'],$data['form_id'],$id);
+        if ($check_range == 'ok'){
+            $this->resultService->updateResultSegment($data,$id);
+            return redirect("segments/$id/edit");
+        }else{
+            return back();
+        }
     }
 
     public function destroy($id)
     {
-        //
+        $this->resultService->deleteSegment ($id);
+        return back();
     }
 }
