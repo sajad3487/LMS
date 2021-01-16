@@ -20,15 +20,18 @@ class ResultService
         $this->resultRepo = $resultRepository;
     }
 
-    public function getResultSegments ($quiz_id){
+    public function getResultSegments($quiz_id)
+    {
         return $this->resultRepo->getResultsOfQuiz($quiz_id);
     }
 
-    public function createResultSegment ($data){
+    public function createResultSegment($data)
+    {
         return $this->resultRepo->create($data);
     }
 
-    public function uploadMedia ($file) {
+    public function uploadMedia($file)
+    {
         $destination = base_path() . '/public/image/';
         $filename = rand(1111111, 99999999);
         $newFileName = $filename . $file->getClientOriginalName();
@@ -36,49 +39,62 @@ class ResultService
         return '/image/' . $newFileName;
     }
 
-    public function checkRangeOfSegment ($min,$max,$quiz_id){
+    public function checkRangeOfSegment($min, $max, $quiz_id)
+    {
         $segments = $this->resultRepo->getResultsOfQuiz($quiz_id);
         $result = 'ok';
-        foreach($segments as $segment){
-            if ($min >= $segment->min_score && $min <= $segment->max_score){
+        foreach ($segments as $segment) {
+            if ($min >= $segment->min_score && $min <= $segment->max_score) {
                 $result = 'fail';
             }
-            if ($max >= $segment->min_score && $max <= $segment->max_score){
+            if ($max >= $segment->min_score && $max <= $segment->max_score) {
                 $result = 'fail';
             }
-            if ($min >= $max){
+            if ($min >= $max) {
                 $result = 'fail';
             }
         }
         return $result;
     }
 
-    public function getSegment ($id){
+    public function getSegment($id)
+    {
         return $this->resultRepo->getById($id);
     }
-    public function checkRangeOfSegmentForUpdate ($min,$max,$quiz_id,$id){
+
+    public function checkRangeOfSegmentForUpdate($min, $max, $quiz_id, $id)
+    {
         $segments = $this->resultRepo->getResultsOfQuiz($quiz_id);
         $result = 'ok';
-        foreach($segments as $segment){
-            if ($min >= $segment->min_score && $min <= $segment->max_score && $segment->id != $id){
+        foreach ($segments as $segment) {
+            if ($min >= $segment->min_score && $min <= $segment->max_score && $segment->id != $id) {
                 $result = 'fail';
             }
-            if ($max >= $segment->min_score && $max <= $segment->max_score && $segment->id != $id){
+            if ($max >= $segment->min_score && $max <= $segment->max_score && $segment->id != $id) {
                 $result = 'fail';
             }
-            if ($min >= $max){
+            if ($min >= $max) {
                 $result = 'fail';
             }
         }
         return $result;
     }
 
-    public function updateResultSegment ($data,$id){
-        return $this->resultRepo->update($data,$id);
+    public function updateResultSegment($data, $id)
+    {
+        return $this->resultRepo->update($data, $id);
     }
 
-    public function deleteSegment ($id){
+    public function deleteSegment($id)
+    {
         return $this->resultRepo->delete($id);
+    }
+
+    public function findSegment ($score,$quiz_id){
+        $segments = $this->resultRepo->getResultsOfQuiz($quiz_id);
+        foreach ($segments as $segment){
+            
+        }
     }
 
 }

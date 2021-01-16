@@ -20,4 +20,8 @@ class AnswerQuestionService
         $this->answerQuestionRepo = $answerQuestionRepository;
     }
 
+    public function createAnswerQuestion ($data){
+        return $this->answerQuestionRepo->create($data);
+    }
+
 }

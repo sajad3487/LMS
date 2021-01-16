@@ -19,7 +19,7 @@ class CreateAnswerQuizzesTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->nullable();
-            $table->integer('score');
+            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }

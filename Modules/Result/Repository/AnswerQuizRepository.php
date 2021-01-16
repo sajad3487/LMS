@@ -16,4 +16,10 @@ class AnswerQuizRepository extends Repository
         $this->model = new AnswerQuiz();
     }
 
+    public function getAnswerWithQuestion($answer_id){
+        return AnswerQuiz::where('id',$answer_id)
+            ->with('question_answer')
+            ->first();
+    }
+
 }

@@ -16,7 +16,7 @@ class CreateAnswerQuestionsTable extends Migration
         Schema::create('answer_questions', function (Blueprint $table) {
             $table->id();
             $table->integer('form_id');
-            $table->integer('result_id');
+            $table->integer('answer_id');
             $table->integer('question_id');
             $table->integer('option_id');
             $table->string('type');

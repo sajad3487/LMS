@@ -20,16 +20,24 @@ class OptionService
         $this->optionRepo = $optionRepository;
     }
 
-    public function createOption ($data){
+    public function createOption($data)
+    {
         return $this->optionRepo->create($data);
     }
 
-    public function updateOption ($data,$id){
-        return $this->optionRepo->update($data,$id);
+    public function updateOption($data, $id)
+    {
+        return $this->optionRepo->update($data, $id);
     }
 
-    public function deleteOption ($id){
+    public function deleteOption($id)
+    {
         return $this->optionRepo->delete($id);
+    }
+
+    public function getOptionById($id)
+    {
+        return $this->optionRepo->getById($id);
     }
 
 

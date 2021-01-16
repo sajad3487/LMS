@@ -511,9 +511,28 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                 <div class="card-body">
                                     <!--begin::Form-->
-                                    <form class="form">
+                                    <form class="form" action="{{url("quiz/submit")}}" method="post">
+                                        @csrf
 
-                                        @foreach($quiz->question as $question)
+                                        <input type="number" name="form_id" value="{{$quiz->id}}" class="d-none">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-lg-4">
+                                            <label>{{$quiz->first_name_label ?? ''}}</label>
+                                            <input type="text" name="first_name" class="form-control form-control-solid" @if($quiz->first_name_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->first_name_label ?? ''}}" @endif/>
+                                        </div>
+                                        <div class="form-group col-md-6 col-lg-4">
+                                            <label>{{$quiz->last_name_label ?? ''}}</label>
+                                            <input type="text" name="last_name" class="form-control form-control-solid" @if($quiz->last_name_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->last_name_label ?? ''}}" @endif/>
+                                        </div>
+                                        <div class="form-group col-md-6 col-lg-4">
+                                            <label>{{$quiz->email_label ?? ''}}</label>
+                                            <input type="email" name="email" class="form-control form-control-solid" @if($quiz->email_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->email_label ?? ''}}" @endif/>
+                                        </div>
+                                    </div>
+
+                                        <hr>
+
+                                    @foreach($quiz->question as $question)
 
                                             <div class="form-group row">
                                                 <label class="col-3 col-form-label">{{$question->body ?? ''}}</label>
@@ -521,21 +540,22 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <div class="radio-inline">
                                                         @foreach($question->option as $option)
                                                             <label class="radio radio-outline radio-outline-2x radio-primary">
-                                                                <input type="radio" name="radios16" @if($question->requirement) required @endif/>
+                                                                <input type="radio" value="{{$option->id}}" name="question[{{$question->id}}]" @if($question->requirement) required @endif/>
                                                                 <span></span>
                                                                 {{$option->body ?? ''}}
                                                             </label>
                                                             @endforeach
                                                     </div>
-                                                    @if($question->additional_info)
                                                     <span class="form-text text-muted row">
-				                                        <input type="text" class="form-control form-control-sm col-md-6 mt-2"  placeholder="Additional information"/>
+				                                        <input type="text" name="additional_info[{{$question->id}}]" class="form-control form-control-sm col-md-6 mt-2 @if(!$question->additional_info) d-none @endif"  placeholder="Additional information"/>
                                                     </span>
-                                                        @endif
                                                 </div>
                                             </div>
 
                                         @endforeach
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success w-100px">Submit</button>
+                                        </div>
 
                                     </form>
                                     <!--end::Form-->

@@ -15,3 +15,10 @@ Route::group(['middleware'=>'auth'],function(){
 
     });
 });
+
+
+Route::group(['prefix'=>'quiz'],function (){
+
+    Route::post('submit','AnswerQuizController@store');
+
+});
