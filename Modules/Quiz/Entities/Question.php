@@ -3,6 +3,7 @@
 namespace Modules\Quiz\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Result\Entities\answerQuestion;
 
 class question extends Model
 {
@@ -17,5 +18,9 @@ class question extends Model
 
     public function option (){
         return $this->hasMany(option::class,'question_id','id');
+    }
+
+    public function answer (){
+        return $this->hasMany(answerQuestion::class,'question_id','id');
     }
 }

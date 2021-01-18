@@ -36,4 +36,16 @@ class AnswerQuizService
         return $score;
     }
 
+    public function updateAnswerQuiz ($data,$id){
+        return $this->answerQuizRepo->update($data,$id);
+    }
+
+    public function getUsersOfSegment ($min,$max){
+        return $this->answerQuizRepo->getAllAnswerOfSegment($min,$max);
+    }
+
+    public function getUsersOfQuiz ($quiz_id){
+        return $this->answerQuizRepo->getAllUsersOfQuiz($quiz_id);
+    }
+
 }

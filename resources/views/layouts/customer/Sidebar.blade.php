@@ -79,7 +79,7 @@
                         </svg><!--end::Svg Icon--></span><span class="menu-text">Quizzes</span></a>
                 </li>
 
-                <li class="menu-item @if(isset($active) && $active == 3)menu-item-active @endif" aria-haspopup="true"><a href="{{url('previousDesign')}}" class="menu-link "><span
+                <li class="menu-item @if(isset($active) && $active == 3)menu-item-active @endif" aria-haspopup="true"><a href="{{url('result')}}" class="menu-link "><span
                             class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

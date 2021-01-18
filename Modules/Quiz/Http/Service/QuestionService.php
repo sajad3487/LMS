@@ -45,4 +45,8 @@ class QuestionService
         return $this->questionRepo->delete($id);
     }
 
+    public function getQuestionsOfQuiz ($quiz_id){
+        return $this->questionRepo->getallQuestionOfQuiz($quiz_id);
+    }
+
 }

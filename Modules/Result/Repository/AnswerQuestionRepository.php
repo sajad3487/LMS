@@ -19,4 +19,8 @@ class AnswerQuestionRepository extends Repository
         $this->model = new AnswerQuestion();
     }
 
+    public function countOptionSelected ($option_id){
+        return answerQuestion::where('option_id',$option_id)->count();
+    }
+
 }

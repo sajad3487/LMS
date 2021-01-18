@@ -404,6 +404,9 @@
 
 
 </script>
+
+<script src="{{asset('js/pages/crud/ktdatatable/base/html-table.js')}}"></script>
+
 <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>

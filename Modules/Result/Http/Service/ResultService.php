@@ -93,8 +93,17 @@ class ResultService
     public function findSegment ($score,$quiz_id){
         $segments = $this->resultRepo->getResultsOfQuiz($quiz_id);
         foreach ($segments as $segment){
-            
+            if ($score >= $segment->min_score && $score <= $segment->max_score){
+                $segment_id = $segment->id;
+                break;
+            }
         }
+        if (!isset($segment_id)){
+            $segment_id = 0;
+        }
+
+        return $this->resultRepo->getById($segment_id);
     }
+
 
 }

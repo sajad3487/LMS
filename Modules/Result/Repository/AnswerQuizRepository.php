@@ -5,6 +5,7 @@ namespace Modules\Result\Repository;
 
 
 use App\DesignPatterns\Repository;
+use Modules\Result\Entities\answerQuestion;
 use Modules\Result\Entities\AnswerQuiz;
 
 class AnswerQuizRepository extends Repository
@@ -21,5 +22,21 @@ class AnswerQuizRepository extends Repository
             ->with('question_answer')
             ->first();
     }
+
+
+    public function getAllAnswerOfSegment ($min,$max){
+        return answerQuiz::where('score','>=',$min)
+            ->where('score','<=',$max)
+            ->get();
+    }
+
+    public function getAllUsersOfQuiz ($quiz_id){
+        return answerQuiz::where('form_id',$quiz_id)
+            ->with('question_answer')
+            ->with('question_answer.question')
+            ->with('question_answer.option')
+            ->get();
+    }
+
 
 }
