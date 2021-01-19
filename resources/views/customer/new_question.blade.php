@@ -123,9 +123,9 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Answer</th>
-                                                <th>Status</th>
-                                                <th>Score</th>
-                                                <th>Action</th>
+                                                <th class="text-center" >Status</th>
+                                                <th class="text-center" >Score</th>
+                                                <th class="text-center" >Action</th>
                                             </tr>
                                             </thead>
 
@@ -135,11 +135,22 @@
                                                     <tr>
                                                         <td>{{$option->id ?? ''}}</td>
                                                         <td>{{$option->body ?? ''}}</td>
-                                                        <td>{{$option->status ?? ''}}</td>
-                                                        <td>{{$option->score ?? ''}}</td>
-                                                        <td style='white-space: nowrap'>
-                                                            <a href="" data-toggle="modal" data-target="#option_form_{{$key}}"><i class="far fa-edit text-warning mr-5"></i></a>
-                                                            <a href="{{url("/options/$option->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                                        <td class="text-center">
+                                                            @if($option->status == 1)
+                                                                <span class="label label-lg font-weight-bold label-light-primary label-inline">
+                                                                    Active
+                                                                </span>
+                                                            @elseif($option->status == 0)
+                                                                <span class="label label-lg font-weight-bold label-light-success label-inline">
+                                                                    Deactivated
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center" >{{$option->score ?? ''}}</td>
+                                                        <td class="text-center" style='white-space: nowrap'>
+                                                            <a href="" data-toggle="modal" data-target="#duplicate_form_{{$key}}"><i class="flaticon2-copy text-info mr-7"></i></a>
+                                                            <a href="" data-toggle="modal" data-target="#option_form_{{$key}}"><i class="far fa-edit text-warning mr-7"></i></a>
+                                                            <a href="{{url("/options/$option->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-7"></i></a>
 {{--                                                            <a href="" class="btn btn-light-primary font-weight-bold mb-3 mr-3 ml-auto" data-toggle="modal" data-target="#option_form_{{$key}}">A</a>--}}
 
                                                         </td>
@@ -160,6 +171,55 @@
                                                                         <!--begin::Form-->
                                                                         @csrf
                                                                         @method('PUT')
+                                                                        <div class="card-body">
+                                                                            <div class="form-group">
+                                                                                <label>Answer:</label>
+                                                                                <input type="text" name="body" value="{{$option->body ?? ''}}" class="form-control form-control-solid" placeholder="Enter the answer"/>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <div class="col-md-6">
+                                                                                    <label>Score :</label>
+                                                                                    <input type="number" name="score" value="{{$option->score ?? ''}}" class="form-control form-control-solid" placeholder="Enter score of answer"/>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label>Status :</label>
+                                                                                    <select name="status" class="form-control form-control-solid">
+                                                                                        <option @if($option->status == 1) selected @endif value="1">on</option>
+                                                                                        <option @if($option->status == 0) selected @endif value="0">off</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <input type="number" name="question_id" value="{{$question->id ?? ''}}" class="d-none">
+                                                                            <input type="number" name="form_id" value="{{$question->form_id ?? ''}}" class="d-none">
+                                                                        </div>
+                                                                        <div class="card-footer text-center">
+                                                                            <button type="submit" class="btn btn-primary mr-2 w-100px">Save</button>
+                                                                            {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                        </div>
+                                                                        <!--end::Form-->
+
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Modal-->
+                                                    <!--begin::Modal-->
+                                                    <div class="modal fade" id="duplicate_form_{{$key}}" role="dialog"  aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Edit Choice</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <form class="form" action="{{url("options/store")}}" method="post">
+                                                                    <div class="modal-body">
+
+                                                                        <!--begin::Form-->
+                                                                        @csrf
                                                                         <div class="card-body">
                                                                             <div class="form-group">
                                                                                 <label>Answer:</label>

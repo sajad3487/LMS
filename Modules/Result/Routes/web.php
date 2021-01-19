@@ -20,13 +20,6 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('{quiz_id}/segment_answers','AnswerQuizController@segment_answer_index');
             Route::get('{quiz_id}/users_answers','AnswerQuizController@user_answer_index');
 
-
-            Route::get('/{quiz_id}/create','AnswerQuizController@create');
-            Route::post('/store','AnswerQuizController@store');
-            Route::get('/{segment_id}/edit','AnswerQuizController@edit');
-            Route::put('/{segment_id}/update','AnswerQuizController@update');
-            Route::get('/{segment_id}/delete','AnswerQuizController@destroy');
-
         });
 
     });

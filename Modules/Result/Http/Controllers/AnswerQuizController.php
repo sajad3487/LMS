@@ -122,7 +122,8 @@ class AnswerQuizController extends Controller
         }
         $active = 3;
         $user = $this->userService->getUserById(auth()->id());
-        return view('customer.questions_result',compact('questions','active','user'));
+        $quiz = $this->quizService->getQuiz($quiz_id);
+        return view('customer.questions_result',compact('questions','active','user','quiz'));
     }
 
     public function segment_answer_index ($quiz_id){
@@ -152,6 +153,7 @@ class AnswerQuizController extends Controller
         $participants = $this->answerQuizService->getUsersOfQuiz($quiz_id);
         $active = 3;
         $user = $this->userService->getUserById(auth()->id());
+//        dd($participants[47]);
         return view('customer.user_result',compact('participants','active','user'));
     }
 

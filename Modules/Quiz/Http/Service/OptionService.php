@@ -12,12 +12,18 @@ class OptionService
      * @var OptionRepository
      */
     private $optionRepo;
+    /**
+     * @var QuestionService
+     */
+    private $questionRepo;
 
     public function __construct(
-        OptionRepository $optionRepository
+        OptionRepository $optionRepository,
+        QuestionService $questionService
     )
     {
         $this->optionRepo = $optionRepository;
+        $this->questionRepo = $questionService;
     }
 
     public function createOption($data)

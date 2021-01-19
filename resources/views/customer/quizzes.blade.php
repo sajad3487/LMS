@@ -62,7 +62,7 @@
                                 @foreach($quizzes as $quiz)
                                 <tr class="text-center">
                                     <td>{{$quiz->id ?? ''}}</td>
-                                    <td>{{$quiz->created_at ?? ''}}</td>
+                                    <td>{{\Carbon\Carbon::parse($quiz->created_at)->format('Y-m-d - H:i') ?? ''}}</td>
                                     <td>
                                         @if($quiz->status == 1)
                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">

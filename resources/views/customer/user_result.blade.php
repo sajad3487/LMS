@@ -18,7 +18,7 @@
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
                             <h3 class="card-label">
-                            Quiz Segments
+                            User Taken:
 {{--                                <span class="d-block text-muted pt-2 font-size-sm">This page shows Customers info</span>--}}
                             </h3>
                         </div>
@@ -49,10 +49,11 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Segment Title</th>
-                                    <th>Min & Max Score</th>
-                                    <th>Users</th>
-                                    <th>Average Score</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Score</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -61,14 +62,15 @@
                                 @foreach($participants as $key=>$participant)
                                 <tr class="">
                                     <td>{{$key + 1 ?? ''}}</td>
-                                    <td>{{$participant['segment_title'] ?? ''}}</td>
-                                    <td>{{$participant['min_score'] ?? ''}} - {{$participant['max_score'] ?? ''}}</td>
-                                    <td>{{$participant['achieved'] ?? ''}}</td>
-                                    <td>{{$participant['average_score'] ?? ''}}</td>
+                                    <td>{{$participant['first_name'] ?? ''}}</td>
+                                    <td>{{$participant['last_name'] ?? ''}}</td>
+                                    <td>{{$participant['email'] ?? ''}}</td>
+                                    <td>{{$participant['score'] ?? ''}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($participant['created_at'])->format('Y-m-d - H:i') ?? ''}}</td>
                                     <td>
                                         <!-- Button trigger modal-->
                                         <button type="button" class="btn btn-light-info font-weight-bold" data-toggle="modal" data-target="#users-{{$key}}">
-                                            Users
+                                            Details
                                         </button>
 {{--                                        <button type="button" class="btn btn-light-success font-weight-bold" data-toggle="modal" data-target="#option-{{$key}}">--}}
 {{--                                            Options--}}
@@ -90,26 +92,23 @@
                                                                 <thead>
                                                                 <tr>
                                                                     <th>#</th>
-                                                                    <th>First Name</th>
-                                                                    <th>Last Name</th>
-                                                                    <th>Email</th>
+                                                                    <th>Question</th>
+                                                                    <th>Answer</th>
+                                                                    <th>Additional Information</th>
                                                                     <th>Score</th>
-                                                                    <th>Date</th>
-
                                                                 </tr>
                                                                 </thead>
 
                                                                 <tbody>
-{{--                                                                @foreach($segment['users'] as $users_key => $visitor)--}}
-{{--                                                                    <tr class="">--}}
-{{--                                                                        <td>{{$users_key +1 ?? ''}}</td>--}}
-{{--                                                                        <td>{{$visitor['first_name'] ?? ''}}</td>--}}
-{{--                                                                        <td>{{$visitor['last_name'] ?? ''}}</td>--}}
-{{--                                                                        <td>{{$visitor['email'] ?? ''}}</td>--}}
-{{--                                                                        <td>{{$visitor['score'] ?? ''}}</td>--}}
-{{--                                                                        <td>{{$visitor['created_at'] ?? ''}}</td>--}}
-{{--                                                                    </tr>--}}
-{{--                                                                @endforeach--}}
+                                                                @foreach($participant['question_answer'] as $answer_key => $answer)
+                                                                    <tr class="">
+                                                                        <td>{{$answer_key +1 ?? ''}}</td>
+                                                                        <td>{{$answer['question']['body'] ?? ''}}</td>
+                                                                        <td>{{$answer['answer'] ?? ''}}</td>
+                                                                        <td>{{$answer['additional_info'] ?? ''}}</td>
+                                                                        <td>{{$answer['score'] ?? ''}}</td>
+                                                                    </tr>
+                                                                @endforeach
 
                                                                 </tbody>
 

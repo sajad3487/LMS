@@ -83,4 +83,8 @@ class QuestionController extends Controller
         $this->questionService->deleteQuestion($id);
         return back();
     }
+
+    public function copy ($id){
+        dd($id);
+    }
 }

@@ -12,12 +12,18 @@ class QuestionService
      * @var QuestionRepository
      */
     private $questionRepo;
+    /**
+     * @var OptionService
+     */
+    private $optionService;
 
     public function __construct(
-        QuestionRepository $questionRepository
+        QuestionRepository $questionRepository,
+        OptionService $optionService
     )
     {
         $this->questionRepo = $questionRepository;
+        $this->optionService = $optionService;
     }
 
     public function createQuestion ($data){
@@ -47,6 +53,19 @@ class QuestionService
 
     public function getQuestionsOfQuiz ($quiz_id){
         return $this->questionRepo->getallQuestionOfQuiz($quiz_id);
+    }
+
+    public function makeDuplicateQuestion ($question_id){
+        dd('hi');
+        $question = $this->questionRepo->getQuestionById($question_id);
+        $data['form_id'] = $question->form_id;
+        $data['position'] = $this->getLastPosition ($data['form_id']);
+        $data['body'] = $question->body;
+        $data['additional_info'] = $question->additional_info;
+        $data['status'] = $question->status;
+        $data['requirement'] = $question->requirement;
+        $new_question = $this->questionRepo->create($data);
+
     }
 
 }

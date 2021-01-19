@@ -62,7 +62,7 @@
                                 @foreach($quizzes as $quiz)
                                 <tr class="text-center">
                                     <td>{{$quiz->id ?? ''}}</td>
-                                    <td>{{$quiz->created_at ?? ''}}</td>
+                                    <td>{{\Carbon\Carbon::parse($quiz->created_at)->format('Y-m-d - H:i') ?? ''}}</td>
                                     <td>
                                         @if($quiz->status == 1)
                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">
@@ -87,7 +87,7 @@
                                             <i class="flaticon-interface-1 "></i> Segments
                                         </a>
                                         <a href="{{url("result/$quiz->id/users_answers")}}" class="btn btn-text-dark-50 btn-icon-info font-weight-bold btn-hover-bg-light p-1 py-2">
-                                            <i class="flaticon-avatar"></i> users
+                                            <i class="flaticon-avatar"></i> Users
                                         </a>
                                     </td>
                                 </tr>

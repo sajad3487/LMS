@@ -18,8 +18,8 @@
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
                             <h3 class="card-label">
-                            Quizzes Results
-{{--                                <span class="d-block text-muted pt-2 font-size-sm">This page shows Customers info</span>--}}
+                            Quiz No : {{$quiz->id ?? '' }}
+                                <span class="d-block text-muted pt-2 font-size-sm">Quiz Title : {{$quiz->title ?? '' }}</span>
                             </h3>
                         </div>
                         <div class="card-toolbar">
@@ -133,7 +133,7 @@
                                                                         <td>{{$answer['option']['body'] ?? ''}}</td>
                                                                         <td>{{$answer['option']['score'] ?? ''}}</td>
                                                                         <td>{{$answer['additional_info'] ?? ''}}</td>
-                                                                        <td>{{$answer['taken']['created_at'] ?? ''}}</td>
+                                                                        <td>{{ \Carbon\Carbon::parse($answer['taken']['created_at'])->format('Y-m-d - H:i') ?? ''}}</td>
                                                                     </tr>
                                                                 @endforeach
 
@@ -179,7 +179,17 @@
                                                                         <td>{{$option['score'] ?? ''}}</td>
                                                                         <td>{{$option['choosed'] ?? ''}}</td>
                                                                         <td>{{$option['average_percentage'] ?? ''}} %</td>
-                                                                        <td>{{$option['status'] ?? ''}}</td>
+                                                                        <td>
+                                                                            @if($option['status'] == 1)
+                                                                                <span class="label label-lg font-weight-bold label-light-primary label-inline">
+                                                                                    Active
+                                                                                </span>
+                                                                            @elseif($option['status'] == 0)
+                                                                                <span class="label label-lg font-weight-bold label-light-success label-inline">
+                                                                                    Deactivated
+                                                                                </span>
+                                                                            @endif
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
 

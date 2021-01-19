@@ -19,6 +19,7 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('/{question_id}/edit','QuestionController@edit');
             Route::put('/{question_id}/update','QuestionController@update');
             Route::get('/{question_id}/delete','QuestionController@destroy');
+            Route::get('/{question_id}/copy','QuestionController@copy');
 
         });
 
