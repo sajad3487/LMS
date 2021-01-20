@@ -49,6 +49,7 @@
                                 <thead>
                                 <tr>
                                     <th>Quiz ID</th>
+                                    <th>Quiz Title</th>
                                     <th>Date Created</th>
                                     <th>Status</th>
                                     <th>Taken</th>
@@ -59,9 +60,10 @@
                                 </thead>
 
                                 <tbody>
-                                @foreach($quizzes as $quiz)
+                                @foreach($quizzes as $key=>$quiz)
                                 <tr class="text-center">
                                     <td>{{$quiz->id ?? ''}}</td>
+                                    <td>{{$quiz->title ?? ''}}</td>
                                     <td>{{\Carbon\Carbon::parse($quiz->created_at)->format('Y-m-d - H:i') ?? ''}}</td>
                                     <td>
                                         @if($quiz->status == 1)
@@ -78,10 +80,36 @@
                                     <td>{{$quiz->average_score ?? ''}}</td>
                                     <td>{{$quiz->average_percentage ?? ''}}</td>
                                     <td>
+                                        <a href="" data-toggle="modal" data-target="#link-{{$key}}"><i class="flaticon-browser  text-success mr-7"></i></a>
+                                        <a href="{{url("quizzes/$quiz->id/copy")}}"><i class="flaticon-web text-info mr-5"></i></a>
                                         <a href="{{url("quizzes/$quiz->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
-                                        <a href="{{url("segments/$quiz->id/show")}}"><i class="flaticon-web  text-info mr-5"></i></a>
+                                        <a href="{{url("segments/$quiz->id/show")}}"><i class="flaticon-interface-1  text-danger mr-5"></i></a>
                                     </td>
                                 </tr>
+                                <!--begin::Modal-->
+                                <div class="modal fade" id="link-{{$key}}" role="dialog"  aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Choice</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!--begin::Form-->
+                                                <div class="card-body text-center">
+                                                    <p class="mb-4">Link:</p>
+                                                    <h6>{{url("quiz/$quiz->id/view")}}</h6>
+                                                    <p class="my-4">iframe:</p>
+                                                    <h6>{{' <iframe src="'.url("quiz/$quiz->id/view").'" title="'.$quiz->title.'"> '}}</h6>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Modal-->
                                 @endforeach
 
                                 </tbody>

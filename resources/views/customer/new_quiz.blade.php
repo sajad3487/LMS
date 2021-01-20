@@ -19,7 +19,9 @@
                         <div class="card-header">
                             <div class="card-title">
                                 @if(isset($quiz))
-                                    <h3 class="card-label">Quiz No: {{$quiz->id}}</h3>
+                                    <h3 class="card-label">Quiz No: {{$quiz->id ?? ''}}
+                                        <span class="d-block text-muted pt-2 font-size-sm">Quiz title : {{$quiz->title ?? ''}}</span>
+                                    </h3>
                                 @else
                                     <h3 class="card-label">New Quiz </h3>
                                 @endif
@@ -168,7 +170,7 @@
                                                     </thead>
 
                                                     <tbody>
-                                                         @foreach($quiz->question as $question)
+                                                         @foreach($quiz->question as $key=>$question)
                                                              <tr>
                                                                  <td>{{$question->id ?? ''}}</td>
                                                                  <td>{{$question->body ?? ''}}</td>
@@ -211,6 +213,8 @@
                                                                      <a href="{{url("questions/$question->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
                                                                  </td>
                                                               </tr>
+
+
                                                           @endforeach
                                                     </tbody>
 
@@ -220,37 +224,37 @@
                                     </div>
                                 </div>
 
-                                <div class="card">
-                                        <div class="card-header" id="category-footer">
-                                            <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-footer">
-                                                Footer
-                                            </div>
-                                        </div>
-                                        <div id="collapse-footer" class="collapse"  data-parent="#category-footer">
-                                            <div class="card-body">
-                                                <div class="pl-5 pl-md-30">
-                                                    <!--begin::Form-->
-                                                    <form class="form" action="{{url("quizzes/$quiz->id/update")}}" method="post" enctype="multipart/form-data">
+{{--                                <div class="card">--}}
+{{--                                        <div class="card-header" id="category-footer">--}}
+{{--                                            <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-footer">--}}
+{{--                                                Footer--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div id="collapse-footer" class="collapse"  data-parent="#category-footer">--}}
+{{--                                            <div class="card-body">--}}
+{{--                                                <div class="pl-5 pl-md-30">--}}
+{{--                                                    <!--begin::Form-->--}}
+{{--                                                    <form class="form" action="{{url("quizzes/$quiz->id/update")}}" method="post" enctype="multipart/form-data">--}}
 
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="">
-                                                            @include('fragment.error')
-                                                            <div class="form-group row align-center">
-                                                                <label class="col-form-label text-center">Button Text :</label>
-                                                                <div class=" mx-5 ">
-                                                                    <input type="text" name="button_text" class="form-control" placeholder="Enter quiz title" value="{{$quiz->button_text  ?? ''}}" />
-                                                                </div>
-                                                                <button type="submit" class="btn btn-success w-100px">Save</button>
+{{--                                                        @csrf--}}
+{{--                                                        @method('PUT')--}}
+{{--                                                        <div class="">--}}
+{{--                                                            @include('fragment.error')--}}
+{{--                                                            <div class="form-group row align-center">--}}
+{{--                                                                <label class="col-form-label text-center">Button Text :</label>--}}
+{{--                                                                <div class=" mx-5 ">--}}
+{{--                                                                    <input type="text" name="button_text" class="form-control" placeholder="Enter quiz title" value="{{$quiz->button_text  ?? ''}}" />--}}
+{{--                                                                </div>--}}
+{{--                                                                <button type="submit" class="btn btn-success w-100px">Save</button>--}}
 
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                    <!--end::Form-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </form>--}}
+{{--                                                    <!--end::Form-->--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 @endif
 
                             </div>

@@ -105,6 +105,9 @@ class AnswerQuizController extends Controller
 
     public function answer_index ($quiz_id){
         $row_questions = $this->questionService->getQuestionsOfQuiz ($quiz_id);
+        if ($row_questions->count() == 0){
+            return back();
+        }
         foreach ($row_questions as $key=>$question){
 
             $questions[$key] = $question->toArray();
@@ -113,11 +116,19 @@ class AnswerQuizController extends Controller
             foreach ($question->answer as $answer){
                 $sum_score += $answer->score;
             }
-            $questions[$key]['average_score'] = $sum_score / $questions[$key]['taken'];
+            if ($questions[$key]['taken'] != 0){
+                $questions[$key]['average_score'] = $sum_score / $questions[$key]['taken'];
+            }else{
+                $questions[$key]['average_score'] = 0;
+            }
             foreach ($question->option as $option_key=>$option){
                 $choosed = $this->answerQuestionService->countOptionAnswer($option->id);
                 $questions[$key]['option'][$option_key]['choosed'] = $choosed;
-                $questions[$key]['option'][$option_key]['average_percentage'] = round(($choosed/$questions[$key]['taken'])*100,2);
+                if ($questions[$key]['taken'] !=0){
+                    $questions[$key]['option'][$option_key]['average_percentage'] = round(($choosed/$questions[$key]['taken'])*100,2);
+                }else{
+                    $questions[$key]['option'][$option_key]['average_percentage'] = 0 ;
+                }
             }
         }
         $active = 3;
@@ -128,6 +139,9 @@ class AnswerQuizController extends Controller
 
     public function segment_answer_index ($quiz_id){
         $results = $this->resultService->getResultSegments($quiz_id);
+        if ($results->count() == 0){
+            return back();
+        }
         foreach ($results as $key=>$result){
             $segments[$key] = $result->toArray();
             $participants = $this->answerQuizService->getUsersOfSegment($result->min_score,$result->max_score);

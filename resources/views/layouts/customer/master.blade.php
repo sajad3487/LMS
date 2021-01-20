@@ -4,7 +4,7 @@
 <head>
     <base href="{{url('/')}}">
     <meta charset="utf-8"/>
-    <title>E-Packz - Pack Your Brand Succesfully</title>
+    <title>Nour Group</title>
     <meta name="description" content="Aside light theme example"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 

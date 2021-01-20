@@ -6,6 +6,7 @@ use App\Http\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Quiz\Http\Service\QuestionService;
 use Modules\Quiz\Http\Service\QuizService;
 
 class QuizController extends Controller
@@ -18,14 +19,20 @@ class QuizController extends Controller
      * @var QuizService
      */
     private $quizService;
+    /**
+     * @var QuestionService
+     */
+    private $questionService;
 
     public function __construct(
         UserService $userService,
-        QuizService $quizService
+        QuizService $quizService,
+        QuestionService $questionService
     )
     {
         $this->userService = $userService;
         $this->quizService = $quizService;
+        $this->questionService = $questionService;
     }
 
     public function index()
@@ -85,10 +92,34 @@ class QuizController extends Controller
     public function view($id)
     {
         $quiz = $this->quizService->getQuiz($id);
-        if ($quiz->status){
+        if ($quiz->status) {
             return view('quiz', compact('quiz'));
         }
         return redirect('/');
+    }
+
+    public function copy($id)
+    {
+        $quiz = $this->quizService->getQuiz($id);
+        $quiz_data['user_id'] = $quiz->user_id;
+        $quiz_data['title'] = $quiz->title;
+        $quiz_data['first_name_label'] = $quiz->first_name_label;
+        $quiz_data['first_name_requirement'] = $quiz->first_name_requirement;
+        $quiz_data['last_name_label'] = $quiz->last_name_label;
+        $quiz_data['last_name_requirement'] = $quiz->last_name_requirement;
+        $quiz_data['email_label'] = $quiz->email_label;
+        $quiz_data['email_requirement'] = $quiz->email_requirement;
+        $quiz_data['placeholder'] = $quiz->placeholder;
+        $quiz_data['status'] = $quiz->status;
+        $quiz_data['taken'] = $quiz->taken;
+        $quiz_data['average_score'] = $quiz->average_score;
+        $quiz_data['average_percentage'] = $quiz->average_percentage;
+        $quiz_data['button_text'] = $quiz->button_text;
+        $new_quiz = $this->quizService->createQuiz($quiz_data);
+        foreach ($quiz->question as $question){
+            $this->questionService->makeDuplicateQuestionForQuiz($question->id,$new_quiz->id);
+        }
+        return redirect("quizzes/$new_quiz->id/edit");
     }
 
 

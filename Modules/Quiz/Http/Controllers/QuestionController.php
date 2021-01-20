@@ -85,6 +85,7 @@ class QuestionController extends Controller
     }
 
     public function copy ($id){
-        dd($id);
+        $new_question = $this->questionService->makeDuplicateQuestion($id);
+        return redirect("questions/$new_question->id/edit");
     }
 }

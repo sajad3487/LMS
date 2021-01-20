@@ -56,7 +56,6 @@ class QuestionService
     }
 
     public function makeDuplicateQuestion ($question_id){
-        dd('hi');
         $question = $this->questionRepo->getQuestionById($question_id);
         $data['form_id'] = $question->form_id;
         $data['position'] = $this->getLastPosition ($data['form_id']);
@@ -65,7 +64,39 @@ class QuestionService
         $data['status'] = $question->status;
         $data['requirement'] = $question->requirement;
         $new_question = $this->questionRepo->create($data);
+        foreach ($question->option as $option){
+            $option_data['question_id'] = $new_question->id;
+            $option_data['form_id'] = $new_question->form_id;
+            $option_data['score'] = $option->score;
+            $option_data['body'] = $option->body;
+            $option_data['status'] = $option->status;
+            $option_data['tag_score'] = $option->tag_score;
+            $option_data['additional_info'] = $option->additional_info;
+            $this->optionService->createOption($option_data);
+        }
+        return $this->questionRepo->getQuestionById($new_question->id);
+    }
 
+    public function makeDuplicateQuestionForQuiz ($question_id,$quiz_id){
+        $question = $this->questionRepo->getQuestionById($question_id);
+        $data['form_id'] = $quiz_id;
+        $data['position'] = $this->getLastPosition ($quiz_id);
+        $data['body'] = $question->body;
+        $data['additional_info'] = $question->additional_info;
+        $data['status'] = $question->status;
+        $data['requirement'] = $question->requirement;
+        $new_question = $this->questionRepo->create($data);
+        foreach ($question->option as $option){
+            $option_data['question_id'] = $new_question->id;
+            $option_data['form_id'] = $new_question->form_id;
+            $option_data['score'] = $option->score;
+            $option_data['body'] = $option->body;
+            $option_data['status'] = $option->status;
+            $option_data['tag_score'] = $option->tag_score;
+            $option_data['additional_info'] = $option->additional_info;
+            $this->optionService->createOption($option_data);
+        }
+        return $this->questionRepo->getQuestionById($new_question->id);
     }
 
 }

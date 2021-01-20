@@ -23,18 +23,6 @@ Route::group(['middleware'=>'auth'],function (){
 
        Route::get('/home', 'HomeController@index')->name('home');
 
-       Route::get('/category/{category_id}', 'HomeController@indexCategory');
-
-       Route::get('/search','HomeController@searchProduct');
-
-       Route::group(['prefix'=>'contacts','middleware'=>'auth'],function (){
-           Route::get('/', 'AddressController@index');
-           Route::get('/create', 'AddressController@create');
-           Route::post('/store', 'AddressController@store');
-           Route::put('/{contact_id}/update', 'AddressController@update');
-           Route::get('/{contact_id}/edit', 'AddressController@edit');
-           Route::get('/{contact_id}/delete', 'AddressController@destroy');
-       });
 
        Route::group(['prefix'=>'profile','middleware'=>'auth'],function (){
            Route::get('/','HomeController@profile');

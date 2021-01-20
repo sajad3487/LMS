@@ -9,6 +9,8 @@ use Modules\Category\Http\Services\CategoryService;
 use Modules\Order\Http\Services\OrderService;
 use Modules\Product\Http\Services\ProductService;
 use Modules\Quiz\Http\Service\QuizService;
+use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
@@ -42,6 +44,19 @@ class HomeController extends Controller
         $quizzes = $this->quizService->getUserQuizzes(auth()->id());
         $user = $this->userService->getUserById(auth()->id());
         return view('customer.index',compact('active','quizzes','user'));
+    }
+
+    public function profile (){
+        $active = 4;
+        $quizzes = $this->quizService->getUserQuizzes(auth()->id());
+        $user = $this->userService->getUserById(auth()->id());
+        return view('customer.profile',compact('active','quizzes','user'));
+    }
+
+    public function updateProfile (Request $request){
+        $data = $request->all();
+        $this->userService->updateUser($data,auth()->id());
+        return back();
     }
 
 
