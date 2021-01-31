@@ -9,6 +9,7 @@ class quiz extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'description',
         'first_name_label',
         'first_name_requirement',
         'last_name_label',

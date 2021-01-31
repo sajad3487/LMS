@@ -1,22 +1,10 @@
 <!DOCTYPE html>
-<!--
-Template Name: Metronic - Bootstrap 4 HTML, React, Angular 9 & VueJS Admin Dashboard Theme
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: https://1.envato.market/EA4JP
-Renew Support: https://1.envato.market/EA4JP
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en">
 <!--begin::Head-->
 <head>
     <base href="../../../">
     <meta charset="utf-8"/>
-    <title>Metronic | FAQ</title>
+    <title>Nour Group</title>
     <meta name="description" content="Support center faq example"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
@@ -154,11 +142,11 @@ License: You must have a valid license purchased only from themeforest(the above
                             <h1 class="font-weight-bolder text-dark mb-6">
                                 {{$quiz->title ?? ''}}
                             </h1>
-{{--                            <div class="h4 text-dark-50">--}}
-{{--                                Deep Dive into our Knowledgebase--}}
-{{--                            </div>--}}
+                            <div class="h4 text-dark-50">
+                                {{$quiz->description ?? ''}}
+                            </div>
                             <div class="row">
-                                <div class="offset-md-3 col-md-6">
+                                <div class="mx-auto col-md-4">
                                     <span class="svg-icon svg-icon-full"><!--begin::Svg Icon | path:assets/media/svg/illustrations/data-points.svg--><svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink"

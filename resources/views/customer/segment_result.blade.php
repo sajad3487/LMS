@@ -24,20 +24,97 @@
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Button-->
-                            <a href="{{url('/')}}" class="btn btn-primary font-weight-bolder">
-                                    <span class="svg-icon svg-icon-md"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg--><svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-                                            viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24"/>
-                                        <circle fill="#000000" cx="9" cy="15" r="6"/>
-                                        <path
-                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
-                                            fill="#000000" opacity="0.3"/>
-                                    </g>
-                                </svg><!--end::Svg Icon--></span> Export
-                            </a>
+                            <button  type="button" data-toggle="modal" data-target="#chart" class="btn btn-primary font-weight-bolder">
+                                <i class="flaticon-pie-chart "></i> Chart
+                            </button>
+                            <div class="modal fade" id="chart" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable" style="max-width: 90%" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Segments Result</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" >
+                                            <div data-scroll="true" data-height="350">
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-light-primary font-weight-bold ml-auto mr-5" onclick="printdiv();">Print Chart</button>
+                                                </div>
+                                                {{--                                                            <button type="button" class="btn btn-light-primary font-weight-bold" onclick="window.print();">Download Invoice</button>--}}
+                                                <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+                                                <div id="print-this">
+                                                    <main class="d-block">
+                                                        <div class="col-12 mx-auto text-center">
+                                                            <h5>{{$question['body'] ?? ''}}</h5>
+                                                            <div class="col-md-6 mx-auto">
+                                                                <div id="pie-chart" ></div>
+                                                            </div>
+                                                        </div>
+                                                    </main>
+                                                </div>
+
+                                                <script>
+                                                    google.load("visualization", "1", {packages:["corechart"]});
+                                                    google.setOnLoadCallback(drawCharts);
+                                                    function drawCharts() {
+
+                                                        // BEGIN PIE CHART
+
+                                                        // pie chart data
+                                                        var pieData = google.visualization.arrayToDataTable([
+                                                            ['Segments', 'Taken'],
+                                                            @foreach($segments as $key=>$segment)
+                                                            ["{{$segment['segment_title'] ?? ''}}",      {{$segment['achieved'] ?? ''}}],
+                                                            @endforeach
+
+                                                            // ['Canada',   4563],
+                                                            // ['Mexico',   5000],
+                                                            // ['Sweden',    946],
+                                                            // ['Sweden',    946],
+                                                            // ['Germany',  2150]
+                                                        ]);
+                                                        // pie chart options
+                                                        var pieOptions = {
+                                                            backgroundColor: 'transparent',
+                                                            pieHole: 0.4,
+                                                            colors: [ "cornflowerblue",
+                                                                "olivedrab",
+                                                                "orange",
+                                                                "tomato",
+                                                                "crimson",
+                                                                "purple",
+                                                                "turquoise",
+                                                                "forestgreen",
+                                                                "navy",
+                                                                "gray"],
+                                                            pieSliceText: 'value',
+                                                            tooltip: {
+                                                                text: 'percentage'
+                                                            },
+                                                            fontName: 'Open Sans',
+                                                            chartArea: {
+                                                                width: '100%',
+                                                                height: '94%'
+                                                            },
+                                                            legend: {
+                                                                textStyle: {
+                                                                    fontSize: 13
+                                                                }
+                                                            }
+                                                        };
+                                                        // draw pie chart
+                                                        var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+                                                        pieChart.draw(pieData, pieOptions);
+                                                    }
+                                                </script>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!--end::Button-->
                         </div>
                     </div>
@@ -186,7 +263,21 @@
         <!--end::Entry-->
     </div>
     <!--end::Content-->
+    <script>
+        function printdiv()
+        {
+            var printContents = document.getElementById('print-this').innerHTML;
 
+            var myWindow = window.open('','','width=800,height=800');
+            myWindow.document.write(printContents);
+            myWindow.print();
+
+
+            // document.body.innerHTML = printContents;
+            // window.print();
+            // document.body.innerHTML = originalContents;
+        }
+    </script>
 
 @endsection
 

@@ -17,6 +17,7 @@ class CreateQuizzesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->string('first_name_label')->nullable();
             $table->boolean('first_name_requirement')->default(1);
             $table->string('last_name_label')->nullable();

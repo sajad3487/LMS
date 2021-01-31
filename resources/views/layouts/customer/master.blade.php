@@ -35,7 +35,72 @@
 
     <link rel="shortcut icon" href="{{asset('media/logos/favicon.png')}}"/>
     <link href="{{asset('css/pages/wizard/wizard-1.css')}}" rel="stylesheet" type="text/css"/>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
+
+        main {
+            width: 100%;
+            margin: 10px auto;
+            padding: 10px 20px 30px;
+            background: #FFF;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        p {
+            margin-top: 2rem;
+            font-size: 13px;
+        }
+        #bar-chart {
+            width: 500px;
+            height: 300px;
+            position: relative;
+        }
+        #line-chart {
+            width: 500px;
+            height: 300px;
+            position: relative;
+        }
+        #bar-chart::before, #line-chart::before {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 240px;
+            height: 30px;
+            left: 155px;
+            top: 254px;
+            background: #FAFAFA;
+            box-shadow: 1px 1px 0 0 #DDD;
+        }
+        #pie-chart {
+            width: 500px;
+            height: 250px;
+            position: relative;
+        }
+        #pie-chart::before {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 120px;
+            height: 115px;
+            left: 315px;
+            top: 0;
+            background: #FAFAFA;
+            box-shadow: 1px 1px 0 0 #DDD;
+        }
+        #pie-chart::after {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 260px;
+            left: 70px;
+            width: 170px;
+            height: 2px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            box-shadow: 0 0 3px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 
 </head>
 <!--end::Head-->
@@ -361,7 +426,7 @@
             $('.kt-select2-general').select2({
                 placeholder: "Select an option"
             });
-        }
+        };
 
         var modalDemos = function() {
             $('#kt_select2_modal').on('shown.bs.modal', function () {
@@ -404,6 +469,7 @@
 
 
 </script>
+
 
 <script src="{{asset('js/pages/crud/ktdatatable/base/html-table.js')}}"></script>
 

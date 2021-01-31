@@ -62,6 +62,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
+                                                                <label class="col-lg-2 col-form-label text-center" for="exampleTextarea">Description :</label>
+                                                                <div class="col-lg-8">
+                                                                    <textarea class="form-control" name="description" id="exampleTextarea" rows="3">{{$quiz->description  ?? ''}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
                                                                 <label class="col-lg-2 col-form-label text-center">First Name Label:</label>
                                                                 <div class="col-lg-3">
                                                                     <input type="text" name="first_name_label" class="form-control" placeholder="Enter your first name label" value="{{$quiz->first_name_label  ?? ''}}" />
