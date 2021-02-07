@@ -11,6 +11,7 @@ class question extends Model
         'form_id',
         'position',
         'body',
+        'description',
         'additional_info',
         'status',
         'requirement',

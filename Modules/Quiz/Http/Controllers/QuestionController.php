@@ -40,13 +40,13 @@ class QuestionController extends Controller
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
         $quiz = $this->quizService->getQuiz($id);
-        return view('customer.new_question',compact('active','user','quiz'));
+        return view('customer.new_question', compact('active', 'user', 'quiz'));
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['position'] = $this->questionService->getLastPosition ($data['form_id']);
+        $data['position'] = $this->questionService->getLastPosition($data['form_id']);
         $question = $this->questionService->createQuestion($data);
         return redirect("questions/$question->id/edit");
     }
@@ -60,21 +60,21 @@ class QuestionController extends Controller
     {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
-        $question = $this->questionService->getQuestion ($id);
+        $question = $this->questionService->getQuestion($id);
         $quiz = $this->quizService->getQuiz($question->form_id);
-        return view('customer.new_question',compact('active','user','quiz','question'));
+        return view('customer.new_question', compact('active', 'user', 'quiz', 'question'));
     }
 
     public function update(Request $request, $id)
     {
-        $data=$request->all();
-        if (!isset($data['requirement'])){
-            $data['requirement'] = 0 ;
+        $data = $request->all();
+        if (!isset($data['requirement'])) {
+            $data['requirement'] = 0;
         }
-        if (!isset($data['additional_info'])){
-            $data['additional_info']= 0 ;
+        if (!isset($data['additional_info'])) {
+            $data['additional_info'] = 0;
         }
-        $this->questionService->updateQuestion($data,$id);
+        $this->questionService->updateQuestion($data, $id);
         return redirect("questions/$id/edit");
     }
 
@@ -84,7 +84,8 @@ class QuestionController extends Controller
         return back();
     }
 
-    public function copy ($id){
+    public function copy($id)
+    {
         $new_question = $this->questionService->makeDuplicateQuestion($id);
         return redirect("questions/$new_question->id/edit");
     }

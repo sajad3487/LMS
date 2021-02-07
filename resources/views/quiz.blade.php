@@ -520,11 +520,14 @@
 
                                         <hr>
 
-                                    @foreach($quiz->question as $question)
+                                    @foreach($quiz->question as $key=>$question)
 
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">{{$question->body ?? ''}}</label>
-                                                <div class="col-9 col-form-label">
+                                            <div class="form-group px-10 m-0">
+                                                <label class="row col-form-label h6">{{$key+1}}) {{$question->body ?? ''}}
+                                                </label>
+                                                <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
+
+                                                <div class="row col-form-label">
                                                     <div class="radio-inline">
                                                         @foreach($question->option as $option)
                                                             <label class="radio radio-outline radio-outline-2x radio-primary">
@@ -539,8 +542,10 @@
                                                     </span>
                                                 </div>
                                             </div>
+{{--                                        <hr class="m-0">--}}
 
                                         @endforeach
+
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-success w-100px">Submit</button>
                                         </div>

@@ -41,6 +41,13 @@
                                             <input type="number" name="form_id" value="{{$quiz->id}}" class="d-none">
                                         </div>
                                         <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label text-center">Question description :</label>
+                                            <div class="col-lg-9">
+                                                <textarea class="form-control" type="text" name="description" id="exampleTextarea" rows="3">{{$question->description  ?? ''}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
                                             <label class="col-md-3 col-form-label text-center">Other Options :</label>
                                             <div class="col-md-9 col-form-label">
                                                 <div class="checkbox-inline">
