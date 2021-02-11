@@ -44,7 +44,9 @@
                                             <label class="col-lg-3 col-form-label text-center">Question description :</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control" type="text" name="description" id="exampleTextarea" rows="3">{{$question->description  ?? ''}}</textarea>
+
                                             </div>
+
                                         </div>
 
                                         <div class="form-group row">
@@ -70,6 +72,7 @@
                                     </div>
                                     </form>
                                     <hr>
+                                    @if(isset($question))
                                     <div class="">
 
                                         <div class="row">
@@ -270,6 +273,7 @@
                                             <a href="{{url("quizzes/$quiz->id/edit")}}" class="btn btn-warning col-md-2">Back</a>
                                         </div>
                                     </div>
+                                        @endif
                                 </div>
 
                             <!--end::Form-->

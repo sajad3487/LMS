@@ -10,6 +10,7 @@ class question extends Model
     protected $fillable = [
         'form_id',
         'position',
+        'type',
         'body',
         'description',
         'additional_info',

@@ -97,26 +97,34 @@
                             <ul class="menu-nav ">
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
                                     aria-haspopup="true">
-                                    <a href="{{url('/')}}">
+                                    <a href="https://nourgroup.com/">
                                         <img alt="Logo" src="{{asset('media/logos/logo-transperant-1.png')}}" style="width: 80%"/>
                                     </a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel menu-item-active"
-                                    data-menu-toggle="click" aria-haspopup="true"><a href="{{url('/')}}"
+                                    data-menu-toggle="click" aria-haspopup="true"><a href="https://nourgroup.com/"
                                                                                      class="menu-link menu-toggle"><span
                                             class="menu-text">Home</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu" data-menu-toggle="click" aria-haspopup="true">
-                                    <a href="https://www.nourgroup.com/advising" class="menu-link menu-toggle"><span class="menu-text">Advising</span><i
+                                    <a href="https://nourgroup.com/big-ideas/" class="menu-link menu-toggle"><span class="menu-text">Big Ideas</span><i
                                             class="menu-arrow"></i></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://www.nourgroup.com/speaking" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://nourgroup.com/advising/" class="menu-link menu-toggle"><span
+                                            class="menu-text">Advising</span></a>
+                                </li>
+                                <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
+                                    aria-haspopup="true"><a href="https://nourgroup.com/coaching/" class="menu-link menu-toggle"><span
+                                            class="menu-text">Coaching</span></a>
+                                </li>
+                                <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
+                                    aria-haspopup="true"><a href="https://nourgroup.com/speaking//" class="menu-link menu-toggle"><span
                                             class="menu-text">Speaking</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://www.nourgroup.com/training" class="menu-link menu-toggle"><span
-                                            class="menu-text">Training</span></a>
+                                    aria-haspopup="true"><a href="https://nourgroup.com/resources/" class="menu-link menu-toggle"><span
+                                            class="menu-text">Speaking</span></a>
                                 </li>
                             </ul>
                             <!--end::Header Nav-->
@@ -142,8 +150,8 @@
                             <h1 class="font-weight-bolder text-dark mb-6">
                                 {{$quiz->title ?? ''}}
                             </h1>
-                            <div class="h4 text-dark-50">
-                                {{$quiz->description ?? ''}}
+                            <div class="h4 text-dark-50 text-left">
+                                {!! $quiz->description ?? ''!!}
                             </div>
                             <div class="row">
                                 <div class="mx-auto col-md-4">
@@ -521,7 +529,7 @@
                                         <hr>
 
                                     @foreach($quiz->question as $key=>$question)
-
+                                        @if($question->type == 'question')
                                             <div class="form-group px-10 m-0">
                                                 <label class="row col-form-label h6">{{$key+1}}) {{$question->body ?? ''}}
                                                 </label>
@@ -542,6 +550,15 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                            @elseif($question->type == 'title')
+                                                <div class="form-group px-10 m-0">
+                                                    <label class="row col-form-label text-primary h4 mt-5"> {{$question->body ?? ''}}
+                                                    </label>
+                                                    <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
+
+                                                </div>
+
+                                            @endif
 {{--                                        <hr class="m-0">--}}
 
                                         @endforeach

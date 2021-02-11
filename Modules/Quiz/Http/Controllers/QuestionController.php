@@ -48,7 +48,8 @@ class QuestionController extends Controller
         $data = $request->all();
         $data['position'] = $this->questionService->getLastPosition($data['form_id']);
         $question = $this->questionService->createQuestion($data);
-        return redirect("questions/$question->id/edit");
+
+        return redirect("quizzes/$question->form_id/edit");
     }
 
     public function show($id)
@@ -68,6 +69,7 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $quiz_id =$data['form_id'];
         if (!isset($data['requirement'])) {
             $data['requirement'] = 0;
         }
@@ -75,7 +77,7 @@ class QuestionController extends Controller
             $data['additional_info'] = 0;
         }
         $this->questionService->updateQuestion($data, $id);
-        return redirect("questions/$id/edit");
+        return redirect("quizzes/$quiz_id/edit");
     }
 
     public function destroy($id)
@@ -88,5 +90,20 @@ class QuestionController extends Controller
     {
         $new_question = $this->questionService->makeDuplicateQuestion($id);
         return redirect("questions/$new_question->id/edit");
+    }
+
+    public function create_title ($quiz_id){
+        $active = 2;
+        $user = $this->userService->getUserById(auth()->id());
+        $quiz = $this->quizService->getQuiz($quiz_id);
+        return view('customer.new_title', compact('active', 'user', 'quiz'));
+    }
+
+    public function edit_title ($question_id){
+        $active = 2;
+        $user = $this->userService->getUserById(auth()->id());
+        $question = $this->questionService->getQuestion($question_id);
+        $quiz = $this->quizService->getQuiz($question->form_id);
+        return view('customer.new_title', compact('active', 'user', 'quiz', 'question'));
     }
 }

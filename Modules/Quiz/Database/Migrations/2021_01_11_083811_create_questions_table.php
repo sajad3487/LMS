@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->integer('form_id');
             $table->integer('position');
+            $table->integer('type')->default('question');
             $table->string('body');
             $table->text('description')->nullable();
             $table->string('additional_info')->default(0);

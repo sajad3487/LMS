@@ -49,7 +49,10 @@
 
                                             <div class="form-group">
                                                 <label for="exampleTextarea">Result Description:</label>
-                                                <textarea name="result_body" class="form-control form-control-solid" rows="3">{{old('result_body') ?? $segment->result_body  ?? ''}}</textarea>
+{{--                                                <textarea name="result_body" class="form-control form-control-solid" rows="3">{{old('result_body') ?? $segment->result_body  ?? ''}}</textarea>--}}
+                                                <textarea name="result_body" id="kt-ckeditor-1">
+                                                    {{old('result_body') ?? $segment->result_body  ?? ''}}
+                                                </textarea>
                                             </div>
                                             <input type="number" name="form_id" value="{{$quiz->id}}" class="d-none">
                                             <div class="row">

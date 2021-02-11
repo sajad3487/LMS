@@ -490,6 +490,13 @@
 <script src="{{asset('js/pages/widgets.js')}}"></script>
 <script src="{{asset('js/pages/custom/wizard/wizard-1.js')}}"></script>
 <!--end::Page Scripts-->
+<!--begin::Page Vendors(used by this page)-->
+<script src="{{asset('plugins/custom/ckeditor/ckeditor-classic.bundle.js')}}"></script>
+<!--end::Page Vendors-->
+
+<!--begin::Page Scripts(used by this page)-->
+<script src="{{asset('js/pages/crud/forms/editors/ckeditor-classic.js')}}"></script>
+<!--end::Page Scripts-->
 </body>
 <!--end::Body-->
 </html>

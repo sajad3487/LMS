@@ -64,7 +64,10 @@
                                                             <div class="form-group row">
                                                                 <label class="col-lg-2 col-form-label text-center" for="exampleTextarea">Description :</label>
                                                                 <div class="col-lg-8">
-                                                                    <textarea class="form-control" name="description" id="exampleTextarea" rows="3">{{$quiz->description  ?? ''}}</textarea>
+{{--                                                                    <textarea class="form-control" name="description" id="exampleTextarea" rows="3">{{$quiz->description  ?? ''}}</textarea>--}}
+                                                                    <textarea name="description" id="kt-ckeditor-1">
+                                                                        {{old('description') ?? $segment->description  ?? ''}}
+                                                                    </textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
@@ -158,17 +161,13 @@
                                         <div class="card-body">
                                             <div class="overflow-auto">
 
-                                                <div class="btn-group">
-                                                     <a href="{{url("questions/$quiz->id/create")}}" class="btn btn-outline-success font-weight-bolder p-2 mb-2 mr-3 d-inline-block">
-                                                            <i class="la la-plus p-0"></i> Add New Quotation</a>
-
-                                                </div>
                                                 <table class="table table-bordered table-checkable" id="kt_datatable">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Question</th>
                                                             <th class="text-center" >Additional Info</th>
+                                                            <th class="text-center" >Type</th>
                                                             <th class="text-center" >Status</th>
                                                             <th class="text-center" >Requirement</th>
                                                             <th class="text-center" >Action</th>
@@ -177,54 +176,80 @@
 
                                                     <tbody>
                                                          @foreach($quiz->question as $key=>$question)
-                                                             <tr>
-                                                                 <td>{{$question->id ?? ''}}</td>
-                                                                 <td>{{$question->body ?? ''}}</td>
-                                                                 <td class="text-center" >
-                                                                     @if($question->additional_info == 1)
-                                                                         <span class="label label-lg font-weight-bold label-light-primary label-inline">
+                                                             @if($question->type == 'question')
+                                                                 <tr>
+                                                                     <td>{{$question->id ?? ''}}</td>
+                                                                     <td>{{$question->body ?? ''}}</td>
+                                                                     <td class="text-center" >
+                                                                         @if($question->additional_info == 1)
+                                                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">
                                                                             Active
                                                                         </span>
-                                                                     @elseif($question->additional_info == 0)
-                                                                         <span class="label label-lg font-weight-bold label-light-success label-inline">
+                                                                         @elseif($question->additional_info == 0)
+                                                                             <span class="label label-lg font-weight-bold label-light-success label-inline">
                                                                             Deactivated
                                                                         </span>
-                                                                     @endif
-                                                                 </td>
-                                                                 <td class="text-center" >
-                                                                     @if($question->status == 1)
-                                                                         <span class="label label-lg font-weight-bold label-light-primary label-inline">
+                                                                         @endif
+                                                                     </td>
+                                                                     <td class="text-center">{{$question->type ?? ''}}</td>
+
+                                                                     <td class="text-center" >
+                                                                         @if($question->status == 1)
+                                                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">
                                                                             Active
                                                                         </span>
-                                                                     @elseif($question->status == 0)
-                                                                         <span class="label label-lg font-weight-bold label-light-success label-inline">
+                                                                         @elseif($question->status == 0)
+                                                                             <span class="label label-lg font-weight-bold label-light-success label-inline">
                                                                             Deactivated
                                                                         </span>
-                                                                     @endif
-                                                                 </td>
-                                                                 <td class="text-center" >
-                                                                     @if($question->requirement == 1)
-                                                                         <span class="label label-lg font-weight-bold label-light-primary label-inline">
+                                                                         @endif
+                                                                     </td>
+                                                                     <td class="text-center" >
+                                                                         @if($question->requirement == 1)
+                                                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">
                                                                             Required
                                                                         </span>
-                                                                     @elseif($question->requirement == 0)
-                                                                         <span class="label label-lg font-weight-bold label-light-success label-inline">
+                                                                         @elseif($question->requirement == 0)
+                                                                             <span class="label label-lg font-weight-bold label-light-success label-inline">
                                                                             Optional
                                                                         </span>
-                                                                     @endif
-                                                                 </td>
-                                                                 <td class="text-center"  style='white-space: nowrap'>
-                                                                     <a href="{{url("questions/$question->id/copy")}}"><i class="flaticon2-copy text-info mr-5"></i></a>
-                                                                     <a href="{{url("questions/$question->id/edit")}}"><i class="far fa-edit text-warning mr-5"></i></a>
-                                                                     <a href="{{url("questions/$question->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
-                                                                 </td>
-                                                              </tr>
+                                                                         @endif
+                                                                     </td>
+                                                                     <td class="text-center"  style='white-space: nowrap'>
+                                                                         <a href="{{url("questions/$question->id/copy")}}"><i class="flaticon2-copy text-info mr-5"></i></a>
+                                                                         <a href="{{url("questions/$question->id/edit")}}"><i class="far fa-edit text-warning mr-5"></i></a>
+                                                                         <a href="{{url("questions/$question->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                                                     </td>
+                                                                 </tr>
+                                                                 @elseif($question->type == 'title')
+                                                                 <tr>
+                                                                     <td>{{$question->id ?? ''}}</td>
+                                                                     <td>{{$question->body ?? ''}}</td>
 
+
+
+                                                                     <td class="text-center"  style='white-space: nowrap'>
+                                                                         <a href="{{url("questions/$question->id/editTitle")}}"><i class="far fa-edit text-warning mr-5"></i></a>
+                                                                         <a href="{{url("questions/$question->id/delete")}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                                                     </td>
+                                                                 </tr>
+                                                                 @endif
 
                                                           @endforeach
                                                     </tbody>
 
                                                 </table>
+
+                                                <div class="btn-group">
+                                                    <a href="{{url("questions/$quiz->id/create")}}" class="btn btn-outline-success font-weight-bolder p-2 mb-2 mr-3 d-inline-block">
+                                                        <i class="la la-plus p-0"></i> Add New Quotation</a>
+
+                                                </div>
+                                                <div class="btn-group">
+                                                    <a href="{{url("questions/$quiz->id/createTitle")}}" class="btn btn-outline-warning font-weight-bolder p-2 mb-2 mr-3 d-inline-block">
+                                                        <i class="la la-plus p-0"></i> Add New Title</a>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

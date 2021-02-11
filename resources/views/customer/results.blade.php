@@ -59,12 +59,37 @@
                                 </thead>
 
                                 <tbody>
-                                @foreach($results as $result)
+                                @foreach($results as $key=>$result)
                                 <tr class="text-center">
                                     <td>{{$result->min_score ?? ''}}</td>
                                     <td>{{$result->max_score ?? ''}}</td>
                                     <td>{{$result->segment_title ?? ''}}</td>
-                                    <td>{{$result->result_body ?? ''}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-light-success font-weight-bold ml-2" data-toggle="modal" data-target="#body-{{$key}}">
+                                            <i class="flaticon-eye"></i>View
+                                        </button>
+
+                                        <!-- Modal-->
+                                        <div class="modal fade" id="body-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable" style="max-width: 60%" role="document">
+                                                <div class="modal-content">
+{{--                                                    <div class="modal-header">--}}
+{{--                                                        <h5 class="modal-title" id="exampleModalLabel">Question : {{$question['body'] ?? ''}}</h5>--}}
+{{--                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                                                            <i aria-hidden="true" class="ki ki-close"></i>--}}
+{{--                                                        </button>--}}
+{{--                                                    </div>--}}
+                                                    <div class="modal-body">
+                                                        <div data-scroll="true" data-height="300">
+                                                            <div class="text-left px-10 pt-10">
+                                                                {!! $result->result_body ?? '' !!}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>
                                         <img src="{{$result->result_media ?? ''}}" class="w-100px h-100px" alt="">
                                     </td>
