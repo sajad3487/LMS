@@ -58,8 +58,11 @@ class QuestionService
     public function makeDuplicateQuestion ($question_id){
         $question = $this->questionRepo->getQuestionById($question_id);
         $data['form_id'] = $question->form_id;
+        $data['parent_id'] = $question->parent_id;
+        $data['type'] = $question->type;
         $data['position'] = $this->getLastPosition ($data['form_id']);
         $data['body'] = $question->body;
+        $data['description'] = $question->description;
         $data['additional_info'] = $question->additional_info;
         $data['status'] = $question->status;
         $data['requirement'] = $question->requirement;
@@ -97,6 +100,14 @@ class QuestionService
             $this->optionService->createOption($option_data);
         }
         return $this->questionRepo->getQuestionById($new_question->id);
+    }
+
+    public function getSectionsOfQuiz($quiz_id){
+        return $this->questionRepo->getAllSectionsOfQuiz($quiz_id);
+    }
+
+    public function getQuestionsWithoutTitle ($quiz_id){
+        return $this->questionRepo->getAllQuestionWithoutTitle ($quiz_id);
     }
 
 }

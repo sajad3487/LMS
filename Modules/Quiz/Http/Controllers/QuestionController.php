@@ -48,7 +48,6 @@ class QuestionController extends Controller
         $data = $request->all();
         $data['position'] = $this->questionService->getLastPosition($data['form_id']);
         $question = $this->questionService->createQuestion($data);
-
         return redirect("quizzes/$question->form_id/edit");
     }
 
@@ -69,7 +68,7 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $quiz_id =$data['form_id'];
+        $quiz_id = $data['form_id'];
         if (!isset($data['requirement'])) {
             $data['requirement'] = 0;
         }
@@ -92,18 +91,29 @@ class QuestionController extends Controller
         return redirect("questions/$new_question->id/edit");
     }
 
-    public function create_title ($quiz_id){
+    public function create_title($quiz_id)
+    {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
         $quiz = $this->quizService->getQuiz($quiz_id);
         return view('customer.new_title', compact('active', 'user', 'quiz'));
     }
 
-    public function edit_title ($question_id){
+    public function edit_title($question_id)
+    {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
         $question = $this->questionService->getQuestion($question_id);
         $quiz = $this->quizService->getQuiz($question->form_id);
         return view('customer.new_title', compact('active', 'user', 'quiz', 'question'));
+    }
+
+    public function createQuestionOfTitle($section_id)
+    {
+        $active = 2;
+        $user = $this->userService->getUserById(auth()->id());
+        $section = $this->questionService->getQuestion($section_id);
+        $quiz = $this->quizService->getQuiz($section->form_id);
+        return view('customer.new_question', compact('active', 'user', 'quiz','section'));
     }
 }

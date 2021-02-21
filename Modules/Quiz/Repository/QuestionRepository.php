@@ -41,4 +41,21 @@ class QuestionRepository extends Repository
             ->get();
     }
 
+    public function getAllSectionsOfQuiz ($quiz_id){
+        return question::where('form_id',$quiz_id)
+            ->where('parent_id',0)
+            ->where('type','title')
+            ->with('question')
+            ->with('question.option')
+            ->get();
+    }
+
+    public function getAllQuestionWithoutTitle ($quiz_id){
+        return question::where('form_id',$quiz_id)
+            ->where('parent_id',0)
+            ->where('type','!=','title')
+            ->with('option')
+            ->get();
+    }
+
 }

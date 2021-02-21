@@ -82,25 +82,50 @@ class AnswerQuizController extends Controller
         $data['last_name'] = $request->last_name;
         $data['email'] = $request->email;
         $data['form_id'] = $request->form_id;
+        if (isset($request->first_info)){
+            $data['first_info'] = $request->first_info;
+        }
+        if (isset($request->second_info)){
+            $data['second_info'] = $request->second_info;
+        }
+        if (isset($request->date_info)){
+            $data['date_info'] = $request->date_info;
+        }
         $answer = $this->answerQuizService->createAnswer($data);
         $additional_info = $request->additional_info;
-        foreach ($request->question as $key=>$option) {
-            $answer_data['form_id'] = $request->form_id;
-            $answer_data['answer_id'] = $answer->id;
-            $answer_data['question_id'] = $key;
-            $answer_data['option_id'] = $option;
-            $answer_data['type'] = 'option';
-            $option = $this->optionService->getOptionById($option);
-            $answer_data['answer'] = $option->body;
-            $answer_data['score'] = $option->score;
-            $answer_data['additional_info'] = $additional_info[$key];
-            $answer_question = $this->answerQuestionService->createAnswerQuestion($answer_data);
+//        dd($request->all());
+        if($request->question){
+            foreach ($request->question as $key=>$answered_option) {
+                $answer_data['form_id'] = $request->form_id;
+                $answer_data['answer_id'] = $answer->id;
+                $answer_data['question_id'] = $key;
+                if(is_array($answered_option)){
+                    foreach ($answered_option as $multi_answer){
+                        $answer_data['option_id'] = $multi_answer;
+                        $answer_data['type'] = 'option';
+                        $option = $this->optionService->getOptionById($multi_answer);
+                        $answer_data['answer'] = $option->body;
+                        $answer_data['score'] = $option->score;
+                        $answer_data['additional_info'] = $additional_info[$key];
+                        $answer_question = $this->answerQuestionService->createAnswerQuestion($answer_data);
+                    }
+                }else{
+                    $answer_data['option_id'] = $answered_option;
+                    $answer_data['type'] = 'option';
+                    $option = $this->optionService->getOptionById($answered_option);
+                    $answer_data['answer'] = $option->body;
+                    $answer_data['score'] = $option->score;
+                    $answer_data['additional_info'] = $additional_info[$key];
+                    $answer_question = $this->answerQuestionService->createAnswerQuestion($answer_data);
+                }
+            }
         }
         $score = $this->answerQuizService->calculateSumScore($answer->id);
         $updated_data['score'] = $score;
         $this->answerQuizService->updateAnswerQuiz ($updated_data,$answer->id);
         $segment = $this->resultService->findSegment($score,$request->form_id);
-        return view('result',compact('segment','score'));
+        $quiz = $this->quizService->getQuiz($request->form_id);
+        return view('result',compact('segment','score','quiz'));
     }
 
     public function answer_index ($quiz_id){

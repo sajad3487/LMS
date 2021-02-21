@@ -16,11 +16,12 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->integer('form_id');
+            $table->integer('parent_id')->default(0);
             $table->integer('position');
-            $table->integer('type')->default('question');
+            $table->string('type')->default('question');
             $table->string('body');
             $table->text('description')->nullable();
-            $table->string('additional_info')->default(0);
+            $table->integer('additional_info')->default(0);
             $table->integer('status')->default(1);
             $table->boolean('requirement')->default(1);
 

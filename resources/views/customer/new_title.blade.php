@@ -50,7 +50,7 @@
                                         </div>
 
                                         <div class="text-center">
-                                            <a href="{{url("quizzess/$quiz->id/edit")}}" class="btn btn-secondary col-md-2 mx-5">Back</a>
+                                            <a href="{{url("quizzes/$quiz->id/edit")}}" class="btn btn-secondary col-md-2 mx-5">Back</a>
                                             <button type="submit" class="btn btn-success col-md-2">Save</button>
                                         </div>
                                     </div>

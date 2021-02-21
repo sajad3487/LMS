@@ -31,6 +31,9 @@
                                         @if(isset($question))
                                             @method('PUT')
                                         @endif
+                                        @if(isset($section))
+                                        <input type="number" class="d-none" name="parent_id" value="{{$section->id ?? ''}}">
+                                        @endif
                                     <div class="">
                                         @include('fragment.error')
                                         <div class="form-group row">
@@ -48,7 +51,24 @@
                                             </div>
 
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label text-center">Answer Type</label>
+                                            <div class="col-md-9 col-form-label">
+                                                <div class="radio-inline mt-3 mt-md-0">
+                                                    <label class="radio radio-rounded radio-success">
+                                                        <input type="radio" name="type" value="question" @if(isset($question) && $question->type == 'question') checked="checked" @elseif(!isset($question))checked="checked" @endif />
+                                                        <span></span>
+                                                        Single Choice
+                                                    </label>
+                                                    <label class="radio radio-rounded radio-success">
+                                                        <input type="radio" name="type" value="multi_answer" @if(isset($question) && $question->type == 'multi_answer') checked="checked" @endif/>
+                                                        <span></span>
+                                                        Multiple Choices
+                                                    </label>
+                                                </div>
+                                            </div>
 
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label text-center">Other Options :</label>
                                             <div class="col-md-9 col-form-label">
@@ -97,12 +117,12 @@
                                                                     <div class="card-body">
                                                                         <div class="form-group">
                                                                             <label>Answer:</label>
-                                                                            <input type="text" name="body" class="form-control form-control-solid" placeholder="Enter the answer"/>
+                                                                            <input type="text" name="body" class="form-control form-control-solid" placeholder="Enter the answer" required/>
                                                                         </div>
                                                                         <div class="form-group row">
                                                                             <div class="col-md-6">
                                                                                 <label>Score :</label>
-                                                                                <input type="number" name="score" class="form-control form-control-solid" placeholder="Enter score of answer"/>
+                                                                                <input type="number" name="score" class="form-control form-control-solid" placeholder="Enter score of answer" required/>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <label>Status :</label>

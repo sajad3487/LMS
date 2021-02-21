@@ -60,7 +60,8 @@
 
                                 <tbody>
                                 @foreach($questions as $key=>$question)
-                                <tr class="">
+                                    @if($question['type'] != 'title')
+                                        <tr class="">
                                     <td>{{$question['position'] ?? ''}}</td>
                                     <td>{{$question['body'] ?? ''}}</td>
                                     <td>{{$question['average_score'] ?? ''}}</td>
@@ -89,10 +90,10 @@
                                     </td>
                                     <td>
                                         <!-- Button trigger modal-->
-                                        <button type="button" class="btn btn-light-info font-weight-bold ml-2" data-toggle="modal" data-target="#users-{{$key}}">
+                                        <button type="button" class="btn btn-light-info font-weight-bold ml-2 my-1" data-toggle="modal" data-target="#users-{{$key}}">
                                             Answers Details
                                         </button>
-                                        <button type="button" class="btn btn-light-success font-weight-bold ml-2" data-toggle="modal" data-target="#option-{{$key}}">
+                                        <button type="button" class="btn btn-light-success font-weight-bold ml-2 my-1" data-toggle="modal" data-target="#option-{{$key}}">
                                             <i class="flaticon-pie-chart"></i>Options
                                         </button>
 
@@ -277,6 +278,7 @@
 
                                     </td>
                                 </tr>
+                                    @endif
                                 @endforeach
 
                                 </tbody>

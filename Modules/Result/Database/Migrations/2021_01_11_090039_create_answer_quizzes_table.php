@@ -16,9 +16,14 @@ class CreateAnswerQuizzesTable extends Migration
         Schema::create('answer_quizzes', function (Blueprint $table) {
             $table->id();
             $table->integer('form_id');
+            $table->integer('parent_id')->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->nullable();
+            $table->string('first_info')->nullable();
+            $table->string('second_info')->nullable();
+            $table->string('date_info')->nullable();
+            $table->string('type')->default('quiz');
             $table->integer('score')->default(0);
             $table->timestamps();
         });

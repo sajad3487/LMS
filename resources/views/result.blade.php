@@ -113,7 +113,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 <!--begin::Entry-->
                 <!--begin::Hero-->
-                <div class="d-flex flex-row-fluid bgi-size-cover bgi-position-top" style="background-image: url({{asset('media/bg/bg-9.jpg')}})">
+                <div class="d-flex flex-row-fluid bgi-size-cover bgi-position-top" style="background-image: url({{asset($quiz->result_banner)}})">
                     <div class=" container ">
                         <div class="d-flex justify-content-between align-items-center pt-25 pb-35">
                             <h3 class="font-weight-bolder text-dark mb-0">

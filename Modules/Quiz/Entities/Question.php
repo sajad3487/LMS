@@ -9,6 +9,7 @@ class question extends Model
 {
     protected $fillable = [
         'form_id',
+        'parent_id',
         'position',
         'type',
         'body',
@@ -24,5 +25,9 @@ class question extends Model
 
     public function answer (){
         return $this->hasMany(answerQuestion::class,'question_id','id');
+    }
+
+    public function question (){
+        return $this->hasMany(question::class,'parent_id','id');
     }
 }

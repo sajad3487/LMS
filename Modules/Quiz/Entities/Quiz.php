@@ -8,6 +8,7 @@ class quiz extends Model
 {
     protected $fillable = [
         'user_id',
+        'parent_id',
         'title',
         'description',
         'first_name_label',
@@ -16,12 +17,21 @@ class quiz extends Model
         'last_name_requirement',
         'email_label',
         'email_requirement',
+        'first_info_label',
+        'first_info_status',
+        'second_info_label',
+        'second_info_status',
+        'date_info_label',
+        'date_info_status',
         'placeholder',
         'status',
         'taken',
         'average_score',
         'average_percentage',
         'button_text',
+        'type',
+        'banner',
+        'result_banner',
     ];
 
     public function question (){

@@ -21,6 +21,7 @@ class QuizRepository extends Repository
 
     public function getAllUserQuizzes ($user_id){
         return Quiz::where('user_id',$user_id)
+            ->where('type','quiz')
             ->with('question')
             ->get();
     }
@@ -30,6 +31,13 @@ class QuizRepository extends Repository
             ->with('question')
             ->with('question.option')
             ->first();
+    }
+
+    public function getAllUserSuperQuiz ($user_id){
+        return Quiz::where('user_id',$user_id)
+            ->where('type','super')
+            ->with('question')
+            ->get();
     }
 
 }
