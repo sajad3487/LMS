@@ -126,6 +126,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 </div>
                 <!--end::Hero-->
+                @if($score != 0)
                 <div class=" container  mt-n15">
                     <div class="row">
                         <div class="col-lg-12">
@@ -166,6 +167,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     </div>
                 </div>
+                @endif
                 <!--begin::Section-->
                 <div class=" container mt-10">
                     <!--begin::Card-->
@@ -176,10 +178,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="row">
 
                                 <div class="col-lg-12 pl-20">
+                                    @if($score !=0)
                                     <h4>Description :</h4>
                                     <p>
                                         {!! $segment->result_body ?? '' !!}
                                     </p>
+                                    @endif
                                 </div>
                             </div>
                             <!--end::Row-->
