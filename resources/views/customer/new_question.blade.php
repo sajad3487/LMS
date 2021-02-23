@@ -290,7 +290,11 @@
 
                                         </table>
                                         <div class="text-center">
+                                            @if($quiz->type == 'quiz')
                                             <a href="{{url("quizzes/$quiz->id/edit")}}" class="btn btn-warning col-md-2">Back</a>
+                                                @elseif($quiz->type == 'subquiz')
+                                                <a href="{{url("superQuizzes/$quiz->parent_id/edit")}}" class="btn btn-warning col-md-2">Back</a>
+                                                @endif
                                         </div>
                                     </div>
                                         @endif

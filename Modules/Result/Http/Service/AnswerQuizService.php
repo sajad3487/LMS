@@ -36,6 +36,15 @@ class AnswerQuizService
         return $score;
     }
 
+    public function calculateOveralScore($answer_id){
+        $answers = $this->answerQuizRepo->getAllAnswerOfSuperQuiz($answer_id);
+        $score = 0;
+        foreach ($answers->quiz_answer as $question_answer) {
+            $score += $question_answer->score;
+        }
+        return $score;
+    }
+
     public function updateAnswerQuiz ($data,$id){
         return $this->answerQuizRepo->update($data,$id);
     }
@@ -46,6 +55,14 @@ class AnswerQuizService
 
     public function getUsersOfQuiz ($quiz_id){
         return $this->answerQuizRepo->getAllUsersOfQuiz($quiz_id);
+    }
+
+    public function getAnswersOfSuperQuiz ($answer_id){
+        return $this->answerQuizRepo->getAllAnswerOfSuperQuiz ($answer_id);
+    }
+
+    public function getAnswerById ($answer_id){
+        return $this->answerQuizRepo->getAnswerWithQuestion($answer_id);
     }
 
 }

@@ -17,8 +17,8 @@ Route::group(['middleware'=>'auth'],function(){
 
             Route::get('/','QuizController@super_index');
             Route::get('/create','QuizController@super_create');
-            Route::post('/store','QuizController@store');
-            Route::get('/{quiz_id}/edit','QuizController@edit');
+            Route::post('/store','QuizController@super_store');
+            Route::get('/{quiz_id}/edit','QuizController@super_edit');
             Route::put('/{quiz_id}/update','QuizController@update');
             Route::get('/{quiz_id}/copy','QuizController@copy');
 
@@ -56,5 +56,12 @@ Route::group(['middleware'=>'auth'],function(){
 Route::group(['prefix'=>'quiz'],function (){
 
     Route::get('{quiz_id}/view','QuizController@view');
+
+});
+
+
+Route::group(['prefix'=>'superQuizzes'],function (){
+
+    Route::get('{quiz_id}/view','QuizController@super_view');
 
 });

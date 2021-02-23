@@ -38,10 +38,9 @@ class QuizController extends Controller
     public function index()
     {
         $active = 2;
-        $type = "Quiz";
         $user = $this->userService->getUserById(auth()->id());
         $quizzes = $this->quizService->getUserQuizzes(auth()->id());
-        return view('customer.quizzes', compact('active', 'user', 'quizzes', 'type'));
+        return view('customer.quizzes', compact('active', 'user', 'quizzes'));
     }
 
 
@@ -60,12 +59,15 @@ class QuizController extends Controller
             $data['banner'] =$this->quizService->uploadMedia($request->file);
             unset($data['file']);
         }
-        if (isset($request->result_banner)){
-            $data['result_banner'] =$this->quizService->uploadMedia($request->result_banner);
-            unset($data['result_banner']);
+        if (isset($request->rbanner)){
+            $data['result_banner'] =$this->quizService->uploadMedia($request->rbanner);
+            unset($data['rbanner']);
         }
         $data['user_id'] = auth()->id();
         $quiz = $this->quizService->createQuiz($data);
+        if ($quiz->type == 'subquiz'){
+            return redirect("superQuizzes/$quiz->parent_id/edit");
+        }
         return redirect("quizzes/$quiz->id/edit");
     }
 
@@ -104,6 +106,7 @@ class QuizController extends Controller
             unset($data['rbanner']);
         }
         $this->quizService->updateQuiz($data, $id);
+
         return back();
     }
 
@@ -122,6 +125,15 @@ class QuizController extends Controller
             return view('quiz', compact('quiz','sections','questions'));
         }
         return redirect('/');
+    }
+
+    public function super_view ($id)
+    {
+        $super_quiz = $this->quizService->getSuperQuiz($id);
+        if ($super_quiz->type == 'quiz') {
+            return redirect("quiz/$super_quiz->id/iew");
+        }
+        return view('super_quiz', compact('super_quiz'));
     }
 
     public function copy($id)
@@ -160,10 +172,9 @@ class QuizController extends Controller
     public function super_index()
     {
         $active = 4;
-        $type = "Super";
         $user = $this->userService->getUserById(auth()->id());
         $quizzes = $this->quizService->getUserSuperQuizzes(auth()->id());
-        return view('customer.quizzes', compact('active', 'user', 'quizzes', 'type'));
+        return view('customer.super_quizzes', compact('active', 'user', 'quizzes'));
     }
 
     public function super_create()
@@ -171,6 +182,32 @@ class QuizController extends Controller
         $active = 4;
         $user = $this->userService->getUserById(auth()->id());
         return view('customer.new_super_quiz', compact('active', 'user'));
+    }
+
+    public function super_store (Request $request){
+        $data = $request->all();
+        if (isset($request->file)){
+            $data['banner'] =$this->quizService->uploadMedia($request->file);
+            unset($data['file']);
+        }
+        if (isset($request->rbanner)){
+            $data['result_banner'] =$this->quizService->uploadMedia($request->rbanner);
+            unset($data['rbanner']);
+        }
+        $data['user_id'] = auth()->id();
+        $quiz = $this->quizService->createQuiz($data);
+        return redirect("superQuizzes/$quiz->id/edit");
+    }
+
+    public function super_edit ($id){
+        $active = 4;
+        $user = $this->userService->getUserById(auth()->id());
+        $super_quiz = $this->quizService->getSuperQuiz($id);
+        if ($super_quiz->type == 'quiz'){
+            $active = 2;
+            return view('customer.new_quiz', compact('active', 'user', 'super_quiz'));
+        }
+        return view('customer.new_super_quiz', compact('active', 'user', 'super_quiz'));
     }
 
 

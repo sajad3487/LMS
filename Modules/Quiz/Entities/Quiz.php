@@ -37,4 +37,8 @@ class quiz extends Model
     public function question (){
         return $this->hasMany(question::class,'form_id','id');
     }
+
+    public function quiz (){
+        return $this->hasMany(quiz::class,'parent_id','id');
+    }
 }

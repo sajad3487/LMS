@@ -48,4 +48,8 @@ class QuizService
         return '/media/image/' . $newFileName;
     }
 
+    public function getSuperQuiz ($quiz_id){
+        return $this->quizRepo->getSuperQuizById ($quiz_id);
+    }
+
 }

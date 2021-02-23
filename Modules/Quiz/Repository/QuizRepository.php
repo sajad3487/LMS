@@ -40,4 +40,12 @@ class QuizRepository extends Repository
             ->get();
     }
 
+    public function getSuperQuizById ($quiz_id){
+        return Quiz::where('id',$quiz_id)
+            ->with('quiz')
+            ->with('quiz.question')
+            ->with('quiz.question.option')
+            ->first();
+    }
+
 }

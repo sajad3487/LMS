@@ -126,7 +126,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 </div>
                 <!--end::Hero-->
-                @if($score != 0)
+                @if($answer->score != 0)
                 <div class=" container  mt-n15">
                     <div class="row">
                         <div class="col-lg-12">
@@ -151,7 +151,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <!--begin::Content-->
                                         <div class="d-flex flex-column">
                                             <h3 class="text-dark h3 m-0">
-                                                Your score : {{$score ?? ''}}
+                                                Your score : {{$answer->score ?? ''}}
                                             </h3>
 {{--                                            <div class="text-dark-50">--}}
 {{--                                                Base FAQ Questions--}}
@@ -178,7 +178,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="row">
 
                                 <div class="col-lg-12 pl-20">
-                                    @if($score !=0)
+                                    @if($answer->score !=0)
                                     <h4>Description :</h4>
                                     @endif
                                     <p>

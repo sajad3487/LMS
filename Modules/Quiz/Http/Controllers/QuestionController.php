@@ -40,6 +40,9 @@ class QuestionController extends Controller
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
         $quiz = $this->quizService->getQuiz($id);
+        if($quiz->type == 'subquiz'){
+            $active = 4;
+        }
         return view('customer.new_question', compact('active', 'user', 'quiz'));
     }
 
@@ -48,6 +51,10 @@ class QuestionController extends Controller
         $data = $request->all();
         $data['position'] = $this->questionService->getLastPosition($data['form_id']);
         $question = $this->questionService->createQuestion($data);
+        $quiz = $this->quizService->getQuiz($question->form_id);
+        if ($quiz->type == 'subquiz'){
+            return redirect("superQuizzes/$quiz->parent_id/edit");
+        }
         return redirect("quizzes/$question->form_id/edit");
     }
 
@@ -76,6 +83,10 @@ class QuestionController extends Controller
             $data['additional_info'] = 0;
         }
         $this->questionService->updateQuestion($data, $id);
+        $quiz = $this->quizService->getQuiz($quiz_id);
+        if ($quiz->type == 'subquiz'){
+            return redirect("superQuizzes/$quiz->parent_id/edit");
+        }
         return redirect("quizzes/$quiz_id/edit");
     }
 

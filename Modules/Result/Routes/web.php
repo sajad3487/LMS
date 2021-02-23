@@ -29,6 +29,13 @@ Route::group(['middleware'=>'auth'],function(){
 Route::group(['prefix'=>'quiz'],function (){
 
     Route::post('submit','AnswerQuizController@store');
-    Route::get('result','AnswerQuizController@show');
+    Route::get('{answer_id}/result','AnswerQuizController@show');
+
+});
+
+Route::group(['prefix'=>'superQuizzes'],function (){
+
+    Route::post('submit','AnswerQuizController@super_store');
+    Route::get('{answer_id}/result','AnswerQuizController@super_show');
 
 });

@@ -8,6 +8,7 @@ class answerQuiz extends Model
 {
     protected $fillable = [
         'form_id',
+        'parent_id',
         'first_name',
         'last_name',
         'email',
@@ -15,7 +16,12 @@ class answerQuiz extends Model
         'second_info',
         'date_info',
         'score',
+        'type',
     ];
+
+    public function quiz_answer (){
+        return $this->hasMany(answerQuiz::class,'parent_id','id');
+    }
 
     public function question_answer (){
         return $this->hasMany(answerQuestion::class,'answer_id','id');

@@ -18,13 +18,15 @@
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
                             <h3 class="card-label">
-                                Quizzes
+                                    Super Quizzes
+
                                 {{--                                <span class="d-block text-muted pt-2 font-size-sm">This page shows Customers info</span>--}}
                             </h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Button-->
-                            <a href="{{url('/quizzes/create')}}" class="btn btn-primary font-weight-bolder">
+
+                                <a href="{{url('/superQuizzes/create')}}" class="btn btn-info font-weight-bolder">
                                     <span class="svg-icon svg-icon-md"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg--><svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
@@ -37,9 +39,10 @@
                                             fill="#000000" opacity="0.3"/>
                                     </g>
                                 </svg><!--end::Svg Icon--></span>
-                                New Quiz
-                            </a>
-                            <!--end::Button-->
+                                    New Super Quiz
+                                </a>
+
+                        <!--end::Button-->
                         </div>
                     </div>
 
@@ -62,55 +65,54 @@
 
                                 <tbody>
                                 @foreach($quizzes as $key=>$quiz)
-                                <tr class="text-center">
-                                    <td>{{$quiz->id ?? ''}}</td>
-                                    <td>{{$quiz->title ?? ''}}</td>
-                                    <td>{{\Carbon\Carbon::parse($quiz->created_at)->format('Y-m-d - H:i') ?? ''}}</td>
-                                    <td>
-                                        @if($quiz->status == 1)
-                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">
+                                    <tr class="text-center">
+                                        <td>{{$quiz->id ?? ''}}</td>
+                                        <td>{{$quiz->title ?? ''}}</td>
+                                        <td>{{\Carbon\Carbon::parse($quiz->created_at)->format('Y-m-d - H:i') ?? ''}}</td>
+                                        <td>
+                                            @if($quiz->status == 1)
+                                                <span class="label label-lg font-weight-bold label-light-primary label-inline">
                                                 Active
                                             </span>
-                                        @elseif($quiz->status == 0)
-                                            <span class="label label-lg font-weight-bold label-light-success label-inline">
+                                            @elseif($quiz->status == 0)
+                                                <span class="label label-lg font-weight-bold label-light-success label-inline">
                                                 Deactivated
                                             </span>
-                                        @endif
-                                    </td>
-                                    <td>{{$quiz->taken ?? ''}}</td>
-                                    <td>{{$quiz->average_score ?? ''}}</td>
-                                    <td>{{$quiz->average_percentage ?? ''}}</td>
-                                    <td>
-                                        <a href="" data-toggle="modal" data-target="#link-{{$key}}"><i class="flaticon-browser  text-success mr-7"></i></a>
-                                        <a href="{{url("quizzes/$quiz->id/copy")}}"><i class="flaticon-web text-info mr-5"></i></a>
-                                        <a href="{{url("quizzes/$quiz->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
-                                        <a href="{{url("segments/$quiz->id/show")}}"><i class="flaticon-interface-1  text-danger mr-5"></i></a>
-                                    </td>
-                                </tr>
-                                <!--begin::Modal-->
-                                <div class="modal fade" id="link-{{$key}}" role="dialog"  aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Edit Choice</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <i aria-hidden="true" class="ki ki-close"></i>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!--begin::Form-->
-                                                <div class="card-body text-center">
-                                                    <p class="mb-4">Link:</p>
-                                                    <a href="{{url("quiz/$quiz->id/view")}}" target="_blank"><h6>{{url("quiz/$quiz->id/view")}}</h6></a>
-                                                    <p class="my-4">iframe:</p>
-                                                    <h6>{{' <iframe src="'.url("quiz/$quiz->id/view").'" title="'.$quiz->title.'"> '}}</h6>
+                                            @endif
+                                        </td>
+                                        <td>{{$quiz->taken ?? ''}}</td>
+                                        <td>{{$quiz->average_score ?? ''}}</td>
+                                        <td>{{$quiz->average_percentage ?? ''}}</td>
+                                        <td>
+                                            <a href="" data-toggle="modal" data-target="#link-{{$key}}"><i class="flaticon-browser  text-success mr-7"></i></a>
+                                            <a href="{{url("superQuizzes/$quiz->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
+                                            <a href="{{url("segments/$quiz->id/show")}}"><i class="flaticon-interface-1  text-danger mr-5"></i></a>
+                                        </td>
+                                    </tr>
+                                    <!--begin::Modal-->
+                                    <div class="modal fade" id="link-{{$key}}" role="dialog"  aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Edit Choice</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                                    </button>
                                                 </div>
-                                            </div>
+                                                <div class="modal-body">
+                                                    <!--begin::Form-->
+                                                    <div class="card-body text-center">
+                                                        <p class="mb-4">Link:</p>
+                                                        <a href="{{url("superQuizzes/$quiz->id/view")}}" target="_blank"><h6>{{url("superQuizzes/$quiz->id/view")}}</h6></a>
+                                                        <p class="my-4">iframe:</p>
+                                                        <h6>{{' <iframe src="'.url("superQuizzes/$quiz->id/view").'" title="'.$quiz->title.'"> '}}</h6>
+                                                    </div>
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end::Modal-->
+                                    <!--end::Modal-->
                                 @endforeach
 
                                 </tbody>
