@@ -35,7 +35,8 @@ Route::group(['middleware'=>'auth'],function(){
 
         Route::group(['prefix'=>'media'],function (){
 
-            Route::post('/store','MediaController@store');
+            Route::post('/{segment_id}/store','MediaController@store');
+            Route::post('/{segment_id}/delete','MediaController@destroy');
 
         });
 
@@ -54,6 +55,6 @@ Route::group(['prefix'=>'superQuizzes'],function (){
 
     Route::post('submit','AnswerQuizController@super_store');
     Route::get('{answer_id}/result','AnswerQuizController@super_show');
-    Route::get('{subquiz_answer_id}/subquiz_result','AnswerQuizController@sub_quiz_show');
+    Route::get('{subquiz_answer_id}/subquiz_result/{answer_id}','AnswerQuizController@sub_quiz_show');
 
 });

@@ -59,7 +59,7 @@ class ResultService
 
     public function getSegment($id)
     {
-        return $this->resultRepo->getById($id);
+        return $this->resultRepo->getSegmentById($id);
     }
 
     public function checkRangeOfSegmentForUpdate($min, $max, $quiz_id, $id)
@@ -102,7 +102,7 @@ class ResultService
             $segment_id = 0;
         }
 
-        return $this->resultRepo->getById($segment_id);
+        return $this->resultRepo->getSegmentById($segment_id);
     }
 
 

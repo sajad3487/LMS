@@ -2,6 +2,7 @@
 
 namespace Modules\Result\Entities;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 class result extends Model
@@ -15,4 +16,8 @@ class result extends Model
         'result_media',
         'status',
     ];
+
+    public function media (){
+        return $this->belongsToMany(media::class);
+    }
 }

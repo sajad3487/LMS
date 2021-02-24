@@ -131,9 +131,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="d-flex flex-row-fluid bgi-size-cover bgi-position-top" style="background-image: url({{asset($quiz->result_banner)}})">
                     <div class=" container ">
                         <div class="d-flex justify-content-between align-items-center pt-25 pb-35">
-                            <h3 class="font-weight-bolder text-dark mb-0">
-                                {{$segment->segment_title ?? ''}}
-                            </h3>
+
 {{--                            <div class="d-flex">--}}
 {{--                                <a href="#" class="font-size-h4 font-weight-bold">Help Center</a>--}}
 {{--                            </div>--}}
@@ -165,9 +163,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                         <!--begin::Content-->
                                         <div class="d-flex flex-column">
-                                            <h3 class="text-dark h3 m-0">
-                                                Your score : {{$answer->score ?? ''}}
+                                            <h3 class="font-weight-bolder text-dark mb-0">
+                                                {{$segment->segment_title ?? ''}}
                                             </h3>
+                                            <h5 class="text-primary m-0 mt-5">
+                                                Your score : {{$answer->score ?? ''}}
+                                            </h5>
 {{--                                            <div class="text-dark-50">--}}
 {{--                                                Base FAQ Questions--}}
 {{--                                            </div>--}}
@@ -254,7 +255,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                             <!--begin::Content-->
                                             <div class="d-flex flex-column">
-                                                <a href="{{url("superQuizzes/$subQuiz->id/subquiz_result")}}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
+                                                <a href="{{url("superQuizzes/$subQuiz->id/subquiz_result/$answer->id")}}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
                                                     {{$subQuiz->quiz->title ?? ''}}
                                                 </a>
                                                 <div class="text-dark-75">

@@ -110,7 +110,7 @@
                                                         <div data-scroll="true">
                                                             <div class="text-left px-10 pt-10">
 
-                                                                    <form action="{{url("media/store")}}" method="post" enctype="multipart/form-data">
+                                                                    <form action="{{url("media/$segment->id/store")}}" method="post" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <div class="card-body">
                                                                             <div class="form-group">
@@ -146,41 +146,24 @@
                                     </div>
                                     <!--end::Heading-->
 
-                                    <!--begin::Products-->
-                                    <div class="row">
-                                        <!--begin::Product-->
-                                        <div class="col-md-4 col-xxl-4 col-lg-12">
-                                            <!--begin::Card-->
-                                            <div class="card card-custom card-shadowless">
-                                                <div class="card-body p-0">
-                                                    <!--begin::Image-->
-                                                    <div class="overlay my-3">
-                                                        <div class="overlay-wrapper rounded bg-light text-center">
-                                                            <img src="{{asset('media/image/1581297RE_banner.jpg')}}" alt="" class="mw-100 w-200px" />
-                                                        </div>
-                                                        <div class="overlay-layer">
-                                                            <a href="#" class="btn font-weight-bolder btn-sm btn-info mr-2">View</a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Image-->
-                                                    <!--begin::Image-->
-                                                    <div class="overlay my-3">
-                                                        <div class="overlay-wrapper rounded bg-light text-center">
-                                                            <img src="{{asset('media/image/1581297RE_banner.jpg')}}" alt="" class="mw-100 w-200px" />
-                                                        </div>
-                                                        <div class="overlay-layer">
-                                                            <a href="#" class="btn font-weight-bolder btn-sm btn-info mr-2">View</a>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Image-->
-
+                                    @foreach($segment->media as $media)
+                                        <div class="row">
+                                            <div class="overlay mx-auto mt-3 mb-8">
+                                                <div class="overlay-wrapper rounded bg-light text-center">
+                                                    <video width="300" controls>
+                                                        <source src="{{asset($media->media_path)}}" type="video/mp4">
+                                                        Your browser does not support HTML video.
+                                                    </video>
                                                 </div>
+                                                <form action="{{url("media/$segment->id/delete")}}" method="post">
+                                                    @csrf
+                                                    <input type="number" name="media_id" value="{{$media->id}}" class="d-none">
+                                                    <button type="submit" class="btn font-weight-bolder btn-sm btn-danger mr-2">delete</button>
+                                                </form>
                                             </div>
-                                            <!--end::Card-->
                                         </div>
-                                        <!--end::Product-->
-                                    </div>
-                                    <!--end::Products-->
+
+                                    @endforeach
                                 </div>
                                 <!--end::Section-->
 

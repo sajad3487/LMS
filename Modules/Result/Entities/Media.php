@@ -12,4 +12,8 @@ class Media extends Model
         'title',
         'description',
     ];
+
+    public function result (){
+        return $this->belongsToMany(result::class);
+    }
 }

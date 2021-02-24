@@ -24,4 +24,10 @@ class ResultRepository extends Repository
             ->get();
     }
 
+    public function getSegmentById ($segment_id){
+        return result::where ('id',$segment_id)
+            ->with('media')
+            ->first();
+    }
+
 }

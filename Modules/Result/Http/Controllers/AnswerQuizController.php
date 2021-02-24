@@ -278,8 +278,13 @@ class AnswerQuizController extends Controller
         return view('super_result', compact('segment', 'answer','quiz'));
     }
 
-    public function sub_quiz_show ($subquiz_answer_id){
-        dd($subquiz_answer_id);
+    public function sub_quiz_show ($subquiz_answer_id,$answer_id){
+        $answer = $this->answerQuizService->getAnswerById($subquiz_answer_id);
+        $score = $answer->score;
+        $segment = $this->resultService->findSegment($answer->score, $answer->form_id);
+        $quiz = $this->quizService->getQuiz($answer->form_id);
+        $super_quiz = $this->quizService->getSuperQuiz($quiz->parent_id);
+        return view('subquiz_result', compact('segment', 'score', 'quiz','super_quiz','answer_id'));
     }
 
 }
