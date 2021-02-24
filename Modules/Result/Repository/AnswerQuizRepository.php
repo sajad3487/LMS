@@ -41,6 +41,7 @@ class AnswerQuizRepository extends Repository
     public function getAllAnswerOfSuperQuiz ($answer_id){
         return answerQuiz::where('id',$answer_id)
             ->with('quiz_answer')
+            ->with('quiz_answer.quiz')
             ->with('quiz_answer.question_answer')
             ->first();
     }

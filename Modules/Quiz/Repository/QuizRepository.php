@@ -45,6 +45,8 @@ class QuizRepository extends Repository
             ->with('quiz')
             ->with('quiz.question')
             ->with('quiz.question.option')
+            ->with('segment')
+            ->with('quiz.segment')
             ->first();
     }
 

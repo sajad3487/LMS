@@ -3,6 +3,7 @@
 namespace Modules\Quiz\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Result\Entities\result;
 
 class quiz extends Model
 {
@@ -41,4 +42,9 @@ class quiz extends Model
     public function quiz (){
         return $this->hasMany(quiz::class,'parent_id','id');
     }
+
+    public function segment (){
+        return $this->hasMany(result::class,'form_id','id');
+    }
+
 }

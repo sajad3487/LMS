@@ -86,7 +86,7 @@
                                         <td>
                                             <a href="" data-toggle="modal" data-target="#link-{{$key}}"><i class="flaticon-browser  text-success mr-7"></i></a>
                                             <a href="{{url("superQuizzes/$quiz->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
-                                            <a href="{{url("segments/$quiz->id/show")}}"><i class="flaticon-interface-1  text-danger mr-5"></i></a>
+                                            <a href="{{url("super_segments/$quiz->id/show")}}"><i class="flaticon-interface-1  text-danger mr-5"></i></a>
                                         </td>
                                     </tr>
                                     <!--begin::Modal-->

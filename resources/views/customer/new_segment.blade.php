@@ -67,7 +67,12 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <a href="{{url("segments/$quiz->id/show")}}" class="btn btn-secondary">Cancel</a>
+                                            @if($quiz->type = 'super')
+
+                                                <a href="{{url("super_segments/$quiz->id/show")}}" class="btn btn-secondary">Cancel</a>
+                                            @else
+                                                <a href="{{url("segments/$quiz->id/show")}}" class="btn btn-secondary">Cancel</a>
+                                            @endif
                                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                         </div>
                                     </form>

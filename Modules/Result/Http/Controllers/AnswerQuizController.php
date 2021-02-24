@@ -278,4 +278,8 @@ class AnswerQuizController extends Controller
         return view('super_result', compact('segment', 'answer','quiz'));
     }
 
+    public function sub_quiz_show ($subquiz_answer_id){
+        dd($subquiz_answer_id);
+    }
+
 }

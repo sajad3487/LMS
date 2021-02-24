@@ -39,7 +39,22 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{asset('css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css"/>        <!--end::Layout Themes-->
 
     <link rel="shortcut icon" href="{{asset('media/logos/favicon.ico')}}"/>
+    <script src="{{asset('js/zingchart.min.js')}}"></script>
+    <style>
+        .zc-body {
+            background-color: #fff;
+        }
 
+        .chart--container {
+            width: 100%;
+            height: 100%;
+            min-height: 530px;
+        }
+
+        .zc-ref {
+            display: none;
+        }
+    </style>
 </head>
 <!--end::Head-->
 
@@ -131,7 +146,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row">
                         <div class="col-lg-12">
                             <!--begin::Card-->
-                            <div class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+                            <div class="card card-custom  bg-grey-100 mb-8 mb-lg-0">
                                 <!--begin::Card Body-->
                                 <div class="card-body">
                                     <div class="d-flex align-items-center pl-10">
@@ -168,37 +183,122 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 </div>
                 @endif
-                <!--begin::Section-->
-                <div class=" container mt-10">
-                    <!--begin::Card-->
-                    <div class="card mb-8">
-                        <!--begin::Body-->
-                        <div class="card-body p-10">
-                            <!--begin::Row-->
-                            <div class="row">
+                <div class="container row mx-auto">
+                    <!--begin::Section-->
+                    <div class="col-md-4  mt-8 p-0">
+                        @foreach($answer->quiz_answer as $key=>$subQuiz)
+                            <div class="col-12 p-0 mb-8">
+                                <!--begin::Callout-->
+                                <p class="d-none">
+                                    @if(fmod(($key+1),6) == 0)
+                                        {{fmod(($key+1),6)}}
+                                        {{$icon = '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <rect fill="#000000" opacity="0.3" x="12" y="4" width="3" height="13" rx="1.5"/>
+        <rect fill="#000000" opacity="0.3" x="7" y="9" width="3" height="8" rx="1.5"/>
+        <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+        <rect fill="#000000" opacity="0.3" x="17" y="11" width="3" height="6" rx="1.5"/>
+    </g>'}}
+                                    @elseif(fmod(($key+1),6) == 1)
+                                        {{$color = "info"}}
+                                        {{$icon = '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <rect fill="#000000" opacity="0.3" x="7" y="4" width="3" height="13" rx="1.5"/>
+        <rect fill="#000000" opacity="0.3" x="12" y="9" width="3" height="8" rx="1.5"/>
+        <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+        <rect fill="#000000" opacity="0.3" x="17" y="11" width="3" height="6" rx="1.5"/>
+    </g>'}}
+                                    @elseif(fmod(($key+1),6) == 2)
+                                        {{$color = "primary"}}
+                                        {{$icon = '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <path d="M4.00246329,12.2004927 L13,14 L13,4.06189375 C16.9463116,4.55399184 20,7.92038235 20,12 C20,16.418278 16.418278,20 12,20 C7.64874861,20 4.10886412,16.5261253 4.00246329,12.2004927 Z" fill="#000000" opacity="0.3"/>
+        <path d="M3.0603968,10.0120794 C3.54712466,6.05992157 6.91622084,3 11,3 L11,11.6 L3.0603968,10.0120794 Z" fill="#000000"/>
+    </g>'}}
+                                    @elseif(fmod(($key+1),6) == 3 )
+                                        {{$color = "warning"}}
+                                        {{$icon = '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+        <path d="M8.7295372,14.6839411 C8.35180695,15.0868534 7.71897114,15.1072675 7.31605887,14.7295372 C6.9131466,14.3518069 6.89273254,13.7189711 7.2704628,13.3160589 L11.0204628,9.31605887 C11.3857725,8.92639521 11.9928179,8.89260288 12.3991193,9.23931335 L15.358855,11.7649545 L19.2151172,6.88035571 C19.5573373,6.44687693 20.1861655,6.37289714 20.6196443,6.71511723 C21.0531231,7.05733733 21.1271029,7.68616551 20.7848828,8.11964429 L16.2848828,13.8196443 C15.9333973,14.2648593 15.2823707,14.3288915 14.8508807,13.9606866 L11.8268294,11.3801628 L8.7295372,14.6839411 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+    </g>'}}
+                                    @elseif(fmod(($key+1),6) == 4 )
+                                        {{$color = "danger"}}
+                                        {{$icon = '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+        <path d="M8.7295372,14.6839411 C8.35180695,15.0868534 7.71897114,15.1072675 7.31605887,14.7295372 C6.9131466,14.3518069 6.89273254,13.7189711 7.2704628,13.3160589 L11.0204628,9.31605887 C11.3857725,8.92639521 11.9928179,8.89260288 12.3991193,9.23931335 L15.358855,11.7649545 L19.2151172,6.88035571 C19.5573373,6.44687693 20.1861655,6.37289714 20.6196443,6.71511723 C21.0531231,7.05733733 21.1271029,7.68616551 20.7848828,8.11964429 L16.2848828,13.8196443 C15.9333973,14.2648593 15.2823707,14.3288915 14.8508807,13.9606866 L11.8268294,11.3801628 L8.7295372,14.6839411 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(14.000019, 10.749981) scale(1, -1) translate(-14.000019, -10.749981) "/>
+    </g>'}}
+                                    @elseif(fmod(($key+1),6) == 5 )
+                                        {{$color = "second"}}
+                                        {{$icon = '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect x="0" y="0" width="24" height="24"/>
+        <rect fill="#000000" opacity="0.3" x="17" y="4" width="3" height="13" rx="1.5"/>
+        <rect fill="#000000" opacity="0.3" x="12" y="9" width="3" height="8" rx="1.5"/>
+        <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+        <rect fill="#000000" opacity="0.3" x="7" y="11" width="3" height="6" rx="1.5"/>
+    </g>'}}
 
-                                <div class="col-lg-12 pl-20">
-                                    @if($answer->score !=0)
-                                    <h4>Description :</h4>
                                     @endif
-                                    <p>
-                                        {!! $segment->result_body ?? '' !!}
-                                    </p>
+                                </p>
+                                <div class="card card-custom wave wave-animate-slow wave-{{$color}} mb-8 mb-lg-0">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex align-items-center p-5">
+                                            <!--begin::Icon-->
+                                            <div class="mr-6">
+                                            <span class="svg-icon svg-icon-{{$color}} svg-icon-4x"><!--begin::Svg Icon | path:assets/media/svg/icons/Home/Mirror.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                {!! $icon !!}
+                                            </svg><!--end::Svg Icon--></span>
+                                            </div>
+                                            <!--end::Icon-->
 
+                                            <!--begin::Content-->
+                                            <div class="d-flex flex-column">
+                                                <a href="{{url("superQuizzes/$subQuiz->id/subquiz_result")}}" class="text-dark text-hover-primary font-weight-bold font-size-h4 mb-3">
+                                                    {{$subQuiz->quiz->title ?? ''}}
+                                                </a>
+                                                <div class="text-dark-75">
+                                                    Section score : {{$subQuiz->score ?? ''}}
+                                                </div>
+                                            </div>
+                                            <!--end::Content-->
+                                        </div>
+                                    </div>
                                 </div>
+                                <!--end::Callout-->
                             </div>
-                            <!--end::Row-->
-                        </div>
-                        <!--end::Body-->
+                            @endforeach
                     </div>
-                    <!--end::Item-->
+                    <!--end::Section-->
+                    <!--begin::Section-->
+                    <div class="col-md-8 mt-8 p-0 pl-8">
+                        <!--begin::Card-->
+                        <div class="card mb-8">
+                            <!--begin::Body-->
+                            <div class="card-body p-10">
+                                <!--begin::Row-->
+                                <div class="row">
+
+                                    <div class="col-lg-12 pl-20">
+                                        @if($answer->score !=0)
+                                            <h4>Details of your result :</h4>
+                                        @endif
+                                        <div id="myChart" class="chart--container">
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Item-->
+                    </div>
+                    <!--end::Sectiocontainer n-->
+
+
                 </div>
-                <!--end::Section-->
-
-                <!--begin::Section-->
-
-                <!--end::Section-->
-                <!--end::Entry-->
             </div>
             <!--end::Content-->
 
@@ -310,7 +410,75 @@ License: You must have a valid license purchased only from themeforest(the above
     };
 </script>
 <!--end::Global Config-->
+<script>
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig = {
+        type: 'radar',
+        plot: {
+            aspect: 'area',
+            animation: {
+                effect: 3,
+                sequence: 1,
+                speed: 700
+            }
+        },
+        scaleV: {
+            visible: false
+        },
+        scaleK: {
+            values: '0:{{$answer->quiz_answer->count()-1}}:1',
+            labels: [
+                @foreach($answer->quiz_answer as $subquiz)
+                    '{{$subquiz->quiz->title}}',
+                @endforeach
+            ],
+            item: {
+                fontColor: '#607D8B',
+                backgroundColor: "white",
+                borderColor: "#aeaeae",
+                borderWidth: 1,
+                padding: '5 10',
+                borderRadius: 10
+            },
+            refLine: {
+                lineColor: '#c10000'
+            },
+            tick: {
+                lineColor: '#59869c',
+                lineWidth: 2,
+                lineStyle: 'dotted',
+                size: 20
+            },
+            guide: {
+                lineColor: "#607D8B",
+                lineStyle: 'solid',
+                alpha: 0.3,
+                backgroundColor: "#c5c5c5 #718eb4"
+            }
+        },
+        series: [{
+            values: [
+                @foreach($answer->quiz_answer as $subquiz)
+                    {{$subquiz->score}},
+                @endforeach
+            ],
+            text: 'farm'
+        },
+            {
+                values: [],
+                lineColor: '#53a534',
+                backgroundColor: '#689F38'
+            }
+        ]
+    };
 
+    zingchart.render({
+        id: 'myChart',
+        data: myConfig,
+        height: '100%',
+        width: '100%'
+    });
+</script>
 <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
