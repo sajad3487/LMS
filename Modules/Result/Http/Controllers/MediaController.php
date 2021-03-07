@@ -5,6 +5,8 @@ namespace Modules\Result\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Result\Http\Requests\MediaDeleteRequest;
+use Modules\Result\Http\Requests\MediaRequest;
 use Modules\Result\Http\Service\MediaService;
 use Modules\Result\Http\Service\ResultService;
 
@@ -28,7 +30,7 @@ class MediaController extends Controller
         $this->resultService = $resultService;
     }
 
-    public function store(Request $request,$segment_id)
+    public function store(MediaRequest $request,$segment_id)
     {
         $data = $request->all();
         $data['media_path'] = $this->mediaService->uploadMedia($request->file);
@@ -40,22 +42,7 @@ class MediaController extends Controller
         return back();
     }
 
-    public function show($id)
-    {
-        return view('result::show');
-    }
-
-    public function edit($id)
-    {
-        return view('result::edit');
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy(Request $request,$segment_id)
+    public function destroy(MediaDeleteRequest $request,$segment_id)
     {
         $segment = $this->resultService->getSegment($segment_id);
         $segment->media()->detach($request->media_id);

@@ -33,10 +33,19 @@ class QuizRepository extends Repository
             ->first();
     }
 
+    public function getQuizWithParentById ($quiz_id){
+        return Quiz::where('id',$quiz_id)
+            ->with('parent')
+            ->with('question')
+            ->with('question.option')
+            ->first();
+    }
+
     public function getAllUserSuperQuiz ($user_id){
         return Quiz::where('user_id',$user_id)
             ->where('type','super')
             ->with('question')
+            ->with('quiz')
             ->get();
     }
 

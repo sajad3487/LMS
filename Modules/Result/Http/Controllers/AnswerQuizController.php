@@ -3,12 +3,15 @@
 namespace Modules\Result\Http\Controllers;
 
 use App\Http\Services\UserService;
+use Facade\Ignition\Support\Packagist\Package;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Quiz\Http\Service\OptionService;
 use Modules\Quiz\Http\Service\QuestionService;
 use Modules\Quiz\Http\Service\QuizService;
+use Modules\Result\Http\Requests\AnswerRequest;
+use Modules\Result\Http\Requests\AnswerSuperRequest;
 use Modules\Result\Http\Service\AnswerQuestionService;
 use Modules\Result\Http\Service\AnswerQuizService;
 use Modules\Result\Http\Service\ResultService;
@@ -76,8 +79,12 @@ class AnswerQuizController extends Controller
         return view('result::create');
     }
 
-    public function store(Request $request)
+    public function store(AnswerRequest $request)
     {
+        $result = $this->answerQuizService->checkUniqueEmail ($request->email,$request->form_id);
+        if ($result != null){
+            return back();
+        }
         $data['first_name'] = $request->first_name;
         $data['last_name'] = $request->last_name;
         $data['email'] = $request->email;
@@ -176,7 +183,7 @@ class AnswerQuizController extends Controller
         }
         foreach ($results as $key => $result) {
             $segments[$key] = $result->toArray();
-            $participants = $this->answerQuizService->getUsersOfSegment($result->min_score, $result->max_score);
+            $participants = $this->answerQuizService->getUsersOfSegment($result->min_score, $result->max_score,$result->form_id);
             $segments[$key]['users'] = $participants->toArray();
             $sum_score = 0;
             foreach ($participants as $participant) {
@@ -190,21 +197,30 @@ class AnswerQuizController extends Controller
             }
 
         }
-        $active = 3;
+        $quiz = $this->quizService->getQuiz($quiz_id);
+        if ($quiz->type == 'quiz'){
+            $active = 3;
+        }else{
+            $active = 5;
+        }
+
         $user = $this->userService->getUserById(auth()->id());
-        return view('customer.segment_result', compact('segments', 'active', 'user'));
+        return view('customer.segment_result', compact('segments', 'active', 'user','quiz'));
     }
 
     public function user_answer_index($quiz_id)
     {
         $participants = $this->answerQuizService->getUsersOfQuiz($quiz_id);
-        $active = 3;
+        $active = 6;
         $user = $this->userService->getUserById(auth()->id());
-//        dd($participants[47]);
         return view('customer.user_result', compact('participants', 'active', 'user'));
     }
 
-    public function super_store (Request $request){
+    public function super_store (AnswerSuperRequest $request){
+        $result = $this->answerQuizService->checkUniqueEmail ($request->email,$request->form_id);
+        if ($result != null){
+            return back();
+        }
         $data['first_name'] = $request->first_name;
         $data['last_name'] = $request->last_name;
         $data['email'] = $request->email;
@@ -285,6 +301,55 @@ class AnswerQuizController extends Controller
         $quiz = $this->quizService->getQuiz($answer->form_id);
         $super_quiz = $this->quizService->getSuperQuiz($quiz->parent_id);
         return view('subquiz_result', compact('segment', 'score', 'quiz','super_quiz','answer_id'));
+    }
+
+    public function super_index (){
+        $super_quizzes = $this->quizService->getUserSuperQuizzes(auth()->id());
+        $active = 5;
+        $user = $this->userService->getUserById(auth()->id());
+        return view('customer.super_quizzes_result', compact('super_quizzes', 'active', 'user'));
+    }
+
+    public function super_answer_index ($quiz_id){
+        $row_questions = $this->questionService->getQuestionsOfQuiz($quiz_id);
+        if ($row_questions->count() == 0) {
+            return back();
+        }
+        foreach ($row_questions as $key => $question) {
+
+            $questions[$key] = $question->toArray();
+            $questions[$key]['taken'] = $question->answer->count();
+            $sum_score = 0;
+            foreach ($question->answer as $answer) {
+                $sum_score += $answer->score;
+            }
+            if ($questions[$key]['taken'] != 0) {
+                $questions[$key]['average_score'] = $sum_score / $questions[$key]['taken'];
+            } else {
+                $questions[$key]['average_score'] = 0;
+            }
+            foreach ($question->option as $option_key => $option) {
+                $choosed = $this->answerQuestionService->countOptionAnswer($option->id);
+                $questions[$key]['option'][$option_key]['choosed'] = $choosed;
+                if ($questions[$key]['taken'] != 0) {
+                    $questions[$key]['option'][$option_key]['average_percentage'] = round(($choosed / $questions[$key]['taken']) * 100, 2);
+                } else {
+                    $questions[$key]['option'][$option_key]['average_percentage'] = 0;
+                }
+            }
+        }
+        $active = 5;
+        $user = $this->userService->getUserById(auth()->id());
+        $quiz = $this->quizService->getQuizWithParent($quiz_id);
+        return view('customer.super_questions_result', compact('questions', 'active', 'user', 'quiz'));
+    }
+
+    public function super_user_answer_index ($quiz_id){
+        $participants = $this->answerQuizService->getUsersOfSuperQuiz($quiz_id)->toArray();
+        $active = 5;
+        $user = $this->userService->getUserById(auth()->id());
+//        dd($participants);
+        return view('customer.super_user_result', compact('participants', 'active', 'user'));
     }
 
 }

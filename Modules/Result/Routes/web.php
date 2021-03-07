@@ -33,6 +33,15 @@ Route::group(['middleware'=>'auth'],function(){
 
         });
 
+        Route::group(['prefix'=>'super_result'],function (){
+
+            Route::get('/','AnswerQuizController@super_index');
+            Route::get('{quiz_id}/answers','AnswerQuizController@super_answer_index');
+            Route::get('{quiz_id}/segment_answers','AnswerQuizController@segment_answer_index');
+            Route::get('{quiz_id}/users_answers','AnswerQuizController@super_user_answer_index');
+
+        });
+
         Route::group(['prefix'=>'media'],function (){
 
             Route::post('/{segment_id}/store','MediaController@store');

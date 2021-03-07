@@ -17,6 +17,11 @@
                 <div class="card card-custom">
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
+                            @if($quiz->type != 'quiz')
+                                <a href="{{url("super_result/")}}" class="btn btn-icon btn-outline-warning mr-5">
+                                    <i class="flaticon2-fast-back "></i>
+                                </a>
+                            @endif
                             <h3 class="card-label">
                             Quiz Segments
 {{--                                <span class="d-block text-muted pt-2 font-size-sm">This page shows Customers info</span>--}}

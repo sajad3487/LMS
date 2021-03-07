@@ -47,4 +47,8 @@ class quiz extends Model
         return $this->hasMany(result::class,'form_id','id');
     }
 
+    public function parent (){
+        return $this->belongsTo(quiz::class,'parent_id','id');
+    }
+
 }

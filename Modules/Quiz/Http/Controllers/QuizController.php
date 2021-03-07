@@ -6,6 +6,7 @@ use App\Http\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Quiz\Http\Requests\QuizRequest;
 use Modules\Quiz\Http\Service\QuestionService;
 use Modules\Quiz\Http\Service\QuizService;
 
@@ -52,7 +53,7 @@ class QuizController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(QuizRequest $request)
     {
         $data = $request->all();
         if (isset($request->file)){
@@ -94,7 +95,7 @@ class QuizController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(QuizRequest $request, $id)
     {
         $data = $request->all();
         if (isset($request->file)){
@@ -184,7 +185,7 @@ class QuizController extends Controller
         return view('customer.new_super_quiz', compact('active', 'user'));
     }
 
-    public function super_store (Request $request){
+    public function super_store (QuizRequest $request){
         $data = $request->all();
         if (isset($request->file)){
             $data['banner'] =$this->quizService->uploadMedia($request->file);
@@ -195,6 +196,7 @@ class QuizController extends Controller
             unset($data['rbanner']);
         }
         $data['user_id'] = auth()->id();
+
         $quiz = $this->quizService->createQuiz($data);
         return redirect("superQuizzes/$quiz->id/edit");
     }

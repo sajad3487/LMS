@@ -88,6 +88,7 @@
                                                                     <input type="text" name="title" class="form-control"
                                                                            placeholder="Enter quiz title"
                                                                            value="{{$super_quiz->title  ?? ''}}"/>
+                                                                    <input type="text" name="type" value="super" class="d-none">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">

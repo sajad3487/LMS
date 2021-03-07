@@ -6,6 +6,7 @@ use App\Http\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Quiz\Http\Requests\QuestionRequest;
 use Modules\Quiz\Http\Service\QuestionService;
 use Modules\Quiz\Http\Service\QuizService;
 
@@ -46,7 +47,7 @@ class QuestionController extends Controller
         return view('customer.new_question', compact('active', 'user', 'quiz'));
     }
 
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
         $data = $request->all();
         $data['position'] = $this->questionService->getLastPosition($data['form_id']);
@@ -72,7 +73,7 @@ class QuestionController extends Controller
         return view('customer.new_question', compact('active', 'user', 'quiz', 'question'));
     }
 
-    public function update(Request $request, $id)
+    public function update(QuestionRequest $request, $id)
     {
         $data = $request->all();
         $quiz_id = $data['form_id'];

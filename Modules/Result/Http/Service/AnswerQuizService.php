@@ -4,6 +4,7 @@
 namespace Modules\Result\Http\Service;
 
 
+use Facade\Ignition\Support\Packagist\Package;
 use Modules\Result\Repository\AnswerQuizRepository;
 
 class AnswerQuizService
@@ -49,8 +50,8 @@ class AnswerQuizService
         return $this->answerQuizRepo->update($data,$id);
     }
 
-    public function getUsersOfSegment ($min,$max){
-        return $this->answerQuizRepo->getAllAnswerOfSegment($min,$max);
+    public function getUsersOfSegment ($min,$max,$form_id){
+        return $this->answerQuizRepo->getAllAnswerOfSegment($min,$max,$form_id);
     }
 
     public function getUsersOfQuiz ($quiz_id){
@@ -63,6 +64,14 @@ class AnswerQuizService
 
     public function getAnswerById ($answer_id){
         return $this->answerQuizRepo->getAnswerWithQuestion($answer_id);
+    }
+
+    public function getUsersOfSuperQuiz ($quiz_id){
+        return $this->answerQuizRepo->getAllUsersOfSuperQuiz($quiz_id);
+    }
+
+    public function checkUniqueEmail ($email,$form_id){
+        return $this->answerQuizRepo->getEmailAnswer($email,$form_id);
     }
 
 }

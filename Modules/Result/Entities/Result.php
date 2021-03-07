@@ -18,6 +18,6 @@ class result extends Model
     ];
 
     public function media (){
-        return $this->belongsToMany(media::class);
+        return $this->belongsToMany(Media::class);
     }
 }

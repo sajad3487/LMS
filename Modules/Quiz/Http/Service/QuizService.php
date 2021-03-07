@@ -52,4 +52,8 @@ class QuizService
         return $this->quizRepo->getSuperQuizById ($quiz_id);
     }
 
+    public function getQuizWithParent ($quiz_id){
+        return $this->quizRepo->getQuizWithParentById ($quiz_id);
+    }
+
 }
