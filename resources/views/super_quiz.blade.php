@@ -126,7 +126,15 @@
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
                                     aria-haspopup="true"><a href="https://nourgroup.com/resources/" class="menu-link menu-toggle"><span
-                                            class="menu-text">Speaking</span></a>
+                                            class="menu-text">Resources</span></a>
+                                </li>
+                                <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
+                                    aria-haspopup="true"><a href="https://nour-group.myshopify.com/" class="menu-link menu-toggle"><span
+                                            class="menu-text">Store</span></a>
+                                </li>
+                                <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
+                                    aria-haspopup="true"><a href="https://forum.nourgroup.com/feed" class="menu-link menu-toggle"><span
+                                            class="menu-text">ّForum</span></a>
                                 </li>
                             </ul>
                             <!--end::Header Nav-->
@@ -166,7 +174,11 @@
 
                                     </div>
                                 </div>
-                                <ul class="steps">
+                                <ul class="steps pt-4">
+                                    <div class="text-left m-3">
+                                        @include('fragment.error')
+                                    </div>
+
                                     <li class="is-active">Information</li>
                                     @foreach($super_quiz->quiz as $key=>$quiz)
                                     <li>{{$key+1}}. {{$quiz->title ?? ''}}</li>
@@ -221,9 +233,10 @@
                                     </fieldset>
                                     @foreach($super_quiz->quiz as $quizKey=>$quiz)
                                     <fieldset class="section">
-                                        <h3>{{$quiz->body ?? ''}}</h3>
                                         <div class=" cf">
-                                            @foreach($quiz->question as $key=>$question)
+                                            <button type="button" class="btn btn-outline-warning back align-bottom ml-6 p-3"> <i class="flaticon2-fast-back"></i></button>
+
+                                        @foreach($quiz->question as $key=>$question)
                                                 @if($question->type == 'question')
                                                     <div class="form-group px-10 m-0">
                                                         <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}
@@ -279,7 +292,9 @@
                                         </div>
                                         @if($quizKey == $super_quiz->quiz->count()-1)
                                             <div class="text-center">
+{{--                                                <button type="button" class="btn btn-outline-warning back mt-2 mr-5"> Back</button>--}}
                                                 <button type="submit" class="btn btn-success w-100px mt-2">Submit</button>
+
                                             </div>
                                         @else
                                             <div class="button">Next</div>
@@ -378,6 +393,24 @@
             var headerSection = $('.steps li').eq(currentSectionIndex);
             currentSection.removeClass("is-active").next().addClass("is-active");
             headerSection.removeClass("is-active").next().addClass("is-active");
+
+            // $(".form-wrapper").submit(function(e) {
+            //     e.preventDefault();
+            // });
+
+            if(currentSectionIndex === 8){
+                $(document).find(".form-wrapper .section").first().addClass("is-active");
+                $(document).find(".steps li").first().addClass("is-active");
+            }
+        });
+
+        $(".back").click(function(){
+            var button = $(this);
+            var currentSection = button.parents(".section");
+            var currentSectionIndex = currentSection.index();
+            var headerSection = $('.steps li').eq(currentSectionIndex);
+            currentSection.removeClass("is-active").prev().addClass("is-active");
+            headerSection.removeClass("is-active").prev().addClass("is-active");
 
             // $(".form-wrapper").submit(function(e) {
             //     e.preventDefault();

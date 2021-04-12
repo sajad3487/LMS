@@ -22,6 +22,8 @@ class quiz extends Model
         'first_info_status',
         'second_info_label',
         'second_info_status',
+        'third_info_label',
+        'third_info_status',
         'date_info_label',
         'date_info_status',
         'placeholder',
@@ -31,6 +33,7 @@ class quiz extends Model
         'average_percentage',
         'button_text',
         'type',
+        'intro_video',
         'banner',
         'result_banner',
     ];

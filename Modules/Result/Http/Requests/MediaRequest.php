@@ -16,7 +16,7 @@ class MediaRequest extends FormRequest
         return [
             'title'=>'required|string|between:2,250',
             'description'=>'nullable|string|between:2,1000',
-            'file' => 'mimes:mp4,mov,ogg,avi|max:50000',
+            'media_path' => 'required|string|between:2,250',
         ];
     }
 

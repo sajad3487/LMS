@@ -29,6 +29,8 @@ class CreateQuizzesTable extends Migration
             $table->boolean('first_info_status')->default(0);
             $table->string('second_info_label')->nullable();
             $table->boolean('second_info_status')->default(0);
+            $table->string('third_info_label')->nullable();
+            $table->boolean('third_info_status')->default(0);
             $table->string('date_info_label')->nullable();
             $table->boolean('date_info_status')->default(0);
             $table->boolean('placeholder')->default(1);
@@ -38,6 +40,7 @@ class CreateQuizzesTable extends Migration
             $table->integer('average_percentage')->default(0);
             $table->string('button_text')->nullable();
             $table->string('type')->default('quiz');
+            $table->string('intro_video')->nullable();
             $table->string('banner')->nullable();
             $table->string('result_banner')->nullable();
 

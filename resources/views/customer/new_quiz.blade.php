@@ -69,6 +69,7 @@
                                                             @method('PUT')
                                                             <img class="img-fluid mb-5" src="{{asset($quiz->banner)}}"
                                                                  alt="">
+
                                                         @endif
                                                         <div class="">
                                                             @include('fragment.error')
@@ -101,9 +102,30 @@
                                                                                class="custom-file-input"
                                                                                id="customFile"/>
                                                                         <label class="custom-file-label"
-                                                                               for="customFile">Choose file</label>
+                                                                               for="customFile">Choose Banner</label>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-lg-2 col-form-label text-right">Intro Video:</label>
+                                                                <div class="@if(isset($quiz) && $quiz->intro_video != null) col-lg-4 @else col-lg-8 @endif">
+                                                                    <input type="text" name="intro_video"
+                                                                           class="form-control"
+                                                                           placeholder="Enter your video URL"
+                                                                           value="{{$quiz->intro_video  ?? ''}}"/>
+                                                                </div>
+                                                                @if(isset($quiz) && $quiz->intro_video != null)
+                                                                <div class="overlay mx-auto mt-3 mb-8">
+                                                                    <div class="overlay-wrapper rounded bg-light text-center">
+                                                                        <video width="300" controls>
+                                                                            <source src="{{asset($quiz->intro_video)}}" type="video/mp4">
+                                                                            Your browser does not support HTML video.
+                                                                        </video>
+                                                                    </div>
+                                                                </div>
+                                                                    @endif
+                                                            </div>
+                                                            <div class="row">
 
                                                             </div>
                                                             <div class="form-group row">
@@ -237,6 +259,32 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
+                                                                <label class="col-lg-2 col-form-label text-right">Third
+                                                                    Info Label:</label>
+                                                                <div class="col-lg-3">
+                                                                    <input type="text" name="third_info_label"
+                                                                           class="form-control"
+                                                                           placeholder="Enter third info label"
+                                                                           value="{{$quiz->third_info_label  ?? ''}}"/>
+                                                                </div>
+                                                                <div class="radio-inline ml-md-10 pl-5 mt-3 mt-md-0">
+                                                                    <label class="radio radio-rounded radio-success">
+                                                                        <input type="radio" name="third_info_status"
+                                                                               value="1"
+                                                                               @if(isset($quiz) && $quiz->third_info_status == 1)  checked="checked" @endif />
+                                                                        <span></span>
+                                                                        Active
+                                                                    </label>
+                                                                    <label class="radio radio-rounded radio-success">
+                                                                        <input type="radio" name="third_info_status"
+                                                                               value="0"
+                                                                               @if(isset($quiz) && $quiz->third_info_status == 1) @else checked="checked" @endif/>
+                                                                        <span></span>
+                                                                        Deactive
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
                                                                 <label class="col-lg-2 col-form-label text-right">Date
                                                                     Info Label:</label>
                                                                 <div class="col-lg-3">
@@ -287,9 +335,9 @@
                                                                 <div class="custom-file">
                                                                     <input type="file" name="rbanner"
                                                                            class="custom-file-input"
-                                                                           id="customFile"/>
+                                                                           id="result_banner"/>
                                                                     <label class="custom-file-label"
-                                                                           for="customFile">Choose file</label>
+                                                                           for="result_banner">Choose file</label>
                                                                 </div>
                                                             </div>
 

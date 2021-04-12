@@ -19,7 +19,7 @@
                         <div class="card-title">
                             <h3 class="card-label">
                             Result Segments
-                                <span class="d-block text-muted pt-2 font-size-sm">Super Quiz title : {{$super_quiz->title ?? ''}}</span>
+                                <span class="d-block text-muted pt-2 font-size-sm">Assessment title : {{$super_quiz->title ?? ''}}</span>
                             </h3>
                         </div>
                         <div class="card-toolbar">
@@ -36,7 +36,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">
                                             <span class="nav-icon"><i class="flaticon-exclamation-square "></i></span>
-                                            <span class="nav-text">Super Quiz Segments</span>
+                                            <span class="nav-text">Assessment Segments</span>
                                         </a>
                                     </li>
                                     @foreach($super_quiz->quiz as $quiz)

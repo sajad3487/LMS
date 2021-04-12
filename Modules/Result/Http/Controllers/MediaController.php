@@ -33,8 +33,8 @@ class MediaController extends Controller
     public function store(MediaRequest $request,$segment_id)
     {
         $data = $request->all();
-        $data['media_path'] = $this->mediaService->uploadMedia($request->file);
-        unset($data['file']);
+//        $data['media_path'] = $this->mediaService->uploadMedia($request->file);
+//        unset($data['file']);
         $data['type'] = 'video';
         $media = $this->mediaService->createMedia($data);
         $segment = $this->resultService->getSegment($segment_id);

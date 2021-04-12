@@ -27,10 +27,13 @@ class QuizRequest extends FormRequest
             'first_info_status'=>'nullable|boolean',
             'second_info_label'=>'nullable|string|between:2,250',
             'second_info_status'=>'nullable|boolean',
+            'third_info_label'=>'nullable|string|between:2,250',
+            'third_info_status'=>'nullable|boolean',
             'date_info_label'=>'nullable|string|between:2,250',
             'date_info_status'=>'nullable|boolean',
             'placeholder'=>'nullable|boolean',
             'file' => 'nullable|max:20000|mimes:png,jpeg,jpg',
+            'intro_video' => 'nullable|string|between:2,250',
             'rbanner' => 'nullable|max:20000|mimes:png,jpeg,jpg',
         ];
     }

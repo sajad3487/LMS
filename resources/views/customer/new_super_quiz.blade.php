@@ -18,12 +18,12 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     @if(isset($super_quiz))
-                                        <h3 class="card-label">Quiz No: {{$super_quiz->id ?? ''}}
+                                        <h3 class="card-label">Assessment No: {{$super_quiz->id ?? ''}}
                                             <span
-                                                class="d-block text-muted pt-2 font-size-sm">Quiz title : {{$super_quiz->title ?? ''}}</span>
+                                                class="d-block text-muted pt-2 font-size-sm">Assessment title : {{$super_quiz->title ?? ''}}</span>
                                         </h3>
                                     @else
-                                        <h3 class="card-label">New Quiz </h3>
+                                        <h3 class="card-label">New Assessment </h3>
                                     @endif
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">
                                                     <span class="nav-icon"><i class="flaticon-exclamation-square "></i></span>
-                                                    <span class="nav-text">Super Quiz Information</span>
+                                                    <span class="nav-text">Assessments Information</span>
                                                 </a>
                                             </li>
                                             @if(isset($super_quiz))
@@ -82,11 +82,11 @@
                                                         <div class="">
                                                             @include('fragment.error')
                                                             <div class="form-group row">
-                                                                <label class="col-lg-2 col-form-label text-right">Quiz
+                                                                <label class="col-lg-2 col-form-label text-right">Assessments
                                                                     title :</label>
                                                                 <div class="col-lg-8">
                                                                     <input type="text" name="title" class="form-control"
-                                                                           placeholder="Enter quiz title"
+                                                                           placeholder="Enter Assessments title"
                                                                            value="{{$super_quiz->title  ?? ''}}"/>
                                                                     <input type="text" name="type" value="super" class="d-none">
                                                                 </div>

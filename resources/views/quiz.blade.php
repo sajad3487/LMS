@@ -126,7 +126,15 @@
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
                                     aria-haspopup="true"><a href="https://nourgroup.com/resources/" class="menu-link menu-toggle"><span
-                                            class="menu-text">Speaking</span></a>
+                                            class="menu-text">Resources</span></a>
+                                </li>
+                                <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
+                                    aria-haspopup="true"><a href="https://nour-group.myshopify.com/" class="menu-link menu-toggle"><span
+                                            class="menu-text">Store</span></a>
+                                </li>
+                                <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
+                                    aria-haspopup="true"><a href="https://forum.nourgroup.com/feed" class="menu-link menu-toggle"><span
+                                            class="menu-text">ّForum</span></a>
                                 </li>
                             </ul>
                             <!--end::Header Nav-->
@@ -153,130 +161,6 @@
                         <img class="img-fluid" src="{{asset($quiz->banner)}}" alt="">
                         <!--end::hero-->
 
-                            <!--begin::Card-->
-{{--                            <div class="card card-custom  gutter-b example example-compact mt-5">--}}
-{{--                                <div class="card-header">--}}
-{{--                                    <div class="mt-5 pt-3">--}}
-{{--                                        <h1 class="font-weight-bolder text-dark mb-6">--}}
-{{--                                            {{$quiz->title ?? ''}}--}}
-{{--                                        </h1>--}}
-{{--                                        {!! $quiz->description ?? ''!!}--}}
-
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <!--begin::Form-->--}}
-{{--                                    <form class="form" action="{{url("quiz/submit")}}" method="post">--}}
-{{--                                        @csrf--}}
-
-{{--                                        <input type="number" name="form_id" value="{{$quiz->id}}" class="d-none">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="form-group col-md-6 col-lg-4">--}}
-{{--                                            <label>{{$quiz->first_name_label ?? ''}}</label>--}}
-{{--                                            <input type="text" name="first_name" class="form-control form-control-solid" @if($quiz->first_name_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->first_name_label ?? ''}}" @endif/>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group col-md-6 col-lg-4">--}}
-{{--                                            <label>{{$quiz->last_name_label ?? ''}}</label>--}}
-{{--                                            <input type="text" name="last_name" class="form-control form-control-solid" @if($quiz->last_name_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->last_name_label ?? ''}}" @endif/>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group col-md-6 col-lg-4">--}}
-{{--                                            <label>{{$quiz->email_label ?? ''}}</label>--}}
-{{--                                            <input type="email" name="email" class="form-control form-control-solid" @if($quiz->email_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->email_label ?? ''}}" @endif/>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                        <div class="row">--}}
-{{--                                            @if($quiz->first_info_status == 1)--}}
-{{--                                            <div class="form-group col-md-6 col-lg-4">--}}
-{{--                                                <label>{{$quiz->first_info_label ?? ''}}</label>--}}
-{{--                                                <input type="text" name="first_info" class="form-control form-control-solid" required placeholder="{{$quiz->first_info_label ?? ''}}" />--}}
-{{--                                            </div>--}}
-{{--                                            @endif--}}
-{{--                                            @if($quiz->second_info_status == 1)--}}
-{{--                                            <div class="form-group col-md-6 col-lg-4">--}}
-{{--                                                <label>{{$quiz->second_info_label ?? ''}}</label>--}}
-{{--                                                <input type="text" name="second_info" class="form-control form-control-solid" required placeholder="{{$quiz->second_info_label ?? ''}}" />--}}
-{{--                                            </div>--}}
-{{--                                                @endif--}}
-{{--                                            @if($quiz->date_info_status == 1)--}}
-{{--                                            <div class="form-group col-md-6 col-lg-4">--}}
-{{--                                                <label>{{$quiz->date_info_label ?? ''}}</label>--}}
-{{--                                                <input type="date" name="date_info" class="form-control form-control-solid" required placeholder="{{$quiz->date_info_label ?? ''}}" />--}}
-{{--                                            </div>--}}
-{{--                                                @endif--}}
-{{--                                        </div>--}}
-
-{{--                                        <hr>--}}
-{{--                                    --}}
-
-{{--                                    @foreach($quiz->question as $key=>$question)--}}
-{{--                                        @if($question->type == 'question')--}}
-{{--                                            <div class="form-group px-10 m-0">--}}
-{{--                                                <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}--}}
-{{--                                                </label>--}}
-{{--                                                <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>--}}
-
-{{--                                                <div class="row col-form-label">--}}
-{{--                                                    <div class="radio-inline">--}}
-{{--                                                        @foreach($question->option as $option)--}}
-{{--                                                            <label class="radio radio-outline radio-outline-2x radio-primary">--}}
-{{--                                                                <input type="radio" value="{{$option->id}}" name="question[{{$question->id}}]" @if($question->requirement) required @endif/>--}}
-{{--                                                                <span></span>--}}
-{{--                                                                {{$option->body ?? ''}}--}}
-{{--                                                            </label>--}}
-{{--                                                            @endforeach--}}
-{{--                                                    </div>--}}
-{{--                                                    <span class="form-text text-muted row">--}}
-{{--				                                        <input type="text" name="additional_info[{{$question->id}}]" class="form-control form-control-sm mt-2 @if(!$question->additional_info) d-none @endif"  placeholder="Additional information"/>--}}
-{{--                                                    </span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            @elseif($question->type == 'multi_answer')--}}
-{{--                                                <div class="form-group px-10 m-0">--}}
-{{--                                                    <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}--}}
-{{--                                                    </label>--}}
-{{--                                                    <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>--}}
-
-{{--                                                    <div class="row col-form-label">--}}
-{{--                                                        <div class="checkbox-inline">--}}
-{{--                                                            @foreach($question->option as $optionKey=>$option)--}}
-
-{{--                                                                    <label class="checkbox checkbox-success" >--}}
-{{--                                                                        <input type="checkbox" name="question[{{$question->id}}][{{$optionKey}}]" value="{{$option->id}}"  />--}}
-{{--                                                                        <span></span>--}}
-{{--                                                                        {{$option->body ?? ''}}--}}
-{{--                                                                    </label>--}}
-
-{{--                                                            @endforeach--}}
-{{--                                                        </div>--}}
-{{--                                                        <span class="form-text text-muted row">--}}
-{{--				                                        <input type="text" name="additional_info[{{$question->id}}]" class="form-control form-control-sm mt-2 @if(!$question->additional_info) d-none @endif"  placeholder="Additional information"/>--}}
-{{--                                                    </span>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            @elseif($question->type == 'title')--}}
-{{--                                                <div class="form-group px-10 m-0">--}}
-{{--                                                    <label class="row col-form-label text-primary h4 mt-5"> {{$question->body ?? ''}}--}}
-{{--                                                    </label>--}}
-{{--                                                    <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>--}}
-
-{{--                                                </div>--}}
-
-{{--                                            @endif--}}
-{{--                                        <hr class="m-0">--}}
-
-{{--                                        @endforeach--}}
-
-{{--                                        <div class="text-center">--}}
-{{--                                            <button type="submit" class="btn btn-success w-100px">Submit</button>--}}
-{{--                                        </div>--}}
-
-{{--                                    </form>--}}
-{{--                                    <!--end::Form-->--}}
-
-{{--                                </div>--}}
-{{--                            </div>--}}
-                            <!--end::Card-->
                         <?php $i=1 ?>
                         <div class="container p-0" style="min-height: 500px">
                             <div class="wrapper pt-0 mt-0">
@@ -285,8 +169,20 @@
                                         <h1 class="font-weight-bolder text-dark mb-6">
                                             {{$quiz->title ?? ''}}
                                         </h1>
-                                        {!! $quiz->description ?? ''!!}
 
+                                        {!! $quiz->description ?? ''!!}
+                                        @if($quiz->intro_video != null)
+                                            <div class="row">
+                                                <div class="overlay  mt-3 mb-8" style="width: 100%">
+                                                    <div class="overlay-wrapper rounded bg-light text-center">
+                                                        <video controls style="width: 100%">
+                                                            <source src="{{asset($quiz->intro_video)}}" type="video/mp4">
+                                                            Your browser does not support HTML video.
+                                                        </video>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <ul class="steps">
@@ -335,20 +231,31 @@
                                                     <input type="text" name="second_info" class="form-control form-control-solid" required placeholder="{{$quiz->second_info_label ?? ''}}" />
                                                 </div>
                                             @endif
+                                            @if($quiz->third_info_status == 1)
+                                                <div class="form-group col-md-6 col-lg-4">
+                                                    <label>{{$quiz->third_info_label ?? ''}}</label>
+                                                    <input type="text" name="third_info" class="form-control form-control-solid" required placeholder="{{$quiz->third_info_label ?? ''}}" />
+                                                </div>
+                                            @endif
                                             @if($quiz->date_info_status == 1)
                                                 <div class="form-group col-md-6 col-lg-4">
                                                     <label>{{$quiz->date_info_label ?? ''}}</label>
                                                     <input type="date" name="date_info" class="form-control form-control-solid" required placeholder="{{$quiz->date_info_label ?? ''}}" />
                                                 </div>
                                             @endif
+
                                         </div>
                                         <div class="button">Next</div>
                                     </fieldset>
                                     @foreach($sections as $sectionKey=>$section_body)
                                     <fieldset class="section">
-                                        <h3>{{$section_body->body ?? ''}}</h3>
+                                        <h3 class="mb-2">{{$section_body->body ?? ''}}</h3>
+                                        <p class="row m-0 ">{{$section_body->description ?? ''}}</p>
+                                        <hr>
                                         <div class=" cf">
-                                            @foreach($section_body->question as $key=>$question)
+                                            <button type="button" class="btn btn-outline-warning back align-bottom ml-6 p-3"> <i class="flaticon2-fast-back"></i></button>
+
+                                        @foreach($section_body->question as $key=>$question)
                                                 @if($question->type == 'question')
                                                     <div class="form-group px-10 m-0">
                                                         <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}
@@ -626,6 +533,7 @@
                 $(document).find(".steps li").first().addClass("is-active");
             }
         });
+        
     });
 
 </script>

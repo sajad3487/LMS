@@ -18,7 +18,7 @@
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
                             <h3 class="card-label">
-                            Quizzes Results
+                                Assessment Results
 {{--                                <span class="d-block text-muted pt-2 font-size-sm">This page shows Customers info</span>--}}
                             </h3>
                         </div>
@@ -48,7 +48,7 @@
                             <table class="table table-separate table-head-custom table-checkable text-center" id="kt_datatable">
                                 <thead>
                                 <tr>
-                                    <th>Quiz ID</th>
+                                    <th>ID</th>
                                     <th>Title</th>
                                     <th>Date Created</th>
 {{--                                    <th>Status</th>--}}
@@ -89,7 +89,7 @@
                                             <div class="modal-dialog modal-dialog-scrollable" style="max-width: 90%" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Super Quiz Title : {{$super_quiz->title ?? ''}}</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Assessment Title : {{$super_quiz->title ?? ''}}</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <i aria-hidden="true" class="ki ki-close"></i>
                                                         </button>

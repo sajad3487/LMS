@@ -219,7 +219,7 @@ class AnswerQuizController extends Controller
     public function super_store (AnswerSuperRequest $request){
         $result = $this->answerQuizService->checkUniqueEmail ($request->email,$request->form_id);
         if ($result != null){
-            return back();
+            return back()->withErrors(['Error', 'The email is not valid']);
         }
         $data['first_name'] = $request->first_name;
         $data['last_name'] = $request->last_name;

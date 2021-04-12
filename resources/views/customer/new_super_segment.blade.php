@@ -122,13 +122,9 @@
                                                                                 <label for="exampleTextarea">Description:</label>
                                                                                 <textarea class="form-control" name="description" id="exampleTextarea" rows="3"></textarea>
                                                                             </div>
-                                                                            <div class="form-group my-3">
-                                                                                <label>File Browser</label>
-                                                                                <div></div>
-                                                                                <div class="custom-file">
-                                                                                    <input type="file" name="file" class="custom-file-input" id="customFile"/>
-                                                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                                </div>
+                                                                            <div class="form-group mt-5">
+                                                                                <label>Media URL:</label>
+                                                                                <input type="text" name="media_path" class="form-control"  placeholder="Enter media URL"/>
                                                                             </div>
                                                                         </div>
                                                                         <div class="card-footer">

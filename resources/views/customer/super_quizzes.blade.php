@@ -18,7 +18,7 @@
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
                             <h3 class="card-label">
-                                    Super Quizzes
+                                Assessments
 
                                 {{--                                <span class="d-block text-muted pt-2 font-size-sm">This page shows Customers info</span>--}}
                             </h3>
@@ -39,7 +39,7 @@
                                             fill="#000000" opacity="0.3"/>
                                     </g>
                                 </svg><!--end::Svg Icon--></span>
-                                    New Super Quiz
+                                    New Assessments
                                 </a>
 
                         <!--end::Button-->
@@ -52,8 +52,8 @@
                             <table class="table table-separate table-head-custom table-checkable text-center" id="kt_datatable">
                                 <thead>
                                 <tr>
-                                    <th>Quiz ID</th>
-                                    <th>Quiz Title</th>
+                                    <th>Assessment ID</th>
+                                    <th>Assessment Title</th>
                                     <th>Date Created</th>
                                     <th>Status</th>
                                     <th>Taken</th>
@@ -94,7 +94,7 @@
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Edit Choice</h5>
+                                                    <h5 class="modal-title">Assessment Links</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <i aria-hidden="true" class="ki ki-close"></i>
                                                     </button>
