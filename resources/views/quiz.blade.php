@@ -296,6 +296,14 @@
                                                             <input type="text" name="additional_info[{{$question->id}}]" style="width: 100%" class="form-control form-control-sm mt-2  @if(!$question->additional_info) d-none @endif"  placeholder="Additional information"/>
                                                         </div>
                                                     </div>
+
+                                                @elseif($question->type == 'text')
+                                                    <div class="form-group px-10 m-0 mb-2">
+                                                        <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}
+                                                        </label>
+                                                        <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
+                                                        <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer"/>
+                                                    </div>
                                                 @elseif($question->type == 'title')
                                                     <div class="form-group px-10 m-0">
                                                         <label class="row col-form-label text-primary h4 mt-5"> {{$question->body ?? ''}}
@@ -533,7 +541,25 @@
                 $(document).find(".steps li").first().addClass("is-active");
             }
         });
-        
+
+        $(".back").click(function(){
+            var button = $(this);
+            var currentSection = button.parents(".section");
+            var currentSectionIndex = currentSection.index();
+            var headerSection = $('.steps li').eq(currentSectionIndex);
+            currentSection.removeClass("is-active").prev().addClass("is-active");
+            headerSection.removeClass("is-active").prev().addClass("is-active");
+
+            // $(".form-wrapper").submit(function(e) {
+            //     e.preventDefault();
+            // });
+
+            if(currentSectionIndex === 8){
+                $(document).find(".form-wrapper .section").first().addClass("is-active");
+                $(document).find(".steps li").first().addClass("is-active");
+            }
+        });
+
     });
 
 </script>

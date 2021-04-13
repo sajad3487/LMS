@@ -18,7 +18,7 @@ class CreateAnswerQuestionsTable extends Migration
             $table->integer('form_id');
             $table->integer('answer_id');
             $table->integer('question_id');
-            $table->integer('option_id');
+            $table->integer('option_id')->nullable();
             $table->string('type');
             $table->string('answer');
             $table->string('additional_info')->nullable();

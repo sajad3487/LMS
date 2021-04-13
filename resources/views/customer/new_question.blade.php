@@ -65,6 +65,11 @@
                                                         <span></span>
                                                         Multiple Choices
                                                     </label>
+                                                    <label class="radio radio-rounded radio-success">
+                                                        <input type="radio" name="type" value="text" @if(isset($question) && $question->type == 'text') checked="checked" @endif/>
+                                                        <span></span>
+                                                        Text Answer
+                                                    </label>
                                                 </div>
                                             </div>
 

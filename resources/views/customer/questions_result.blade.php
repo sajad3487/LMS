@@ -62,7 +62,7 @@
                                 @foreach($questions as $key=>$question)
                                     @if($question['type'] != 'title')
                                         <tr class="">
-                                    <td>{{$question['position'] ?? ''}}</td>
+                                    <td>{{$key ?? ''}}</td>
                                     <td>{{$question['body'] ?? ''}}</td>
                                     <td>{{$question['average_score'] ?? ''}}</td>
                                     <td>{{$question['taken'] ?? ''}}</td>
@@ -93,9 +93,11 @@
                                         <button type="button" class="btn btn-light-info font-weight-bold ml-2 my-1" data-toggle="modal" data-target="#users-{{$key}}">
                                             Answers Details
                                         </button>
+                                        @if($question['type'] == 'question')
                                         <button type="button" class="btn btn-light-success font-weight-bold ml-2 my-1" data-toggle="modal" data-target="#option-{{$key}}">
                                             <i class="flaticon-pie-chart"></i>Options
                                         </button>
+                                        @endif
 
                                         <!-- Modal-->
                                         <div class="modal fade" id="users-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
@@ -118,8 +120,10 @@
                                                                     <th>Last Name</th>
                                                                     <th>Email</th>
                                                                     <th>Answer</th>
+                                                                    @if($question['type'] != 'text')
                                                                     <th>Score</th>
                                                                     <th>Additional Info</th>
+                                                                    @endif
                                                                     <th>Date</th>
 
                                                                 </tr>
@@ -132,9 +136,11 @@
                                                                         <td>{{$answer['taken']['first_name'] ?? ''}}</td>
                                                                         <td>{{$answer['taken']['last_name'] ?? ''}}</td>
                                                                         <td>{{$answer['taken']['email'] ?? ''}}</td>
-                                                                        <td>{{$answer['option']['body'] ?? ''}}</td>
+                                                                        <td>{{$answer['answer'] ?? ''}}</td>
+                                                                        @if($question['type'] != 'text')
                                                                         <td>{{$answer['option']['score'] ?? ''}}</td>
                                                                         <td>{{$answer['additional_info'] ?? ''}}</td>
+                                                                        @endif
                                                                         <td>{{ \Carbon\Carbon::parse($answer['taken']['created_at'])->format('Y-m-d - H:i') ?? ''}}</td>
                                                                     </tr>
                                                                 @endforeach
@@ -149,6 +155,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($question['type'] == 'question')
                                         <div class="modal fade" id="option-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable" style="max-width: 90%" role="document">
                                                 <div class="modal-content">
@@ -275,6 +282,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                            @endif
 
                                     </td>
                                 </tr>

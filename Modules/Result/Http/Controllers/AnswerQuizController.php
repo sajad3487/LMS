@@ -126,6 +126,18 @@ class AnswerQuizController extends Controller
                 }
             }
         }
+        if (isset($request->answer)){
+
+            foreach ($request->answer as $text_key=>$answer_text){
+                $answer_text_data['form_id'] = $request->form_id;
+                $answer_text_data['answer_id'] = $answer->id;
+                $answer_text_data['question_id'] = $text_key;
+                $answer_text_data['type'] = 'text';
+                $answer_text_data['answer'] = $answer_text;
+                $answer_text_data['score'] = 0;
+                $answer_text_question = $this->answerQuestionService->createAnswerQuestion($answer_text_data);
+            }
+        }
         $score = $this->answerQuizService->calculateSumScore($answer->id);
         $updated_data['score'] = $score;
         $this->answerQuizService->updateAnswerQuiz($updated_data, $answer->id);
@@ -172,6 +184,7 @@ class AnswerQuizController extends Controller
         $active = 3;
         $user = $this->userService->getUserById(auth()->id());
         $quiz = $this->quizService->getQuiz($quiz_id);
+//        dd($questions);
         return view('customer.questions_result', compact('questions', 'active', 'user', 'quiz'));
     }
 
