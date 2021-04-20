@@ -6,7 +6,7 @@
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted font-weight-bold mr-2">2020&copy;</span>
             <a href="{{url('/')}}" target="_blank"
-               class="text-dark-75 text-hover-primary">e-packz</a>
+               class="text-dark-75 text-hover-primary">Nour Group</a>
         </div>
         <!--end::Copyright-->
 
