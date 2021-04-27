@@ -141,6 +141,8 @@ class AnswerQuizController extends Controller
         $score = $this->answerQuizService->calculateSumScore($answer->id);
         $updated_data['score'] = $score;
         $this->answerQuizService->updateAnswerQuiz($updated_data, $answer->id);
+        $this->answerQuizService->updateQuizTaken($request->form_id);
+        $this->answerQuizService->updateAverageScore ($request->form_id);
         return redirect("quiz/$answer->id/result");
     }
 

@@ -31,7 +31,7 @@ class QuestionRepository extends Repository
             ->first();
     }
 
-    public function getallQuestionOfQuiz ($quiz_id){
+    public function getAllQuestionOfQuiz ($quiz_id){
         return question::where('form_id',$quiz_id)
             ->orderBy('position','ASC')
             ->with('answer')

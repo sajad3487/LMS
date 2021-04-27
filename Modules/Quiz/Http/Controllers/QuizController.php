@@ -7,8 +7,12 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Quiz\Http\Requests\QuizRequest;
+use Modules\Quiz\Http\Service\OptionService;
 use Modules\Quiz\Http\Service\QuestionService;
 use Modules\Quiz\Http\Service\QuizService;
+use Modules\Result\Http\Service\AnswerQuestionService;
+use Modules\Result\Http\Service\AnswerQuizService;
+use Modules\Result\Http\Service\ResultService;
 
 class QuizController extends Controller
 {
@@ -24,16 +28,40 @@ class QuizController extends Controller
      * @var QuestionService
      */
     private $questionService;
+    /**
+     * @var OptionService
+     */
+    private $optionService;
+    /**
+     * @var ResultService
+     */
+    private $resultService;
+    /**
+     * @var AnswerQuizService
+     */
+    private $answerQuizService;
+    /**
+     * @var AnswerQuestionService
+     */
+    private $answerQuestionService;
 
     public function __construct(
         UserService $userService,
         QuizService $quizService,
-        QuestionService $questionService
+        QuestionService $questionService,
+        OptionService $optionService,
+        ResultService $resultService,
+        AnswerQuizService $answerQuizService,
+        AnswerQuestionService $answerQuestionService
     )
     {
         $this->userService = $userService;
         $this->quizService = $quizService;
         $this->questionService = $questionService;
+        $this->optionService = $optionService;
+        $this->resultService = $resultService;
+        $this->answerQuizService = $answerQuizService;
+        $this->answerQuestionService = $answerQuestionService;
     }
 
     public function index()
@@ -114,7 +142,16 @@ class QuizController extends Controller
 
     public function destroy($id)
     {
-        dd($id);
+        $this->quizService->deleteQuiz($id);
+        $questions = $this->questionService->getQuestionsOfQuiz($id);
+        foreach ($questions as $question){
+            $this->questionService->deleteQuestion($question->id);
+        }
+        $this->optionService->deleteOptionOfQuiz($id);
+        $this->answerQuizService->deleteAllAnswersOfQuiz ($id);
+        $this->answerQuestionService->deleteAllQuestionsOfQuiz ($id);
+        $this->resultService->deleteSegmentsOfQuiz ($id);
+        return back();
     }
 
     public function view($id)
@@ -153,20 +190,23 @@ class QuizController extends Controller
         $quiz_data['first_info_status'] = $quiz->first_info_status;
         $quiz_data['second_info_label'] = $quiz->second_info_label;
         $quiz_data['second_info_status'] = $quiz->second_info_status;
+        $quiz_data['third_info_label '] = $quiz->second_info_label;
+        $quiz_data['third_info_status'] = $quiz->second_info_status;
         $quiz_data['date_info_label'] = $quiz->date_info_label;
         $quiz_data['date_info_status'] = $quiz->date_info_status;
         $quiz_data['placeholder'] = $quiz->placeholder;
         $quiz_data['status'] = $quiz->status;
-        $quiz_data['taken'] = $quiz->taken;
-        $quiz_data['average_score'] = $quiz->average_score;
-        $quiz_data['average_percentage'] = $quiz->average_percentage;
+        $quiz_data['taken'] = 0;
+        $quiz_data['average_score'] = 0;
+        $quiz_data['average_percentage'] = 0;
         $quiz_data['button_text'] = $quiz->button_text;
         $quiz_data['type'] = $quiz->type;
+        $quiz_data['intro_video'] = $quiz->intro_video;
         $quiz_data['banner'] = $quiz->banner;
+        $quiz_data['result_banner'] = $quiz->result_banner;
         $new_quiz = $this->quizService->createQuiz($quiz_data);
-        foreach ($quiz->question as $question) {
-            $this->questionService->makeDuplicateQuestionForQuiz($question->id, $new_quiz->id);
-        }
+        $this->questionService->duplicateQuestionOfQuiz($new_quiz->id,$id);
+        $this->questionService->duplicateSegment ($new_quiz->id,$id);
         return redirect("quizzes/$new_quiz->id/edit");
     }
 

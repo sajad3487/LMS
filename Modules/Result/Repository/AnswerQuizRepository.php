@@ -63,5 +63,10 @@ class AnswerQuizRepository extends Repository
             ->first();
     }
 
+    public function deleteAnswersOfQuiz ($quiz_id){
+        return answerQuiz::where('form_id',$quiz_id)
+            ->delete();
+    }
+
 
 }

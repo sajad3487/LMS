@@ -17,4 +17,9 @@ class OptionRepository extends Repository
         $this->model = new Option();
     }
 
+    public function deleteOptionsOfQuiz ($quiz_id){
+        return Option::where('form_id',$quiz_id)
+            ->delete();
+    }
+
 }

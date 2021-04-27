@@ -30,4 +30,9 @@ class ResultRepository extends Repository
             ->first();
     }
 
+    public function deleteAllSegmentsOfQuiz ($quiz_id){
+        return result::where('form_id',$quiz_id)
+            ->delete();
+    }
+
 }

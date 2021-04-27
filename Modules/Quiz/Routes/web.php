@@ -10,6 +10,7 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('/{quiz_id}/edit','QuizController@edit');
             Route::put('/{quiz_id}/update','QuizController@update');
             Route::get('/{quiz_id}/copy','QuizController@copy');
+            Route::get('/{quiz_id}/delete','QuizController@destroy');
 
         });
 

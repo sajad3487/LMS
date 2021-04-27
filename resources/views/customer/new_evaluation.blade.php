@@ -106,6 +106,21 @@
                                                                            value="{{$evaluation->contact  ?? ''}}"/>
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-form-label text-right col-lg-2 col-sm-12">Select User</label>
+                                                                <div class="col-lg-4 col-md-10 col-sm-12">
+                                                                    <select class="form-control selectpicker" data-size="7" data-live-search="true">
+                                                                        <option value="">Select</option>
+                                                                        @foreach($users as $user)
+                                                                        <option value="{{$user->id}}">{{$user->name ?? ''}}</option>
+                                                                            @endforeach
+                                                                    </select>
+                                                                    <span class="form-text text-muted">Select user of evaluation</span>
+                                                                    <a href="#"
+                                                                            class="btn btn-outline-success mx-auto">Add New User
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6">
                                                                     <label>Starting Time</label>
@@ -115,8 +130,8 @@
                                                                     <label>Deadline</label>
                                                                     <input type="date" name="deadline" value="{{$evaluation->deadline ?? ''}}" class="form-control form-control-solid" />
                                                                 </div>
-
                                                             </div>
+
 
                                                         </div>
 
@@ -555,4 +570,35 @@
         <!--end::Entry-->
     </div>
     <!--end::Content-->
+
+    <script !src="">
+
+
+        // Class definition
+
+        var KTBootstrapSelect = function () {
+
+            // Private functions
+            var demos = function () {
+                // minimum setup
+                $('.kt-selectpicker').selectpicker();
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    demos();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function() {
+            KTBootstrapSelect.init();
+        });
+
+
+    </script>
+
+    <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-select.js')}}"></script>
+
 @endsection

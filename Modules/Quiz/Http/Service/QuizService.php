@@ -56,4 +56,8 @@ class QuizService
         return $this->quizRepo->getQuizWithParentById ($quiz_id);
     }
 
+    public function deleteQuiz ($id){
+        return $this->quizRepo->delete($id);
+    }
+
 }

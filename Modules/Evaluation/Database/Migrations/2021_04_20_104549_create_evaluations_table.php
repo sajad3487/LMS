@@ -15,13 +15,16 @@ class CreateEvaluationsTable extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
+            $table->integer('mentor_id');
             $table->integer('parent_id')->default(0);
+            $table->integer('user_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('company')->nullable();
             $table->string('contact')->nullable();
             $table->date('start')->nullable();
             $table->date('deadline')->nullable();
+            $table->date('status')->default(1);
 
             $table->timestamps();
         });

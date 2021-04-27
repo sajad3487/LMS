@@ -85,6 +85,8 @@
                                         <a href="{{url("quizzes/$quiz->id/copy")}}"><i class="flaticon-web text-info mr-5"></i></a>
                                         <a href="{{url("quizzes/$quiz->id/edit")}}"><i class="flaticon-edit text-warning mr-5"></i></a>
                                         <a href="{{url("segments/$quiz->id/show")}}"><i class="flaticon-interface-1  text-danger mr-5"></i></a>
+                                        <a href="" data-toggle="modal" data-target="#delete-{{$key}}"><i class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                        <a href="{{url("questions/delete")}}"></a>
                                     </td>
                                 </tr>
                                 <!--begin::Modal-->
@@ -104,6 +106,34 @@
                                                     <a href="{{url("quiz/$quiz->id/view")}}" target="_blank"><h6>{{url("quiz/$quiz->id/view")}}</h6></a>
                                                     <p class="my-4">iframe:</p>
                                                     <h6>{{' <iframe src="'.url("quiz/$quiz->id/view").'" title="'.$quiz->title.'"> '}}</h6>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Modal-->
+                                <!--begin::Modal-->
+                                <div class="modal fade" id="delete-{{$key}}" role="dialog"  aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Delete Quiz : {{$quiz->title ?? ''}}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!--begin::Form-->
+                                                <div class="card-body text-center">
+                                                    <h3 class="mb-4">Are you sure you want to delete "{{$quiz->title ?? ''}}" ?</h3>
+                                                    <p class="my-4">This quiz will be deleted immediately. You can't undo this action</p>
+                                                    <button data-dismiss="modal" aria-label="Close" class="btn btn-light font-weight-bolder mr-5">
+                                                        Cancel
+                                                    </button>
+                                                    <a href="{{url("/quizzes/$quiz->id/delete")}}" class="btn btn-danger font-weight-bolder">
+                                                        Delete
+                                                    </a>
                                                 </div>
                                             </div>
 

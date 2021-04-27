@@ -35,5 +35,9 @@ class AnswerQuestionService
         return $this->answerQuestionRepo->countOptionSelected ($option_id);
     }
 
+    public function deleteAllQuestionsOfQuiz ($quiz_id){
+        return $this->answerQuestionRepo->deleteQuestionsOfQuiz ($quiz_id);
+    }
+
 
 }

@@ -28,4 +28,8 @@ class EvaluationService
         return $this->evaluationRepo->getById($id);
     }
 
+    public function getAllEvaluationsOfMentor ($mentor_id){
+        return $this->evaluationRepo->getAllEvaluationsOfMentor ($mentor_id);
+    }
+
 }

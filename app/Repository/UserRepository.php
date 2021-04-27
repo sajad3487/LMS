@@ -28,4 +28,9 @@ class UserRepository extends Repository
         return User::where('user_type',1)->count();
     }
 
+    public function getAllUsersByType ($type){
+        return User::where('user_type',$type)
+            ->get();
+    }
+
 }

@@ -105,5 +105,9 @@ class ResultService
         return $this->resultRepo->getSegmentById($segment_id);
     }
 
+    public function deleteSegmentsOfQuiz ($quiz_id){
+        return $this->resultRepo->deleteAllSegmentsOfQuiz($quiz_id);
+    }
+
 
 }

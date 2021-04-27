@@ -5,6 +5,7 @@ namespace Modules\Result\Http\Service;
 
 
 use Facade\Ignition\Support\Packagist\Package;
+use Modules\Quiz\Http\Service\QuizService;
 use Modules\Result\Repository\AnswerQuizRepository;
 
 class AnswerQuizService
@@ -14,12 +15,18 @@ class AnswerQuizService
      * @var AnswerQuizRepository
      */
     private $answerQuizRepo;
+    /**
+     * @var QuizService
+     */
+    private $quizService;
 
     public function __construct(
-        AnswerQuizRepository $answerQuizRepository
+        AnswerQuizRepository $answerQuizRepository,
+        QuizService $quizService
     )
     {
         $this->answerQuizRepo = $answerQuizRepository;
+        $this->quizService = $quizService;
     }
 
     public function createAnswer($data)
@@ -72,6 +79,20 @@ class AnswerQuizService
 
     public function checkUniqueEmail ($email,$form_id){
         return $this->answerQuizRepo->getEmailAnswer($email,$form_id);
+    }
+
+    public function updateQuizTaken ($quiz_id){
+        $quiz = $this->quizService->getQuiz($quiz_id);
+        $data['taken'] = ($quiz->taken) +1 ;
+        return $this->quizService->updateQuiz($data,$quiz_id);
+    }
+
+    public function updateAverageScore ($quiz_id){
+
+    }
+
+    public function deleteAllAnswersOfQuiz ($quiz_id){
+        return $this->answerQuizRepo->deleteAnswersOfQuiz($quiz_id);
     }
 
 }

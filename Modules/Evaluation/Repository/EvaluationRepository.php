@@ -14,4 +14,11 @@ class EvaluationRepository extends Repository
         $this->model = new Evaluation();
     }
 
+    public function getAllEvaluationsOfMentor ($mentor_id){
+        return Evaluation::where('mentor_id',$mentor_id)
+            ->where('parent_id',0)
+            ->with('user')
+            ->get();
+    }
+
 }

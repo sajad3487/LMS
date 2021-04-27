@@ -44,4 +44,8 @@ class UserService
         return $this->userRepo->countUser();
     }
 
+    public function getUserByType ($type){
+        return $this->userRepo->getAllUsersByType ($type);
+    }
+
 }

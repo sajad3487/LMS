@@ -44,5 +44,9 @@ class OptionService
         return $this->optionRepo->getById($id);
     }
 
+    public function deleteOptionOfQuiz ($quiz_id){
+        return $this->optionRepo->deleteOptionsOfQuiz ($quiz_id);
+    }
+
 
 }

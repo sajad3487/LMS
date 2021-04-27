@@ -191,7 +191,7 @@
                                     <li>{{$key+1}}. {{$section->body ?? ''}}</li>
                                     @endforeach
                                     @if($questions->count() != 0)
-                                    <li>{{$key+2}}. Last Questions</li>
+                                    <li> @if($sections->count() != 0) {{$key+2}} @else 2 @endif. Last Questions</li>
                                     @endif
 {{--                                    <li>Stsadfs dfs sadep 4</li>--}}
 {{--                                    <li>Stsadfs dfs sadep 5</li>--}}
