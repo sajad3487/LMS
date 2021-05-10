@@ -78,7 +78,7 @@
                                                         <div class="mr-3">
                                                             <!--begin::Name-->
                                                             <a href="#" class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
-                                                                {{$evaluation->contact ?? ''}}
+                                                                {{$evaluation->target ?? ''}}
                                                                 @if($evaluation->status == 1)
                                                                     <i class="flaticon2-calendar-6 text-success icon-md ml-2"></i>
                                                                     @elseif($evaluation->status == 2)
@@ -117,7 +117,7 @@
                                                         </div>
                                                         <div class="my-lg-0 my-1">
                                                             <a href="{{url("evaluation/$evaluation->id/edit")}}" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Edit</a>
-                                                            <a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase">New Task</a>
+                                                            <a href="#" class="btn btn-sm btn-info font-weight-bolder text-uppercase">Results</a>
                                                         </div>
                                                     </div>
                                                     <!--end: Title-->
@@ -161,26 +161,26 @@
                                                 <!--begin: Item-->
                                                 <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
                                                     <span class="mr-4">
-                                                        <i class="flaticon-piggy-bank icon-2x text-muted font-weight-bold"></i>
+                                                        <i class="flaticon2-hourglass-1 icon-2x text-muted font-weight-bold"></i>
                                                     </span>
                                                     <div class="d-flex flex-column text-dark-75">
-                                                        <span class="font-weight-bolder font-size-sm">Earnings</span>
-                                                        <span class="font-weight-bolder font-size-h5"><span class="text-dark-50 font-weight-bold">$</span>249,500</span>
+                                                        <span class="font-weight-bolder font-size-sm">Total Circle</span>
+                                                        <span class="font-weight-bolder font-size-h5">4 Circle</span>
                                                     </div>
                                                 </div>
                                                 <!--end: Item-->
 
-                                                <!--begin: Item-->
-                                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
-                                                    <span class="mr-4">
-                                                        <i class="flaticon-confetti icon-2x text-muted font-weight-bold"></i>
-                                                    </span>
-                                                    <div class="d-flex flex-column text-dark-75">
-                                                        <span class="font-weight-bolder font-size-sm">Expenses</span>
-                                                        <span class="font-weight-bolder font-size-h5"><span class="text-dark-50 font-weight-bold">$</span>164,700</span>
-                                                    </div>
-                                                </div>
-                                                <!--end: Item-->
+{{--                                                <!--begin: Item-->--}}
+{{--                                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">--}}
+{{--                                                    <span class="mr-4">--}}
+{{--                                                        <i class="flaticon-confetti icon-2x text-muted font-weight-bold"></i>--}}
+{{--                                                    </span>--}}
+{{--                                                    <div class="d-flex flex-column text-dark-75">--}}
+{{--                                                        <span class="font-weight-bolder font-size-sm">Expenses</span>--}}
+{{--                                                        <span class="font-weight-bolder font-size-h5"><span class="text-dark-50 font-weight-bold">$</span>164,700</span>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <!--end: Item-->--}}
 
                                                 <!--begin: Item-->
                                                 <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
@@ -188,8 +188,8 @@
                                                         <i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
                                                     </span>
                                                     <div class="d-flex flex-column text-dark-75">
-                                                        <span class="font-weight-bolder font-size-sm">Net</span>
-                                                        <span class="font-weight-bolder font-size-h5"><span class="text-dark-50 font-weight-bold">$</span>782,300</span>
+                                                        <span class="font-weight-bolder font-size-sm">Taken</span>
+                                                        <span class="font-weight-bolder font-size-h5">20 Person</span>
                                                     </div>
                                                 </div>
                                                 <!--end: Item-->
@@ -200,7 +200,7 @@
                                                         <i class="flaticon-file-2 icon-2x text-muted font-weight-bold"></i>
                                                     </span>
                                                     <div class="d-flex flex-column flex-lg-fill">
-                                                        <span class="text-dark-75 font-weight-bolder font-size-sm">73 Tasks</span>
+                                                        <span class="text-dark-75 font-weight-bolder font-size-sm">2 Remaining Tasks</span>
                                                         <a href="#" class="text-primary font-weight-bolder">View</a>
                                                     </div>
                                                 </div>
@@ -212,7 +212,7 @@
                                                         <i class="flaticon-chat-1 icon-2x text-muted font-weight-bold"></i>
                                                     </span>
                                                     <div class="d-flex flex-column">
-                                                        <span class="text-dark-75 font-weight-bolder font-size-sm">648 Comments</span>
+                                                        <span class="text-dark-75 font-weight-bolder font-size-sm">20 Total Answer</span>
                                                         <a href="#" class="text-primary font-weight-bolder">View</a>
                                                     </div>
                                                 </div>
@@ -225,19 +225,19 @@
                                                     </span>
                                                     <div class="symbol-group symbol-hover">
                                                         <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Mark Stone">
-                                                            <img alt="Pic" src="assets/media/users/300_25.jpg"/>
+                                                            <img alt="Pic" src="{{asset('media/users/300_25.jpg')}}"/>
                                                         </div>
                                                         <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Charlie Stone">
-                                                            <img alt="Pic" src="assets/media/users/300_19.jpg"/>
+                                                            <img alt="Pic" src="{{asset('media/users/300_19.jpg')}}"/>
                                                         </div>
                                                         <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Luca Doncic">
-                                                            <img alt="Pic" src="assets/media/users/300_22.jpg"/>
+                                                            <img alt="Pic" src="{{asset('media/users/300_22.jpg')}}"/>
                                                         </div>
                                                         <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Nick Mana">
-                                                            <img alt="Pic" src="assets/media/users/300_23.jpg"/>
+                                                            <img alt="Pic" src="{{asset('media/users/300_23.jpg')}}"/>
                                                         </div>
                                                         <div class="symbol symbol-30 symbol-circle" data-toggle="tooltip" title="Teresa Fox">
-                                                            <img alt="Pic" src="assets/media/users/300_18.jpg"/>
+                                                            <img alt="Pic" src="{{asset('media/users/300_18.jpg')}}"/>
                                                         </div>
                                                         <div class="symbol symbol-30 symbol-circle symbol-light">
                                                             <span class="symbol-label font-weight-bold">5+</span>

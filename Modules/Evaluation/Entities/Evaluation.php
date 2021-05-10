@@ -14,7 +14,7 @@ class Evaluation extends Model
         'name',
         'description',
         'company',
-        'contact',
+        'target',
         'start',
         'deadline',
     ];

@@ -28,9 +28,13 @@ Route::group(['middleware'=>'auth'],function (){
            Route::get('/','HomeController@profile');
            Route::post('/update','HomeController@updateProfile');
        });
+       Route::group(['prefix'=>'user'],function (){
+           Route::post('store','RegisterController@add_user');
+       });
    });
 });
 
 Route::get('/',function (){
     return view('welcome');
 });
+

@@ -16,5 +16,32 @@ Route::group(['middleware'=>'auth'],function(){
 
         });
 
+        Route::group(['prefix'=>'circle'],function(){
+
+            Route::post('store','CircleController@store');
+            Route::post('new_user','CircleController@new_user');
+            Route::post('delete_user','CircleController@delete_user');
+            Route::post('new_question','NoteController@new_question');
+            Route::post('new_scroller','NoteController@new_scroller');
+            Route::put('{question_id}/edit_question','NoteController@edit_question');
+            Route::put('{question_id}/edit_scroller','NoteController@edit_scroller');
+            Route::get('{question_id}/delete','NoteController@destroy');
+
+        });
+
+        Route::group(['prefix'=>'client'],function(){
+
+            Route::get('quiz','EvaluationController@client_quiz');
+            Route::get('done_quiz','EvaluationController@done_quiz');
+            Route::get('profile','EvaluationController@client_profile');
+
+        });
+
+        Route::group(['prefix'=>'target'],function(){
+
+            Route::get('panel','EvaluationController@target_panel');
+
+        });
+
     });
 });

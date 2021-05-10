@@ -21,10 +21,10 @@ class CreateEvaluationsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('company')->nullable();
-            $table->string('contact')->nullable();
+            $table->string('target')->nullable();
             $table->date('start')->nullable();
             $table->date('deadline')->nullable();
-            $table->date('status')->default(1);
+            $table->integer('status')->default(1);
 
             $table->timestamps();
         });

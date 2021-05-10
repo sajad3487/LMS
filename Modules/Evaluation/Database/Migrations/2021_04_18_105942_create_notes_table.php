@@ -15,6 +15,14 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
+            $table->integer('circle');
+            $table->string('type');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->integer('min_range')->nullable();
+            $table->integer('max_range')->nullable();
+            $table->integer('point')->nullable();
+            $table->integer('status')->default(1);
 
             $table->timestamps();
         });

@@ -98,27 +98,77 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="form-group row">
-                                                                <label class="col-lg-2 col-form-label text-right">Contact Name:</label>
-                                                                <div class="col-lg-8">
-                                                                    <input type="text" name="contact" class="form-control"
-                                                                           placeholder="Enter contact name"
-                                                                           value="{{$evaluation->contact  ?? ''}}"/>
-                                                                </div>
-                                                            </div>
+{{--                                                            <div class="form-group row">--}}
+{{--                                                                <label class="col-lg-2 col-form-label text-right">Contact Name:</label>--}}
+{{--                                                                <div class="col-lg-8">--}}
+{{--                                                                    <input type="text" name="contact" class="form-control"--}}
+{{--                                                                           placeholder="Enter contact name"--}}
+{{--                                                                           value="{{$evaluation->contact  ?? ''}}"/>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
                                                             <div class="form-group row">
                                                                 <label class="col-form-label text-right col-lg-2 col-sm-12">Select User</label>
                                                                 <div class="col-lg-4 col-md-10 col-sm-12">
-                                                                    <select class="form-control selectpicker" data-size="7" data-live-search="true">
-                                                                        <option value="">Select</option>
-                                                                        @foreach($users as $user)
-                                                                        <option value="{{$user->id}}">{{$user->name ?? ''}}</option>
+                                                                    <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
+{{--                                                                        <option value="">Select</option>--}}
+                                                                        @foreach($targets as $target)
+                                                                        <option value="{{$target->id}}">{{$target->name ?? ''}}</option>
                                                                             @endforeach
                                                                     </select>
                                                                     <span class="form-text text-muted">Select user of evaluation</span>
-                                                                    <a href="#"
-                                                                            class="btn btn-outline-success mx-auto">Add New User
+                                                                    <a href="#" class="btn btn-outline-success mx-auto" data-toggle="modal" data-target="#new_user_target">Add New User
                                                                     </a>
+                                                                    <!--begin::Modal-->
+                                                                    <div class="modal fade" id="new_user_target" role="dialog"  aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Add New User</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form class="form" action="{{url("user/store")}}" method="post" id="new_user">
+                                                                                    <div class="modal-body">
+
+                                                                                        <!--begin::Form-->
+                                                                                        @csrf
+
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-md-6">
+                                                                                                <label>Name:</label>
+                                                                                                <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                            </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <label>Email</label>
+                                                                                                <input type="email" name="email" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-md-6">
+                                                                                                <label>Position:</label>
+                                                                                                <input type="text" name="position" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                            </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <label>Password:</label>
+                                                                                                <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <input type="text" name="business_name" value="{{$evaluation->company ?? ''}}" class="d-none">
+                                                                                        <input type="number" name="type" value="2" class="d-none">
+                                                                                        <div class="card-footer">
+                                                                                            <button type="submit" form="new_user" class="btn btn-primary mr-2">Submit</button>
+                                                                                            {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                        </div>
+                                                                                        <!--end::Form-->
+
+                                                                                    </div>
+
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end::Modal-->
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -156,19 +206,75 @@
                                                     <!--begin::Accordion-->
                                                     <div class="row">
                                                         <div class="btn-group ml-auto">
-                                                            <a href="{{url("")}}"
-                                                               class="btn btn-outline-warning font-weight-bolder p-2 mb-2 mr-3 d-inline-block">
-                                                                <i class="la la-plus p-0"></i> Add New Circle</a>
+                                                            <div class="row">
+                                                                <a href="" class="btn btn-light-info font-weight-bold mb-3 mr-8" data-toggle="modal" data-target="#new_circle">Add New Circle</a>
+                                                            </div>
+                                                            <!--begin::Modal-->
+                                                            <div class="modal fade" id="new_circle" role="dialog"  aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title">Add New Circle</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form class="form" action="{{url("circle/store")}}" method="post">
+                                                                            <div class="modal-body">
+
+                                                                                <!--begin::Form-->
+                                                                                @csrf
+                                                                                <div class="card-body">
+                                                                                    <div class="form-group">
+                                                                                        <label>Circle Title:</label>
+                                                                                        <input type="text" name="title" class="form-control form-control-solid" placeholder="Enter the circle title" required/>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="form-group col-md-6 col-lg-6">
+                                                                                            <label>Starting Time</label>
+                                                                                            <input type="date" name="start_date" class="form-control form-control-solid" />
+                                                                                        </div>
+                                                                                        <div class="form-group col-md-6 col-lg-6">
+                                                                                            <label>Deadline</label>
+                                                                                            <input type="date" name="end_date" class="form-control form-control-solid" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <div class="col-md-6">
+                                                                                            <label>Status :</label>
+                                                                                            <select name="status" class="form-control form-control-solid">
+                                                                                                <option value="1">Active</option>
+                                                                                                <option value="0">Schedule</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <input type="number" name="evaluation_id" value="{{$evaluation->id ?? ''}}" class="d-none">
+                                                                                    <input type="number" name="user_id" value="{{$evaluation->user_id ?? ''}}" class="d-none">
+                                                                                </div>
+                                                                                <div class="card-footer">
+                                                                                    <button type="submit" class="btn btn-primary mr-2">Save</button>
+                                                                                    {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                </div>
+                                                                                <!--end::Form-->
+
+                                                                            </div>
+
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--end::Modal-->
                                                         </div>
                                                     </div>
                                                     <div class="accordion accordion-solid accordion-toggle-plus" id="accordion3">
-{{--                                                            @foreach($sections as $key=>$section)--}}
+                                                            @foreach($circles as $key=>$circle)
                                                                 <div class="card">
-                                                                    <div class="card-header" id="category-{{$section->id ?? ''}}">
-                                                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-{{$section->id ?? ''}}">
-                                                                            {{$section->body ?? ''}}First Circle
+                                                                    <div class="card-header" id="category-{{$circle->id ?? ''}}">
+                                                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-{{$circle->id ?? ''}}">
+                                                                            {{$circle->title ?? ''}}
                                                                             <div class="ml-10">
-{{--                                                                                @if($section->status ==1 )--}}
+{{--                                                                                @if($circle->status ==1 )--}}
 {{--                                                                                    <span class="label font-weight-bold label-lg label-light-success label-inline">Active</span>--}}
 
 {{--                                                                                @else--}}
@@ -179,26 +285,109 @@
                                                                         </div>
 
                                                                     </div>
-                                                                    <div id="collapse-{{$section->id ?? ''}}" class="collapse"  data-parent="#category-{{$section->id ?? ''}}">
+                                                                    <div id="collapse-{{$circle->id ?? ''}}" class="collapse"  data-parent="#category-{{$circle->id ?? ''}}">
                                                                         <div class="card-body">
                                                                             <div class="overflow-auto">
-
+                                                                            @include('fragment.error')
                                                                                 <div class="btn-group">
 
-                                                                                    <form  method="post">
-                                                                                        <a href="{{url("/questions/section/create")}}" class="btn btn-outline-success font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                                                            <i class="la la-plus p-0"></i>Add New Question</a>
-                                                                                        <a href="{{url("/questions/section/create")}}" class="btn btn-outline-primary font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                                                            <i class="la la-plus p-0"></i>Add New Scroller</a>
-{{--                                                                                        <a href="{{url("/admin/categories/$section->id/delete")}}" class="btn btn-outline-danger font-weight-bolder p-1 mb-2 mr-3 d-inline-block">--}}
-{{--                                                                                            <i class="la la-trash p-0"></i></a>--}}
-                                                                                    </form>
+                                                                                        <div class="row">
+                                                                                            <a href="" class="btn btn-light-success font-weight-bold mb-3 mr-3 ml-5" data-toggle="modal" data-target="#new_question{{$key}}">Add New Question</a>
+                                                                                        </div>
+                                                                                        <!--begin::Modal-->
+                                                                                        <div class="modal fade" id="new_question{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title">Add New Question</h5>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <form class="form" action="{{url("circle/new_question")}}" method="post">
+                                                                                                        <div class="modal-body">
+
+                                                                                                            <!--begin::Form-->
+                                                                                                            @csrf
+                                                                                                                <div class="form-group">
+                                                                                                                    <label>Question:</label>
+                                                                                                                    <input type="text" name="title" class="form-control form-control-solid" placeholder="Enter the body of question" required/>
+                                                                                                                </div>
+                                                                                                                <div class="form-group row">
+                                                                                                                    <div class="col-md-6">
+                                                                                                                        <label>Status :</label>
+                                                                                                                        <select name="status" class="form-control form-control-solid">
+                                                                                                                            <option value="1">on</option>
+                                                                                                                            <option value="0">off</option>
+                                                                                                                        </select>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <input type="number" name="circle_id" value="{{$circle->id ?? ''}}" class="d-none">
+                                                                                                            <div class="card-footer">
+                                                                                                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                                                                {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                            </div>
+                                                                                                            <!--end::Form-->
+
+                                                                                                        </div>
+
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--end::Modal-->
+                                                                                        <div class="row">
+                                                                                            <a href="" class="btn btn-light-warning font-weight-bold mb-3 mr-3 ml-8" data-toggle="modal" data-target="#new_scroller{{$key}}">Add New Scroller</a>
+                                                                                        </div>
+                                                                                        <!--begin::Modal-->
+                                                                                        <div class="modal fade" id="new_scroller{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title">Add New Scroller</h5>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <form class="form" action="{{url("circle/new_scroller")}}" method="post">
+                                                                                                        <div class="modal-body">
+
+                                                                                                            <!--begin::Form-->
+                                                                                                            @csrf
+                                                                                                                <div class="form-group">
+                                                                                                                    <label>Body:</label>
+                                                                                                                    <input type="text" name="title" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                                                </div>
+                                                                                                                <div class="form-group row">
+                                                                                                                    <div class="col-md-6">
+                                                                                                                        <label>Minimum :</label>
+                                                                                                                        <input type="number" name="min_range" class="form-control form-control-solid" placeholder="Enter minimum" required/>
+                                                                                                                    </div>
+                                                                                                                    <div class="col-md-6">
+                                                                                                                        <label>Maximum :</label>
+                                                                                                                        <input type="number" name="max_range" class="form-control form-control-solid" placeholder="Enter maximum" required/>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <input type="number" name="circle_id" value="{{$circle->id ?? ''}}" class="d-none">
+                                                                                                            <div class="card-footer">
+                                                                                                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                                                                {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                            </div>
+                                                                                                            <!--end::Form-->
+
+                                                                                                        </div>
+
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--end::Modal-->
                                                                                 </div>
                                                                                 <table class="table table-bordered table-checkable" id="kt_datatable">
                                                                                     <thead>
                                                                                     <tr>
                                                                                         <th>#</th>
-                                                                                        <th>Question</th>
+                                                                                        <th class="text-center">Question</th>
                                                                                         <th class="text-center">Type</th>
                                                                                         <th class="text-center">Status</th>
                                                                                         <th class="text-center">Range</th>
@@ -207,70 +396,99 @@
                                                                                     </thead>
 
                                                                                     <tbody>
+                                                                                    @foreach($circle->questions as $question_key=>$question)
+                                                                                        <tr>
+                                                                                            <td class="text-center">{{$question_key+1 ?? ''}}</td>
+                                                                                            <td class="text-center">{{$question->title ?? ''}}</td>
+                                                                                            <td class="text-center">{{$question->type ?? ''}}</td>
+                                                                                            <td class="text-center">{{$question->status ?? ''}}</td>
 
-                                                                                                <tr>
-                                                                                                    <td class="text-center">{{$question->id ?? ''}}1</td>
-                                                                                                    <td class="text-center">{{$question->body ?? ''}}Action Plan</td>
-                                                                                                    <td class="text-center">Text
-{{--                                                                                                        @if($question->additional_info == 1)--}}
-{{--                                                                                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">--}}
-{{--                                                                                                                Active--}}
-{{--                                                                                                            </span>--}}
-{{--                                                                                                        @elseif($question->additional_info == 0)--}}
-{{--                                                                                                            <span class="label label-lg font-weight-bold label-light-success label-inline">--}}
-{{--                                                                                                                Deactivated--}}
-{{--                                                                                                             </span>--}}
-{{--                                                                                                        @endif--}}
-                                                                                                    </td>
-                                                                                                    <td class="text-center">{{$question->type ?? ''}} -</td>
+                                                                                            <td class="text-center">
+                                                                                                @if($question->type == "scroller")
+                                                                                                 {{$question->min_range}} / {{$question->max_range}}
+                                                                                                    @else
+                                                                                                -
+                                                                                                @endif
+                                                                                            </td>
+                                                                                            <td class="text-center" style='white-space: nowrap'>
+                                                                                                <a href="#" data-toggle="modal" data-target="#question{{$question_key}}"><i
+                                                                                                        class="far fa-edit text-warning mr-5"></i></a>
+                                                                                                <a href="{{url("circle/$question->id/delete")}}"><i
+                                                                                                        class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                                                                            </td>
+                                                                                            <!--begin::Modal-->
+                                                                                            <div class="modal fade" id="question{{$question_key}}" role="dialog"  aria-hidden="true">
+                                                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title">Edit</h5>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        @if($question->type == 'question')
+                                                                                                        <form class="form" action="{{url("circle/$question->id/edit_question")}}" method="post">
+                                                                                                            <div class="modal-body">
+                                                                                                                @method('PUT')
+                                                                                                                <!--begin::Form-->
+                                                                                                                @csrf
+                                                                                                                <div class="form-group">
+                                                                                                                    <label>Body:</label>
+                                                                                                                    <input type="text" name="title" class="form-control form-control-solid" value="{{$question->title ?? ''}}" placeholder="Enter body of the scroller" required/>
+                                                                                                                </div>
+                                                                                                                <div class="form-group row">
+                                                                                                                    <div class="col-md-6">
+                                                                                                                        <label>Status :</label>
+                                                                                                                        <select name="status" class="form-control form-control-solid">
+                                                                                                                            <option @if($question->status == 1) selected @endif value="1">on</option>
+                                                                                                                            <option @if($question->status == 0) selected @endif value="0">off</option>
+                                                                                                                        </select>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer">
+                                                                                                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                                                                    {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                                </div>
+                                                                                                                <!--end::Form-->
+                                                                                                            </div>
+                                                                                                        </form>
+                                                                                                            @elseif($question->type == 'scroller')
+                                                                                                            <form class="form" action="{{url("circle/$question->id/edit_scroller")}}" method="post">
+                                                                                                                <div class="modal-body">
+                                                                                                                    @method('PUT')
+                                                                                                                    <!--begin::Form-->
+                                                                                                                    @csrf
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label>Body:</label>
+                                                                                                                        <input type="text" name="title" class="form-control form-control-solid"  value="{{$question->title ?? ''}}" placeholder="Enter body of the scroller" required/>
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group row">
+                                                                                                                        <div class="col-md-6">
+                                                                                                                            <label>Minimum :</label>
+                                                                                                                            <input type="number" name="min_range" class="form-control form-control-solid"  value="{{$question->min_range ?? ''}}" placeholder="Enter minimum" required/>
+                                                                                                                        </div>
+                                                                                                                        <div class="col-md-6">
+                                                                                                                            <label>Maximum :</label>
+                                                                                                                            <input type="number" name="max_range" class="form-control form-control-solid"  value="{{$question->max_range ?? ''}}" placeholder="Enter maximum" required/>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="card-footer">
+                                                                                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                                                                        {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                                    </div>
+                                                                                                                    <!--end::Form-->
 
-                                                                                                    <td class="text-center">-
-{{--                                                                                                        @if($question->status == 1)--}}
-{{--                                                                                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">--}}
-{{--                                                                                                                Active--}}
-{{--                                                                                                             </span>--}}
-{{--                                                                                                        @elseif($question->status == 0)--}}
-{{--                                                                                                            <span class="label label-lg font-weight-bold label-light-success label-inline">--}}
-{{--                                                                                                                Deactivated--}}
-{{--                                                                                                             </span>--}}
-{{--                                                                                                        @endif--}}
-                                                                                                    </td>
-{{--                                                                                                    <td class="text-center">--}}
-{{--                                                                                                        @if($question->requirement == 1)--}}
-{{--                                                                                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">--}}
-{{--                                                                                                                Required--}}
-{{--                                                                                                            </span>--}}
-{{--                                                                                                        @elseif($question->requirement == 0)--}}
-{{--                                                                                                            <span class="label label-lg font-weight-bold label-light-success label-inline">--}}
-{{--                                                                                                                Optional--}}
-{{--                                                                                                            </span>--}}
-{{--                                                                                                        @endif--}}
-{{--                                                                                                    </td>--}}
-                                                                                                    <td class="text-center" style='white-space: nowrap'>
-                                                                                                        <a href="{{url("questions/copy")}}"><i
-                                                                                                                class="flaticon2-copy text-info mr-5"></i></a>
-                                                                                                        <a href="{{url("questions/edit")}}"><i
-                                                                                                                class="far fa-edit text-warning mr-5"></i></a>
-                                                                                                        <a href="{{url("questions/delete")}}"><i
-                                                                                                                class="fas fa-trash-alt text-danger mr-5"></i></a>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class="text-center">{{$question->id ?? ''}}1</td>
-                                                                                                    <td class="text-center">{{$question->body ?? ''}}Score</td>
-                                                                                                    <td class="text-center">{{$question->body ?? ''}}Scroll Bar</td>
-                                                                                                    <td class="text-center">{{$question->body ?? ''}}-</td>
-                                                                                                    <td class="text-center">{{$question->body ?? ''}}-3 / +3</td>
-                                                                                                    <td class="text-center" style='white-space: nowrap'>
-                                                                                                        <a href="{{url("questions/copy")}}"><i
-                                                                                                                class="flaticon2-copy text-info mr-5"></i></a>
-                                                                                                        <a href="{{url("questions/edit")}}"><i
-                                                                                                                class="far fa-edit text-warning mr-5"></i></a>
-                                                                                                        <a href="{{url("questions/delete")}}"><i
-                                                                                                                class="fas fa-trash-alt text-danger mr-5"></i></a>
-                                                                                                    </td>
-                                                                                                </tr>
+                                                                                                                </div>
 
+                                                                                                            </form>
+
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--end::Modal-->
+                                                                                        </tr>
+                                                                                        @endforeach
                                                                                     </tbody>
 
                                                                                 </table>
@@ -278,14 +496,53 @@
                                                                             <div class="overflow-auto">
 
                                                                                 <div class="btn-group">
+                                                                                        <div class="row">
+                                                                                            <a href="" class="btn btn-light-primary font-weight-bold mb-3 mr-3 ml-5" data-toggle="modal" data-target="#new_user{{$key}}">Add New User</a>
+                                                                                        </div>
+                                                                                        <!--begin::Modal-->
+                                                                                        <div class="modal fade" id="new_user{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title">Add New Choice</h5>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <form class="form" action="{{url("circle/new_user")}}" method="post">
+                                                                                                        <div class="modal-body">
 
-                                                                                    <form  method="post">
-                                                                                        <a href="{{url("/questions/section/create")}}" class="btn btn-outline-success font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                                                            <i class="la la-plus p-0"></i>Add New User</a>
+                                                                                                            <!--begin::Form-->
+                                                                                                            @csrf
+                                                                                                            <div class="form-group row">
+                                                                                                                <label class="col-form-label text-right col-lg-2 col-sm-12">Select User</label>
+                                                                                                                <div class="col-lg-4 col-md-10 col-sm-12">
+                                                                                                                    <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
+                                                                                                                        {{--                                                                        <option value="">Select</option>--}}
+                                                                                                                        @foreach($users as $user)
+                                                                                                                            <option value="{{$user->id}}">{{$user->name ?? ''}}</option>
+                                                                                                                        @endforeach
+                                                                                                                    </select>
+                                                                                                                    <span class="form-text text-muted">Select user of evaluation</span>
+                                                                                                                    <a href="#"
+                                                                                                                       class="btn btn-outline-success mx-auto">Add New User
+                                                                                                                    </a>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <input type="number" name="circle_id" value="{{$circle->id ?? ''}}" class="d-none">
+                                                                                                            <div class="card-footer">
+                                                                                                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                                                                {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                            </div>
+                                                                                                            <!--end::Form-->
 
-                                                                                        {{--                                                                                        <a href="{{url("/admin/categories/$section->id/delete")}}" class="btn btn-outline-danger font-weight-bolder p-1 mb-2 mr-3 d-inline-block">--}}
-                                                                                        {{--                                                                                            <i class="la la-trash p-0"></i></a>--}}
-                                                                                    </form>
+                                                                                                        </div>
+
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--end::Modal-->
                                                                                 </div>
                                                                                 <table class="table table-bordered table-checkable" id="kt_datatable">
                                                                                     <thead>
@@ -293,29 +550,28 @@
                                                                                         <th>#</th>
                                                                                         <th>User</th>
                                                                                         <th class="text-center">Email</th>
-                                                                                        <th class="text-center">Position</th>
-                                                                                        <th class="text-center">Status</th>
+                                                                                        <th class="text-center">Company</th>
+                                                                                        <th class="text-center">Action</th>
                                                                                     </tr>
                                                                                     </thead>
 
                                                                                     <tbody>
-
-                                                                                    <tr>
-                                                                                        <td class="text-center">{{$question->id ?? ''}}1</td>
-                                                                                        <td class="text-center">{{$question->body ?? ''}}David Nour</td>
-                                                                                        <td class="text-center">{{$question->body ?? ''}}davidnour@gmail.com</td>
-                                                                                        <td class="text-center">{{$question->body ?? ''}}Technical Manager</td>
-                                                                                        <td class="text-center">{{$question->body ?? ''}}Active</td>
-                                                                                        <td class="text-center" style='white-space: nowrap'>
-                                                                                            <a href="{{url("questions/copy")}}"><i
-                                                                                                    class="flaticon2-copy text-info mr-5"></i></a>
-                                                                                            <a href="{{url("questions/edit")}}"><i
-                                                                                                    class="far fa-edit text-warning mr-5"></i></a>
-                                                                                            <a href="{{url("questions/delete")}}"><i
-                                                                                                    class="fas fa-trash-alt text-danger mr-5"></i></a>
-                                                                                        </td>
-                                                                                    </tr>
-
+                                                                                    @foreach($circle->users as $users_key=>$user)
+                                                                                        <tr>
+                                                                                            <td class="text-center">{{$users_key+1 ?? ''}}</td>
+                                                                                            <td class="text-center">{{$user->name ?? ''}}</td>
+                                                                                            <td class="text-center">{{$user->email ?? ''}}</td>
+                                                                                            <td class="text-center">{{$user->business_name ?? ''}}</td>
+                                                                                            <td class="text-center" style='white-space: nowrap'>
+                                                                                                <form action="{{url("circle/delete_user")}}" method="post">
+                                                                                                    @csrf
+                                                                                                    <input type="number" value="{{$user->id}}" name="user_id" class="d-none">
+                                                                                                    <input type="number" value="{{$circle->id}}" name="circle_id" class="d-none">
+                                                                                                    <button class="btn btn-link" type="submit"><i class="fas fa-trash-alt text-danger mr-5"></i></button>
+                                                                                                </form>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        @endforeach
                                                                                     </tbody>
 
                                                                                 </table>
@@ -324,126 +580,7 @@
                                                                     </div>
                                                                 </div>
 
-{{--                                                            @endforeach--}}
-
-                                                                <div class="card">
-                                                                    <div class="card-header" id="category-none">
-                                                                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-none">
-                                                                            Second Circle
-                                                                            <div class="ml-10">
-                                                                                {{--                                                                                @if($section->status ==1 )--}}
-                                                                                {{--                                                                                    <span class="label font-weight-bold label-lg label-light-success label-inline">Active</span>--}}
-
-                                                                                {{--                                                                                @else--}}
-                                                                                {{--                                                                                    <span class="label font-weight-bold label-lg label-light-danger label-inline">Inactive</span>--}}
-
-                                                                                {{--                                                                                @endif--}}
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div id="collapse-none" class="collapse"  data-parent="#category-none">
-                                                                        <div class="card-body">
-                                                                            <div class="overflow-auto">
-                                                                                <div class="overflow-auto">
-
-                                                                                    <div class="btn-group">
-
-                                                                                        <form  method="post">
-                                                                                            <a href="{{url("/questions/section/create")}}" class="btn btn-outline-success font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                                                                <i class="la la-plus p-0"></i>Add New Question</a>
-                                                                                            <a href="{{url("/questions/section/create")}}" class="btn btn-outline-primary font-weight-bolder p-1 mb-2 mr-3 d-inline-block">
-                                                                                                <i class="la la-plus p-0"></i>Add New Scroller</a>
-                                                                                            {{--                                                                                        <a href="{{url("/admin/categories/$section->id/delete")}}" class="btn btn-outline-danger font-weight-bolder p-1 mb-2 mr-3 d-inline-block">--}}
-                                                                                            {{--                                                                                            <i class="la la-trash p-0"></i></a>--}}
-                                                                                        </form>
-                                                                                    </div>
-                                                                                    <table class="table table-bordered table-checkable" id="kt_datatable">
-                                                                                        <thead>
-                                                                                        <tr>
-                                                                                            <th>#</th>
-                                                                                            <th>Question</th>
-                                                                                            <th class="text-center">Type</th>
-                                                                                            <th class="text-center">Status</th>
-                                                                                            <th class="text-center">Range</th>
-                                                                                            <th class="text-center">Action</th>
-                                                                                        </tr>
-                                                                                        </thead>
-
-                                                                                        <tbody>
-
-                                                                                        <tr>
-                                                                                            <td class="text-center">{{$question->id ?? ''}}1</td>
-                                                                                            <td class="text-center">{{$question->body ?? ''}}Action Plan</td>
-                                                                                            <td class="text-center">Text
-                                                                                                {{--                                                                                                        @if($question->additional_info == 1)--}}
-                                                                                                {{--                                                                                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">--}}
-                                                                                                {{--                                                                                                                Active--}}
-                                                                                                {{--                                                                                                            </span>--}}
-                                                                                                {{--                                                                                                        @elseif($question->additional_info == 0)--}}
-                                                                                                {{--                                                                                                            <span class="label label-lg font-weight-bold label-light-success label-inline">--}}
-                                                                                                {{--                                                                                                                Deactivated--}}
-                                                                                                {{--                                                                                                             </span>--}}
-                                                                                                {{--                                                                                                        @endif--}}
-                                                                                            </td>
-                                                                                            <td class="text-center">{{$question->type ?? ''}} -</td>
-
-                                                                                            <td class="text-center">-
-                                                                                                {{--                                                                                                        @if($question->status == 1)--}}
-                                                                                                {{--                                                                                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">--}}
-                                                                                                {{--                                                                                                                Active--}}
-                                                                                                {{--                                                                                                             </span>--}}
-                                                                                                {{--                                                                                                        @elseif($question->status == 0)--}}
-                                                                                                {{--                                                                                                            <span class="label label-lg font-weight-bold label-light-success label-inline">--}}
-                                                                                                {{--                                                                                                                Deactivated--}}
-                                                                                                {{--                                                                                                             </span>--}}
-                                                                                                {{--                                                                                                        @endif--}}
-                                                                                            </td>
-                                                                                            {{--                                                                                                    <td class="text-center">--}}
-                                                                                            {{--                                                                                                        @if($question->requirement == 1)--}}
-                                                                                            {{--                                                                                                            <span class="label label-lg font-weight-bold label-light-primary label-inline">--}}
-                                                                                            {{--                                                                                                                Required--}}
-                                                                                            {{--                                                                                                            </span>--}}
-                                                                                            {{--                                                                                                        @elseif($question->requirement == 0)--}}
-                                                                                            {{--                                                                                                            <span class="label label-lg font-weight-bold label-light-success label-inline">--}}
-                                                                                            {{--                                                                                                                Optional--}}
-                                                                                            {{--                                                                                                            </span>--}}
-                                                                                            {{--                                                                                                        @endif--}}
-                                                                                            {{--                                                                                                    </td>--}}
-                                                                                            <td class="text-center" style='white-space: nowrap'>
-                                                                                                <a href="{{url("questions/copy")}}"><i
-                                                                                                        class="flaticon2-copy text-info mr-5"></i></a>
-                                                                                                <a href="{{url("questions/edit")}}"><i
-                                                                                                        class="far fa-edit text-warning mr-5"></i></a>
-                                                                                                <a href="{{url("questions/delete")}}"><i
-                                                                                                        class="fas fa-trash-alt text-danger mr-5"></i></a>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td class="text-center">{{$question->id ?? ''}}1</td>
-                                                                                            <td class="text-center">{{$question->body ?? ''}}Score</td>
-                                                                                            <td class="text-center">{{$question->body ?? ''}}Scroll Bar</td>
-                                                                                            <td class="text-center">{{$question->body ?? ''}}-</td>
-                                                                                            <td class="text-center">{{$question->body ?? ''}}-3 / +3</td>
-                                                                                            <td class="text-center" style='white-space: nowrap'>
-                                                                                                <a href="{{url("questions/copy")}}"><i
-                                                                                                        class="flaticon2-copy text-info mr-5"></i></a>
-                                                                                                <a href="{{url("questions/edit")}}"><i
-                                                                                                        class="far fa-edit text-warning mr-5"></i></a>
-                                                                                                <a href="{{url("questions/delete")}}"><i
-                                                                                                        class="fas fa-trash-alt text-danger mr-5"></i></a>
-                                                                                            </td>
-                                                                                        </tr>
-
-                                                                                        </tbody>
-
-                                                                                    </table>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
+                                                            @endforeach
 
 
 
