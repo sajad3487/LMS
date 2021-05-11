@@ -33,4 +33,10 @@ class UserRepository extends Repository
             ->get();
     }
 
+    public function getUserWithAllCircles ($id){
+        return User::where('id',$id)
+            ->with('circles')
+            ->first();
+    }
+
 }

@@ -29,13 +29,7 @@ Route::group(['middleware'=>'auth'],function(){
 
         });
 
-        Route::group(['prefix'=>'client'],function(){
 
-            Route::get('quiz','EvaluationController@client_quiz');
-            Route::get('done_quiz','EvaluationController@done_quiz');
-            Route::get('profile','EvaluationController@client_profile');
-
-        });
 
         Route::group(['prefix'=>'target'],function(){
 
@@ -45,3 +39,19 @@ Route::group(['middleware'=>'auth'],function(){
 
     });
 });
+
+Route::group(['middleware'=>'CheckAdmin'],function (){
+    Route::group(['prefix'=>'client'],function(){
+
+        Route::get('/','EvaluationController@client_panel');
+        Route::get('quiz','EvaluationController@client_quiz');
+        Route::get('done_quiz','EvaluationController@done_quiz');
+        Route::get('profile','EvaluationController@client_profile');
+        Route::get('circle/{circle_id}/view','EvaluationController@client_circle');
+        Route::post('/{circle_id}/submit','EvaluationController@client_submit');
+
+    });
+});
+
+
+

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\customerSearchProduct;
+use App\Http\Requests\NewUserRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Services\UserService;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Modules\Category\Http\Services\CategoryService;
 use Modules\Order\Http\Services\OrderService;
 use Modules\Product\Http\Services\ProductService;
@@ -54,8 +57,31 @@ class HomeController extends Controller
     }
 
     public function updateProfile (Request $request){
+//        dd($request->all());
         $data = $request->all();
+        if (isset($request->file)){
+            $data['profile_picture']= $this->userService->uploadMedia($request->file);
+            unset($data['file']);
+        }
+        if (isset($request->password)){
+            $data['password'] = Hash::make($data['password']);
+        }else{
+            unset($data['password']);
+        }
         $this->userService->updateUser($data,auth()->id());
+        return back();
+    }
+
+    public function add_user (NewUserRequest $request){
+        $data = $request->all();
+        $user = User::create([
+            'name' => $data['name'],
+            'business_name' => $data['business_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'position' => $data['position'],
+            'user_type' => $data['user_type'],
+        ]);
         return back();
     }
 

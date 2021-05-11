@@ -29,9 +29,22 @@ Route::group(['middleware'=>'auth'],function (){
            Route::post('/update','HomeController@updateProfile');
        });
        Route::group(['prefix'=>'user'],function (){
-           Route::post('store','RegisterController@add_user');
+           Route::post('store','HomeController@add_user');
        });
    });
+});
+
+Route::group(['middleware'=>'auth'],function (){
+    Route::group(['middleware'=>'CheckAdmin'],function (){
+        Route::group(['prefix'=>'client'],function (){
+            Route::group(['prefix'=>'profile'],function (){
+
+                Route::post('/update','HomeController@updateProfile');
+
+            });
+        });
+
+    });
 });
 
 Route::get('/',function (){

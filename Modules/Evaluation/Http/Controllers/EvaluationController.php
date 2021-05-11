@@ -41,15 +41,15 @@ class EvaluationController extends Controller
         $active = 6;
         $evaluations = $this->evaluationService->getAllEvaluationsOfMentor(auth()->id());
 //        dd($evaluations);
-        return view('customer.evaluations',compact('active','evaluations'));
+        return view('customer.evaluations', compact('active', 'evaluations'));
     }
 
 
     public function create()
     {
         $active = 6;
-        $targets = $this->userService->getUserByType (2);
-        return view('customer.new_evaluation',compact('active','targets'));
+        $targets = $this->userService->getUserByType(2);
+        return view('customer.new_evaluation', compact('active', 'targets'));
     }
 
     public function store(EvaluationRequest $request)
@@ -65,27 +65,51 @@ class EvaluationController extends Controller
 
     public function edit($id)
     {
-        $evaluation= $this->evaluationService->getEvaluationById ($id);
+        $evaluation = $this->evaluationService->getEvaluationById($id);
         $active = 6;
         $targets = $this->userService->getUserByType(2);
-        $circles = $this->circleService->getCirclesOfEvaluations ($id);
+        $circles = $this->circleService->getCirclesOfEvaluations($id);
         $users = $this->userService->getUserByType(3);
-        return view('customer.new_evaluation',compact('evaluation','active','targets','circles','users'));
+        return view('customer.new_evaluation', compact('evaluation', 'active', 'targets', 'circles', 'users'));
     }
 
-    public function client_quiz (){
+    public function client_panel()
+    {
+        $client = $this->userService->getClientWithCircles(auth()->id());
+//        dd($user);
+//        $client = $this->userService->getUserById(auth()->id());
+        return view('client.client_panel', compact('client'));
+    }
+
+    public function client_quiz()
+    {
         return view('client.client_quiz');
     }
 
-    public function client_profile () {
-        return view('client.client_panel');
+    public function client_profile()
+    {
+        $client = $this->userService->getUserById(auth()->id());
+        return view('client.client_profile', compact('client'));
     }
 
-    public function done_quiz (){
+    public function client_circle ($circle_id){
+        $active_circle = $this->circleService->getCircleById($circle_id);
+        $client = $this->userService->getUserById(auth()->id());
+        return view('client.client_quiz',compact('active_circle','client'));
+
+    }
+
+    public function client_submit (Request $request,$circle_id){
+        dd($request->all(),$circle_id);
+    }
+
+    public function done_quiz()
+    {
         return view('client.done_quiz');
     }
 
-    public function target_panel (){
+    public function target_panel()
+    {
         return view('target.target_panel');
     }
 }

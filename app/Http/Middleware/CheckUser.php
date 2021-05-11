@@ -31,7 +31,7 @@ class CheckUser
         if ($user->user_type == 1){
             return $next($request);
         }else{
-            return redirect('/admin');
+            return redirect('/client');
         }
     }
 }

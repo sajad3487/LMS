@@ -74,12 +74,12 @@
             <!--begin::User-->
             <div class="d-flex align-items-center mt-5">
                 <div class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                    <div class="symbol-label" style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                    <div class="symbol-label" style="background-image:url('{{asset($client->profile_picture)}}')"></div>
                     <i class="symbol-badge bg-success"></i>
                 </div>
                 <div>
-                    <a href="#" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">
-                        James Jones
+                    <a href="{{url('client')}}" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">
+                        {{$client->name ?? ''}}
                     </a>
 
                     <div class="mt-2">
@@ -93,23 +93,24 @@
             <div class="py-9">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Email:</span>
-                    <a href="#" class="text-muted text-hover-primary">matt@fifestudios.com</a>
+                    <a href="#" class="text-muted text-hover-primary">{{$client->email ?? ''}}</a>
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Company:</span>
-                    <span class="text-muted">Samsung</span>
+                    <span class="text-muted">{{$client->business_name ?? ''}}</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     <span class="font-weight-bold mr-2">Position:</span>
-                    <span class="text-muted">CEO</span>
+                    <span class="text-muted">{{$client->position ?? ''}}</span>
                 </div>
             </div>
             <!--end::Contact-->
 
             <!--begin::Nav-->
             <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
-                <div class="navi-item mb-2">
-                    <a href="#" class="navi-link py-4" data-toggle="tooltip" title="Coming soon..." data-placement="right">
+                @foreach($client->circles as $circle)
+                    <div class="navi-item mb-2 @if(isset($active_circle) && $active_circle->id == $circle->id)  bg-light @endif">
+                        <a href="{{url("client/circle/$circle->id/view")}}" class="navi-link py-4" data-toggle="tooltip">
                                 <span class="navi-icon mr-2">
                                     <span class="svg-icon"><!--begin::Svg Icon | path:assets/media/svg/icons/Files/File.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -121,28 +122,13 @@
                                         </svg><!--end::Svg Icon-->
                                     </span>
                                 </span>
-                        <span class="navi-text font-size-lg">Jac Evaluation</span>
-                        <span class="navi-label">
-                                    <span class="label label-light-danger label-inline font-weight-bold">new</span>
-                                </span>
-                    </a>
-                </div>
-                <div class="navi-item mb-2 bg-light">
-                    <a href="#" class="navi-link py-4" data-toggle="tooltip" title="Coming soon..." data-placement="right">
-                                <span class="navi-icon mr-2">
-                                    <span class="svg-icon"><!--begin::Svg Icon | path:assets/media/svg/icons/Files/File.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <polygon points="0 0 24 0 24 24 0 24"/>
-                                                <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                                                <rect fill="#000000" x="6" y="11" width="9" height="2" rx="1"/>
-                                                <rect fill="#000000" x="6" y="15" width="5" height="2" rx="1"/>
-                                            </g>
-                                        </svg><!--end::Svg Icon-->
-                                    </span>
-                                </span>
-                        <span class="navi-text font-size-lg">James Evaluation</span>
-                    </a>
-                </div>
+                            <span class="navi-text font-size-lg">{{$circle->title ?? ''}}</span>
+{{--                            <span class="navi-label">--}}
+{{--                                <span class="label label-light-danger label-inline font-weight-bold">new</span>--}}
+{{--                            </span>--}}
+                        </a>
+                    </div>
+                    @endforeach
             </div>
             <!--end::Nav-->
         </div>

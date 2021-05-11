@@ -74,8 +74,4 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function add_user (Request $request){
-        dd('hi');
-        dd($request->all());
-    }
 }

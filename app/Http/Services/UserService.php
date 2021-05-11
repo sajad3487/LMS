@@ -48,4 +48,16 @@ class UserService
         return $this->userRepo->getAllUsersByType ($type);
     }
 
+    public function uploadMedia ($file) {
+        $destination = base_path() . '/public/media/image/';
+        $filename = rand(1111111, 99999999);
+        $newFileName = $filename . $file->getClientOriginalName();
+        $file->move($destination, $newFileName);
+        return '/media/image/' . $newFileName;
+    }
+
+    public function getClientWithCircles ($id){
+        return $this->userRepo->getUserWithAllCircles ($id);
+    }
+
 }

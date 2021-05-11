@@ -112,63 +112,13 @@
                                                                     <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
 {{--                                                                        <option value="">Select</option>--}}
                                                                         @foreach($targets as $target)
-                                                                        <option value="{{$target->id}}">{{$target->name ?? ''}}</option>
+                                                                        <option value="{{$target->id}}">{{$target->name ?? ''}} - {{$target->email ?? ''}}</option>
                                                                             @endforeach
                                                                     </select>
                                                                     <span class="form-text text-muted">Select user of evaluation</span>
                                                                     <a href="#" class="btn btn-outline-success mx-auto" data-toggle="modal" data-target="#new_user_target">Add New User
                                                                     </a>
-                                                                    <!--begin::Modal-->
-                                                                    <div class="modal fade" id="new_user_target" role="dialog"  aria-hidden="true">
-                                                                        <div class="modal-dialog modal-lg" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title">Add New User</h5>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <i aria-hidden="true" class="ki ki-close"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <form class="form" action="{{url("user/store")}}" method="post" id="new_user">
-                                                                                    <div class="modal-body">
 
-                                                                                        <!--begin::Form-->
-                                                                                        @csrf
-
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-md-6">
-                                                                                                <label>Name:</label>
-                                                                                                <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
-                                                                                            </div>
-                                                                                            <div class="col-md-6">
-                                                                                                <label>Email</label>
-                                                                                                <input type="email" name="email" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="form-group row">
-                                                                                            <div class="col-md-6">
-                                                                                                <label>Position:</label>
-                                                                                                <input type="text" name="position" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
-                                                                                            </div>
-                                                                                            <div class="col-md-6">
-                                                                                                <label>Password:</label>
-                                                                                                <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <input type="text" name="business_name" value="{{$evaluation->company ?? ''}}" class="d-none">
-                                                                                        <input type="number" name="type" value="2" class="d-none">
-                                                                                        <div class="card-footer">
-                                                                                            <button type="submit" form="new_user" class="btn btn-primary mr-2">Submit</button>
-                                                                                            {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
-                                                                                        </div>
-                                                                                        <!--end::Form-->
-
-                                                                                    </div>
-
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!--end::Modal-->
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -199,6 +149,57 @@
                                                     <!--end::Form-->
                                                 </div>
                                             </div>
+                                            <!--begin::Modal-->
+                                            <div class="modal fade" id="new_user_target" role="dialog"  aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Add New User</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                                            </button>
+                                                        </div>
+                                                        <form class="form" action="{{url("user/store")}}" method="post">
+                                                            <div class="modal-body">
+
+                                                                <!--begin::Form-->
+                                                                @csrf
+
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-6">
+                                                                        <label>Name:</label>
+                                                                        <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label>Email</label>
+                                                                        <input type="email" name="email" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="col-md-6">
+                                                                        <label>Position:</label>
+                                                                        <input type="text" name="position" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label>Password:</label>
+                                                                        <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" name="business_name" value="{{$evaluation->company ?? ''}}" class="d-none">
+                                                                <input type="number" name="user_type" value="2" class="d-none">
+                                                                <div class="card-footer">
+                                                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                    {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                </div>
+                                                                <!--end::Form-->
+
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Modal-->
 
                                             @if(isset($evaluation))
                                                 <div class="tab-pane fade @if(isset($evaluation)) show active @endif" id="profile" role="tabpanel"
@@ -520,12 +521,12 @@
                                                                                                                     <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
                                                                                                                         {{--                                                                        <option value="">Select</option>--}}
                                                                                                                         @foreach($users as $user)
-                                                                                                                            <option value="{{$user->id}}">{{$user->name ?? ''}}</option>
+                                                                                                                            <option value="{{$user->id}}">{{$user->name ?? ''}} - {{$user->email ?? ''}}</option>
                                                                                                                         @endforeach
                                                                                                                     </select>
                                                                                                                     <span class="form-text text-muted">Select user of evaluation</span>
                                                                                                                     <a href="#"
-                                                                                                                       class="btn btn-outline-success mx-auto">Add New User
+                                                                                                                       class="btn btn-outline-success mx-auto" data-toggle="modal" data-target="#new_user_client{{$key}}">Add New User
                                                                                                                     </a>
                                                                                                                 </div>
                                                                                                             </div>
@@ -539,6 +540,57 @@
                                                                                                         </div>
 
                                                                                                     </form>
+                                                                                                    <!--begin::Modal-->
+                                                                                                    <div class="modal fade" id="new_user_client{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                                                            <div class="modal-content">
+                                                                                                                <div class="modal-header">
+                                                                                                                    <h5 class="modal-title">Add New User</h5>
+                                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                                    </button>
+                                                                                                                </div>
+                                                                                                                <form class="form" action="{{url("user/store")}}" method="post">
+                                                                                                                    <div class="modal-body">
+
+                                                                                                                        <!--begin::Form-->
+                                                                                                                        @csrf
+
+                                                                                                                        <div class="form-group row">
+                                                                                                                            <div class="col-md-6">
+                                                                                                                                <label>Name:</label>
+                                                                                                                                <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-6">
+                                                                                                                                <label>Email</label>
+                                                                                                                                <input type="email" name="email" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group row">
+                                                                                                                            <div class="col-md-6">
+                                                                                                                                <label>Position:</label>
+                                                                                                                                <input type="text" name="position" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-6">
+                                                                                                                                <label>Password:</label>
+                                                                                                                                <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <input type="text" name="business_name" value="{{$evaluation->company ?? ''}}" class="d-none">
+                                                                                                                        <input type="number" name="user_type" value="3" class="d-none">
+                                                                                                                        <div class="card-footer">
+                                                                                                                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                                                                            {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                                        </div>
+                                                                                                                        <!--end::Form-->
+
+                                                                                                                    </div>
+
+                                                                                                                </form>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!--end::Modal-->
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
