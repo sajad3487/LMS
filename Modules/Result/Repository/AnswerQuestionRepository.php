@@ -29,4 +29,9 @@ class AnswerQuestionRepository extends Repository
             ->delete();
     }
 
+    public function deleteAllQuestionsOfAnswer ($answer_id){
+        return answerQuestion::where('answer_id',$answer_id)
+            ->delete();
+    }
+
 }

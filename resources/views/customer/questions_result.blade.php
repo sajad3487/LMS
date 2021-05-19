@@ -50,7 +50,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Question Title</th>
-                                    <th>Average Score</th>
+{{--                                    <th>Average Score</th>--}}
                                     <th>Taken</th>
                                     <th>Requirement</th>
                                     <th>Additional Info</th>
@@ -64,7 +64,7 @@
                                         <tr class="">
                                     <td>{{$key ?? ''}}</td>
                                     <td>{{$question['body'] ?? ''}}</td>
-                                    <td>{{$question['average_score'] ?? ''}}</td>
+{{--                                    <td>{{$question['average_score'] ?? ''}}</td>--}}
                                     <td>{{$question['taken'] ?? ''}}</td>
                                     <td>
                                         @if($question['requirement'] == 1)
@@ -95,7 +95,7 @@
                                         </button>
                                         @if($question['type'] == 'question')
                                         <button type="button" class="btn btn-light-success font-weight-bold ml-2 my-1" data-toggle="modal" data-target="#option-{{$key}}">
-                                            <i class="flaticon-pie-chart"></i>Options
+                                            <i class="flaticon-pie-chart"></i>Results
                                         </button>
                                         @endif
 

@@ -100,6 +100,7 @@ class AnswerQuizController extends Controller
         }
         $answer = $this->answerQuizService->createAnswer($data);
         $additional_info = $request->additional_info;
+        $i = 0 ;
         if (isset($request->question)) {
             foreach ($request->question as $key => $answered_option) {
                 $answer_data['form_id'] = $request->form_id;
@@ -125,17 +126,21 @@ class AnswerQuizController extends Controller
                     $answer_question = $this->answerQuestionService->createAnswerQuestion($answer_data);
                 }
             }
+        }else{
+            $i ++ ;
         }
         if (isset($request->answer)){
 
             foreach ($request->answer as $text_key=>$answer_text){
-                $answer_text_data['form_id'] = $request->form_id;
-                $answer_text_data['answer_id'] = $answer->id;
-                $answer_text_data['question_id'] = $text_key;
-                $answer_text_data['type'] = 'text';
-                $answer_text_data['answer'] = $answer_text;
-                $answer_text_data['score'] = 0;
-                $answer_text_question = $this->answerQuestionService->createAnswerQuestion($answer_text_data);
+                if($answer_text != null){
+                    $answer_text_data['form_id'] = $request->form_id;
+                    $answer_text_data['answer_id'] = $answer->id;
+                    $answer_text_data['question_id'] = $text_key;
+                    $answer_text_data['type'] = 'text';
+                    $answer_text_data['answer'] = $answer_text;
+                    $answer_text_data['score'] = 0;
+                    $answer_text_question = $this->answerQuestionService->createAnswerQuestion($answer_text_data);
+                }
             }
         }
         $score = $this->answerQuizService->calculateSumScore($answer->id);
@@ -226,9 +231,14 @@ class AnswerQuizController extends Controller
     public function user_answer_index($quiz_id)
     {
         $participants = $this->answerQuizService->getUsersOfQuiz($quiz_id);
-        $active = 6;
+        $active = 3;
         $user = $this->userService->getUserById(auth()->id());
         return view('customer.user_result', compact('participants', 'active', 'user'));
+    }
+
+    public function user_answer_destroy ($answers_id){
+        $this->answerQuizService->deleteAnswerOfUser($answers_id);
+        return back();
     }
 
     public function super_store (AnswerSuperRequest $request){

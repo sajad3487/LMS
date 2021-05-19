@@ -134,7 +134,7 @@
                                     <th>Segment Title</th>
                                     <th>Min & Max Score</th>
                                     <th>Users</th>
-                                    <th>Average Score</th>
+{{--                                    <th>Average Score</th>--}}
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -146,7 +146,7 @@
                                     <td>{{$segment['segment_title'] ?? ''}}</td>
                                     <td>{{$segment['min_score'] ?? ''}} - {{$segment['max_score'] ?? ''}}</td>
                                     <td>{{$segment['achieved'] ?? ''}}</td>
-                                    <td>{{$segment['average_score'] ?? ''}}</td>
+{{--                                    <td>{{$segment['average_score'] ?? ''}}</td>--}}
                                     <td>
                                         <!-- Button trigger modal-->
                                         <button type="button" class="btn btn-light-info font-weight-bold" data-toggle="modal" data-target="#users-{{$key}}">

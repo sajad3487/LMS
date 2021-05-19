@@ -28,7 +28,6 @@
     <!--end::Layout Themes-->
     <link href="{{asset('/css/style.quiz.css')}}" rel="stylesheet" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <link rel="shortcut icon" href="{{asset('media/logos/favicon.ico')}}"/>
 
 </head>
@@ -200,21 +199,27 @@
 
                                 <form class="form form-wrapper" action="{{url("quiz/submit")}}" method="post">
 
-                                    <fieldset class="section is-active">
+                                    <fieldset class="section is-active" id="info">
                                         @csrf
                                         <h3>Information</h3>
                                         <input type="number" name="form_id" value="{{$quiz->id}}" class="d-none">
                                         <div class="row">
                                             <div class="form-group col-md-6 col-lg-4">
-                                                <label>{{$quiz->first_name_label ?? ''}}</label>
+                                                <label>{{$quiz->first_name_label ?? ''}}
+                                                    @if($quiz->first_name_requirement == 1 ) <span class="text-danger ml-1"> * </span> @endif
+                                                </label>
                                                 <input type="text" name="first_name" class="form-control form-control-solid" @if($quiz->first_name_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->first_name_label ?? ''}}" @endif/>
                                             </div>
                                             <div class="form-group col-md-6 col-lg-4">
-                                                <label>{{$quiz->last_name_label ?? ''}}</label>
+                                                <label>{{$quiz->last_name_label ?? ''}}
+                                                @if($quiz->last_name_requirement == 1 ) <span class="text-danger ml-1"> * </span> @endif
+                                                </label>
                                                 <input type="text" name="last_name" class="form-control form-control-solid" @if($quiz->last_name_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->last_name_label ?? ''}}" @endif/>
                                             </div>
                                             <div class="form-group col-md-6 col-lg-4">
-                                                <label>{{$quiz->email_label ?? ''}}</label>
+                                                <label>{{$quiz->email_label ?? ''}}
+                                                @if($quiz->email_requirement == 1 ) <span class="text-danger ml-1"> * </span> @endif
+                                                </label>
                                                 <input type="email" name="email" class="form-control form-control-solid" @if($quiz->email_requirement == 1 ) required @endif  @if($quiz->placeholder == 1) placeholder="{{$quiz->email_label ?? ''}}" @endif/>
                                             </div>
                                         </div>
@@ -248,17 +253,22 @@
                                         <div class="button">Next</div>
                                     </fieldset>
                                     @foreach($sections as $sectionKey=>$section_body)
-                                    <fieldset class="section">
-                                        <h3 class="mb-2">{{$section_body->body ?? ''}}</h3>
+                                    <fieldset class="section" id="sec{{$sectionKey}}">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-outline-warning back align-bottom ml-6 p-3"> <i class="flaticon2-fast-back"></i></button>
+                                            <h3 class="mb-2 ml-5">{{$section_body->body ?? ''}}</h3>
+                                        </div>
                                         <p class="row m-0 ">{{$section_body->description ?? ''}}</p>
                                         <hr>
-                                        <div class=" cf">
-                                            <button type="button" class="btn btn-outline-warning back align-bottom ml-6 p-3"> <i class="flaticon2-fast-back"></i></button>
+
+                                        <div class="cf">
+
 
                                         @foreach($section_body->question as $key=>$question)
                                                 @if($question->type == 'question')
                                                     <div class="form-group px-10 m-0">
                                                         <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}
+                                                            @if($question->requirement) <span class="text-danger ml-1"> * </span> @endif
                                                         </label>
                                                         <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
 
@@ -271,6 +281,7 @@
                                                                         {{$option->body ?? ''}}
                                                                     </label>
                                                                 @endforeach
+
                                                             </div>
                                                         </div>
                                                         <input type="text" name="additional_info[{{$question->id}}]" style="width: 100%" class="form-control mt-2  @if(!$question->additional_info) d-none @endif"  placeholder="Additional information"/>
@@ -286,7 +297,7 @@
                                                                 @foreach($question->option as $optionKey=>$option)
 
                                                                     <label class="checkbox checkbox-success" >
-                                                                        <input type="checkbox" name="question[{{$question->id}}][{{$optionKey}}]" value="{{$option->id}}"  />
+                                                                        <input type="checkbox" name="question[{{$question->id}}][{{$optionKey}}]" value="{{$option->id}}" />
                                                                         <span></span>
                                                                         {{$option->body ?? ''}}
                                                                     </label>
@@ -300,9 +311,10 @@
                                                 @elseif($question->type == 'text')
                                                     <div class="form-group px-10 m-0 mb-2">
                                                         <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}
+                                                            @if($question->requirement) <span class="text-danger ml-1"> * </span> @endif
                                                         </label>
                                                         <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
-                                                        <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer"/>
+                                                        <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer" @if($question->requirement) required @endif/>
                                                     </div>
                                                 @elseif($question->type == 'title')
                                                     <div class="form-group px-10 m-0">
@@ -333,11 +345,15 @@
                                     @endforeach
                                     @if($questions->count() != 0)
                                     <fieldset class="section">
-                                        <h3>Last Questions</h3>
-                                        @foreach($questions as $key=>$free_question)
+                                        <div class="row">
+                                            <button type="button" class="btn btn-outline-warning back align-bottom ml-6 p-3"> <i class="flaticon2-fast-back"></i></button>
+                                            <h3 class="mb-2 ml-5">Last Questions</h3>
+                                        </div>
+                                    @foreach($questions as $key=>$free_question)
                                             @if($free_question->type == 'question')
                                                 <div class="form-group px-10 m-0">
                                                     <label class="row col-form-label h6">{{$i++}}) {{$free_question->body ?? ''}}
+                                                        @if($free_question->requirement) <span class="text-danger ml-1"> * </span> @endif
                                                     </label>
                                                     <p class="row text-muted m-0 ">{{$free_question->description ?? ''}}</p>
 
@@ -358,14 +374,16 @@
                                                 <div class="form-group px-10 m-0">
                                                     <label class="row col-form-label h6">{{$i++}}) {{$free_question->body ?? ''}}
                                                     </label>
-                                                    <p class="row text-muted m-0 ">{{$free_question->description ?? ''}}</p>
+                                                    <p class="row text-muted m-0 ">
+                                                        {{$free_question->description ?? ''}}
+                                                    </p>
 
                                                     <div class="row col-form-label px-4">
                                                         <div class="checkbox-inline">
                                                             @foreach($free_question->option as $freeOptionKey=>$freeOption)
 
                                                                 <label class="checkbox checkbox-success" >
-                                                                    <input type="checkbox" name="question[{{$free_question->id}}][{{$freeOptionKey}}]" value="{{$freeOption->id}}"  />
+                                                                    <input type="checkbox" name="question[{{$free_question->id}}][{{$freeOptionKey}}]" value="{{$freeOption->id}}" />
                                                                     <span></span>
                                                                     {{$freeOption->body ?? ''}}
                                                                 </label>
@@ -374,6 +392,14 @@
                                                         </div>
                                                         <input type="text" name="additional_info[{{$free_question->id}}]" class="form-control form-control-sm mt-2  @if(!$free_question->additional_info) d-none @endif"  placeholder="Additional information"/>
                                                     </div>
+                                                </div>
+                                            @elseif($free_question->type == 'text')
+                                                <div class="form-group px-10 m-0 mb-2">
+                                                    <label class="row col-form-label h6">{{$i++}}) {{$free_question->body ?? ''}}
+                                                        @if($free_question->requirement) <span class="text-danger ml-1"> * </span> @endif
+                                                    </label>
+                                                    <p class="row text-muted m-0 ">{{$free_question->description ?? ''}}</p>
+                                                    <input type="text" name="answer[{{$free_question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer" @if($free_question->requirement) required @endif/>
                                                 </div>
                                             @elseif($free_question->type == 'title')
                                                 <div class="form-group px-10 m-0">
@@ -527,6 +553,49 @@
         $(".form-wrapper .button").click(function(){
             var button = $(this);
             var currentSection = button.parents(".section");
+            var id = currentSection.attr('id');
+
+            var  section =document.getElementById(id);
+            inputs = section.getElementsByTagName('input');
+            for (index = 0; index < inputs.length; ++index) {
+                // deal with inputs[index] element.
+                var type = inputs[index].type;
+                if(type == 'radio') {
+                    var result = inputs[index].name;
+                    // var value = document.getElementsByName(result).checked;
+                    var radios = document.getElementsByName(result);
+                    // alert(value);
+                    var value;
+                    for (var i = 0; i < radios.length; i++) {
+                        if (radios[i].checked) {
+                            // get value, set checked flag or do whatever you need to
+                            value = radios[i].value;
+                        }
+                    }
+                    var error;
+                    if(value == null || value == ""){
+                        error = "true";
+                    }
+                    value = "";
+
+                }else{
+                    if (inputs[index].hasAttribute('required')) {
+                        if (inputs[index].value == null || inputs[index].value == "") {
+                            // alert("Field is empty");
+                            swal("Please complete all required * fields");
+                            $(buttonID).prop('disabled', true);
+                            return
+                        }
+                    }
+                }
+            }
+            if (error != null){
+                // alert(valueCheck);
+                swal("Please complete all required * fields");
+                $(buttonID).prop('disabled', true);
+                return
+            }
+
             var currentSectionIndex = currentSection.index();
             var headerSection = $('.steps li').eq(currentSectionIndex);
             currentSection.removeClass("is-active").next().addClass("is-active");
@@ -567,6 +636,8 @@
 <script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
 <script src="{{asset('js/scripts.bundle.js')}}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!--end::Global Theme Bundle-->
 
 

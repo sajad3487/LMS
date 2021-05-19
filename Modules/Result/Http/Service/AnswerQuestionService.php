@@ -39,5 +39,9 @@ class AnswerQuestionService
         return $this->answerQuestionRepo->deleteQuestionsOfQuiz ($quiz_id);
     }
 
+    public function deleteQuestionsOfAnswer ($answer_id){
+        return $this->answerQuestionRepo->deleteAllQuestionsOfAnswer ($answer_id);
+    }
+
 
 }

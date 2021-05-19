@@ -30,6 +30,8 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('{quiz_id}/answers','AnswerQuizController@answer_index');
             Route::get('{quiz_id}/segment_answers','AnswerQuizController@segment_answer_index');
             Route::get('{quiz_id}/users_answers','AnswerQuizController@user_answer_index');
+            Route::get('{answer_id}/delete','AnswerQuizController@user_answer_destroy');
+
 
         });
 
@@ -67,3 +69,4 @@ Route::group(['prefix'=>'superQuizzes'],function (){
     Route::get('{subquiz_answer_id}/subquiz_result/{answer_id}','AnswerQuizController@sub_quiz_show');
 
 });
+

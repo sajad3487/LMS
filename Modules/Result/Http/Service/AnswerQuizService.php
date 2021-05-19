@@ -19,14 +19,20 @@ class AnswerQuizService
      * @var QuizService
      */
     private $quizService;
+    /**
+     * @var AnswerQuestionService
+     */
+    private $answerQuestionRepo;
 
     public function __construct(
         AnswerQuizRepository $answerQuizRepository,
-        QuizService $quizService
+        QuizService $quizService,
+        AnswerQuestionService $answerQuestionService
     )
     {
         $this->answerQuizRepo = $answerQuizRepository;
         $this->quizService = $quizService;
+        $this->answerQuestionRepo = $answerQuestionService;
     }
 
     public function createAnswer($data)
@@ -93,6 +99,11 @@ class AnswerQuizService
 
     public function deleteAllAnswersOfQuiz ($quiz_id){
         return $this->answerQuizRepo->deleteAnswersOfQuiz($quiz_id);
+    }
+
+    public function deleteAnswerOfUser ($answer_id){
+        $this->answerQuestionRepo->deleteQuestionsOfAnswer($answer_id);
+        return $this->answerQuizRepo->delete($answer_id);
     }
 
 }

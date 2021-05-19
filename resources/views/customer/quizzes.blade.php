@@ -54,8 +54,8 @@
                                     <th>Date Created</th>
                                     <th>Status</th>
                                     <th>Taken</th>
-                                    <th>Average Score</th>
-                                    <th>Average Percentage</th>
+{{--                                    <th>Average Score</th>--}}
+{{--                                    <th>Average Percentage</th>--}}
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -63,7 +63,7 @@
                                 <tbody>
                                 @foreach($quizzes as $key=>$quiz)
                                 <tr class="text-center">
-                                    <td>{{$quiz->id ?? ''}}</td>
+                                    <td>{{$key+1 ?? ''}}</td>
                                     <td>{{$quiz->title ?? ''}}</td>
                                     <td>{{\Carbon\Carbon::parse($quiz->created_at)->format('Y-m-d - H:i') ?? ''}}</td>
                                     <td>
@@ -78,8 +78,8 @@
                                         @endif
                                     </td>
                                     <td>{{$quiz->taken ?? ''}}</td>
-                                    <td>{{$quiz->average_score ?? ''}}</td>
-                                    <td>{{$quiz->average_percentage ?? ''}}</td>
+{{--                                    <td>{{$quiz->average_score ?? ''}}</td>--}}
+{{--                                    <td>{{$quiz->average_percentage ?? ''}}</td>--}}
                                     <td>
                                         <a href="" data-toggle="modal" data-target="#link-{{$key}}"><i class="flaticon-browser  text-success mr-7"></i></a>
                                         <a href="{{url("quizzes/$quiz->id/copy")}}"><i class="flaticon-web text-info mr-5"></i></a>

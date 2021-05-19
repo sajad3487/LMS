@@ -53,7 +53,7 @@
                                     <th>Last Name</th>
                                     <th>Email</th>
                                     <th>Score</th>
-                                    <th>Info</th>
+                                    <th>Infomations</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -70,10 +70,15 @@
                                     <td>{{$participant['first_info'] ?? ''}}<br> {{$participant['second_info'] ?? ''}} <br> {{$participant['date_info'] ?? ''}}</td>
                                     <td>{{ \Carbon\Carbon::parse($participant['created_at'])->format('Y-m-d - H:i') ?? ''}}</td>
                                     <td>
-                                        <!-- Button trigger modal-->
-                                        <button type="button" class="btn btn-light-info font-weight-bold" data-toggle="modal" data-target="#users-{{$key}}">
-                                            Details
-                                        </button>
+                                        <div class="row">
+                                            <button href="#" class="btn btn-light-danger mr-2" data-toggle="modal" data-target="#delete-{{$key}}">
+                                                <i class="flaticon-delete"></i>
+                                            </button>
+                                            <!-- Button trigger modal-->
+                                            <button type="button" class="btn btn-light-info font-weight-bold" data-toggle="modal" data-target="#users-{{$key}}">
+                                                Details
+                                            </button>
+                                        </div>
 {{--                                        <button type="button" class="btn btn-light-success font-weight-bold" data-toggle="modal" data-target="#option-{{$key}}">--}}
 {{--                                            Options--}}
 {{--                                        </button>--}}
@@ -122,7 +127,33 @@
                                                 </div>
                                             </div>
                                         </div>
-{{--                                        <div class="modal fade" id="option-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">--}}
+                                        <div class="modal fade" id="delete-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable" style="max-width: 40%" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete User Answers</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <div class="card-body text-center">
+                                                            <h3 class="mb-4">Are you sure you want to delete answers of "{{$participant['email'] ?? ''}}" ?</h3>
+                                                            <p class="my-4">This quiz will be deleted immediately. You can't undo this action</p>
+                                                            <button data-dismiss="modal" aria-label="Close" class="btn btn-light font-weight-bolder mr-5">
+                                                                Cancel
+                                                            </button>
+                                                            <a href="{{url("/result/$participant->id/delete")}}" class="btn btn-danger font-weight-bolder">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{--                                        <div class="modal fade" id="option-{{$key}}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">--}}
 {{--                                            <div class="modal-dialog modal-dialog-scrollable" style="max-width: 90%" role="document">--}}
 {{--                                                <div class="modal-content">--}}
 {{--                                                    <div class="modal-header">--}}

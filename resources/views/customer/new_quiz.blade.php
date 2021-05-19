@@ -18,9 +18,9 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     @if(isset($quiz))
-                                        <h3 class="card-label">Quiz No: {{$quiz->id ?? ''}}
+                                        <h3 class="card-label">Quiz title : {{$quiz->title ?? ''}}
                                             <span
-                                                class="d-block text-muted pt-2 font-size-sm">Quiz title : {{$quiz->title ?? ''}}</span>
+                                                class="d-block text-muted pt-2 font-size-sm"> Quiz No: {{$quiz->id ?? ''}}</span>
                                         </h3>
                                     @else
                                         <h3 class="card-label">New Quiz </h3>
@@ -418,7 +418,7 @@
                                                                                     @if($section->question != null)
                                                                                         @foreach($section->question as $key=>$question)
                                                                                                 <tr>
-                                                                                                    <td>{{$question->id ?? ''}}</td>
+                                                                                                    <td>{{$key+1 ?? ''}}</td>
                                                                                                     <td>{{$question->body ?? ''}}</td>
                                                                                                     <td class="text-center">
                                                                                                         @if($question->additional_info == 1)
