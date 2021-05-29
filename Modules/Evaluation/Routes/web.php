@@ -30,17 +30,39 @@ Route::group(['middleware'=>'auth'],function(){
         });
 
 
+        Route::group(['prefix'=>'evaluation_result'],function(){
 
-        Route::group(['prefix'=>'target'],function(){
-
-            Route::get('panel','EvaluationController@target_panel');
+            Route::get('{evaluation_id}/show','EvaluationController@show');
+            Route::get('{evaluation_id}/send_user','EvaluationController@send_user');
+            Route::get('report/{circle_id}/show','CircleController@show_report');
+            Route::post('report/{circle_id}/store','CircleController@store_report');
+            Route::post('report/{report_id}/update','CircleController@update_report');
+            Route::post('report/{circle_id}/send_client','CircleController@send_report');
 
         });
+
+
+
+
+
 
     });
 });
 
 Route::group(['middleware'=>'CheckAdmin'],function (){
+    Route::group(['prefix'=>'participant'],function(){
+
+        Route::get('/','EvaluationController@participant_panel');
+        Route::get('quiz','EvaluationController@participant_quiz');
+        Route::get('done_quiz','EvaluationController@done_quiz');
+        Route::get('profile','EvaluationController@participant_profile');
+        Route::get('circle/{circle_id}/view','EvaluationController@participant_circle');
+        Route::post('/{circle_id}/submit','AnswerEvaluationController@store');
+
+    });
+});
+
+Route::group(['middleware'=>'CheckClient'],function (){
     Route::group(['prefix'=>'client'],function(){
 
         Route::get('/','EvaluationController@client_panel');
@@ -48,10 +70,14 @@ Route::group(['middleware'=>'CheckAdmin'],function (){
         Route::get('done_quiz','EvaluationController@done_quiz');
         Route::get('profile','EvaluationController@client_profile');
         Route::get('circle/{circle_id}/view','EvaluationController@client_circle');
-        Route::post('/{circle_id}/submit','EvaluationController@client_submit');
+        Route::post('/{circle_id}/submit','AnswerEvaluationController@store');
 
     });
 });
 
+Route::group(['prefix'=>'target'],function(){
 
+    Route::get('panel','EvaluationController@target_panel');
+
+});
 

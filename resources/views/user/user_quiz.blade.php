@@ -1,8 +1,8 @@
-@extends('layouts.client.master')
+@extends('layouts.user.master')
 @section('content')
     <!--begin::Profile Email Settings-->
     <div class="d-flex flex-row">
-    @include('layouts.client.sidebar')
+    @include('layouts.user.sidebar')
 
     <!--begin::Content-->
         <div class="flex-row-fluid ml-lg-8">
@@ -17,7 +17,7 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Form-->
-                <form class="form" action="{{url("/client/$active_circle->id/submit")}}" method="post" enctype="multipart/form-data">
+                <form class="form" action="{{url("/participant/$active_circle->id/submit")}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body row">
                         <div class="col-lg-12">
@@ -27,7 +27,7 @@
                                 <label class="row col-form-label h6">{{$key+1}}) {{$question->title ?? ''}}
                                 </label>
                                 <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
-                                <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer"/>
+                                <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer" required/>
                             </div>
                             @endforeach
 
@@ -40,7 +40,7 @@
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-8">
-                                <a href="{{url('/admin/users')}}" type="reset" class="btn btn-secondary col-md-3 mr-2">Cancel</a>
+                                <a href="{{url('/participant')}}" type="reset" class="btn btn-secondary col-md-3 mr-2">Cancel</a>
                                 <button type="submit" class="btn btn-success col-md-3">Submit</button>
                             </div>
                         </div>

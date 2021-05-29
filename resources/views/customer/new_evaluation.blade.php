@@ -275,13 +275,25 @@
                                                                         <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse-{{$circle->id ?? ''}}">
                                                                             {{$circle->title ?? ''}}
                                                                             <div class="ml-10">
-{{--                                                                                @if($circle->status ==1 )--}}
-{{--                                                                                    <span class="label font-weight-bold label-lg label-light-success label-inline">Active</span>--}}
+                                                                                @if($circle->status == 1 )
+                                                                                    <span class="label font-weight-bold label-lg label-light-primary label-inline">Created</span>
 
-{{--                                                                                @else--}}
-{{--                                                                                    <span class="label font-weight-bold label-lg label-light-danger label-inline">Inactive</span>--}}
+                                                                                @elseif($circle->status == 2)
+                                                                                    <span class="label font-weight-bold label-lg label-light-danger label-inline">Ready to Send</span>
 
-{{--                                                                                @endif--}}
+                                                                                @elseif($circle->status == 3)
+                                                                                    <span class="label font-weight-bold label-lg label-light-warning label-inline">User Answering </span>
+
+                                                                                @elseif($circle->status == 4)
+                                                                                    <span class="label font-weight-bold label-lg label-light-info label-inline">Ready to Send Report</span>
+
+                                                                                @elseif($circle->status == 5)
+                                                                                    <span class="label font-weight-bold label-lg label-light-dark label-inline">Report Sent</span>
+
+                                                                                @elseif($circle->status == 6)
+                                                                                    <span class="label font-weight-bold label-lg label-light-success label-inline">Client Checked</span>
+
+                                                                                @endif
                                                                             </div>
                                                                         </div>
 
@@ -383,6 +395,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <!--end::Modal-->
+
                                                                                 </div>
                                                                                 <table class="table table-bordered table-checkable" id="kt_datatable">
                                                                                     <thead>
@@ -505,7 +518,7 @@
                                                                                             <div class="modal-dialog modal-lg" role="document">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
-                                                                                                        <h5 class="modal-title">Add New Choice</h5>
+                                                                                                        <h5 class="modal-title">Add New User</h5>
                                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                             <i aria-hidden="true" class="ki ki-close"></i>
                                                                                                         </button>

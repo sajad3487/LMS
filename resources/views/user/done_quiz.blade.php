@@ -1,8 +1,8 @@
-@extends('layouts.client.master')
+@extends('layouts.user.master')
 @section('content')
     <!--begin::Profile Email Settings-->
     <div class="d-flex flex-row">
-    @include('layouts.client.sidebar')
+    @include('layouts.user.sidebar')
 
     <!--begin::Content-->
         <div class="flex-row-fluid ml-lg-8">
@@ -18,7 +18,7 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Form-->
-                <form class="form" action="{{url("/admin/users/updateProfile")}}" method="post" enctype="multipart/form-data">
+                <form class="form" action="{{url("/participant/updateProfile")}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body row">
                         <div class="col-lg-12">

@@ -19,4 +19,17 @@ class NoteRepository extends Repository
         $this->model = new Note();
     }
 
+    public function getReportByCircleId ($circle_id){
+        return Note::where('circle_id',$circle_id)
+            ->where('type','report')
+            ->first();
+    }
+
+    public function getAllAnswersForQuestionOfCircle ($circle_id){
+        return Note::where('circle_id',$circle_id)
+            ->with('answers')
+            ->with('answers.user')
+            ->get();
+    }
+
 }

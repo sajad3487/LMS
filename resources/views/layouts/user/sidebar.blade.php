@@ -74,16 +74,16 @@
             <!--begin::User-->
             <div class="d-flex align-items-center mt-5">
                 <div class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                    <div class="symbol-label" style="background-image:url('{{asset($client->profile_picture)}}')"></div>
+                    <div class="symbol-label" style="background-image:url('{{asset($user->profile_picture)}}')"></div>
                     <i class="symbol-badge bg-success"></i>
                 </div>
                 <div>
-                    <a href="{{url('client')}}" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">
-                        {{$client->name ?? ''}}
+                    <a href="{{url('participant')}}" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">
+                        {{$user->name ?? ''}}
                     </a>
 
                     <div class="mt-2">
-                        <a href="{{url('client/profile')}}" class="btn btn-sm btn-primary font-weight-bold mr-2 py-2 px-3 px-xxl-5 my-1">Profile</a>
+                        <a href="{{url('participant/profile')}}" class="btn btn-sm btn-primary font-weight-bold mr-2 py-2 px-3 px-xxl-5 my-1">Profile</a>
                     </div>
                 </div>
             </div>
@@ -93,24 +93,24 @@
             <div class="py-9">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Email:</span>
-                    <a href="#" class="text-muted text-hover-primary">{{$client->email ?? ''}}</a>
+                    <a href="#" class="text-muted text-hover-primary">{{$user->email ?? ''}}</a>
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Company:</span>
-                    <span class="text-muted">{{$client->business_name ?? ''}}</span>
+                    <span class="text-muted">{{$user->business_name ?? ''}}</span>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     <span class="font-weight-bold mr-2">Position:</span>
-                    <span class="text-muted">{{$client->position ?? ''}}</span>
+                    <span class="text-muted">{{$user->position ?? ''}}</span>
                 </div>
             </div>
             <!--end::Contact-->
 
             <!--begin::Nav-->
             <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
-                @foreach($client->circles as $circle)
+                @foreach($user->circles as $circle)
                     <div class="navi-item mb-2 @if(isset($active_circle) && $active_circle->id == $circle->id)  bg-light @endif">
-                        <a href="{{url("client/circle/$circle->id/view")}}" class="navi-link py-4" data-toggle="tooltip">
+                        <a href="{{url("participant/circle/$circle->id/view")}}" class="navi-link py-4" data-toggle="tooltip">
                                 <span class="navi-icon mr-2">
                                     <span class="svg-icon"><!--begin::Svg Icon | path:assets/media/svg/icons/Files/File.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

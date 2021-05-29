@@ -24,6 +24,7 @@ class CreateEvaluationsTable extends Migration
             $table->string('target')->nullable();
             $table->date('start')->nullable();
             $table->date('deadline')->nullable();
+            $table->integer('active_circle_id')->nullable();
             $table->integer('status')->default(1);
 
             $table->timestamps();

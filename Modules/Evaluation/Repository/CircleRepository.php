@@ -30,6 +30,9 @@ class CircleRepository extends Repository
     public function getCircleById ($id){
         return Circle::where('id',$id)
             ->with('questions')
+            ->with('answers')
+            ->with('answers.answer_detail')
+            ->with('answers.answer_detail.not')
             ->with('users')
             ->first();
     }

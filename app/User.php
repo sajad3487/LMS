@@ -39,6 +39,6 @@ class User extends Authenticatable
     ];
 
     public function circles (){
-        return $this->belongsToMany(Circle::class);
+        return $this->belongsToMany(Circle::class)->where('status','>','2');
     }
 }

@@ -15,11 +15,21 @@ class Evaluation extends Model
         'description',
         'company',
         'target',
+        'active_circle_id',
+        'status',
         'start',
         'deadline',
     ];
 
     public function user (){
         return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function circles (){
+        return $this->hasMany(Circle::class,'evaluation_id','id');
+    }
+
+    public function active_circle (){
+        return $this->hasOne(Circle::class,'id','active_circle_id');
     }
 }

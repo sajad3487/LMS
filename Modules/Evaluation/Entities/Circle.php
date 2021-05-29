@@ -18,10 +18,23 @@ class Circle extends Model
     ];
 
     public function questions (){
-        return $this->hasMany(Note::class,'circle_id','id');
+        return $this->hasMany(Note::class,'circle_id','id')->where('type','question')->orWhere('type','scroller');
     }
 
     public function users (){
         return $this->belongsToMany(User::class);
     }
+
+    public function answers (){
+        return $this->hasMany(AnswerEvaluation::class,'circle_id','id')->where('parent_id',0);
+    }
+
+    public function target (){
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function report (){
+        return $this->hasOne(Note::class,'circle_id','id')->where('type','report');
+    }
+
 }

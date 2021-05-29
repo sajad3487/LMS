@@ -57,7 +57,6 @@ class HomeController extends Controller
     }
 
     public function updateProfile (Request $request){
-//        dd($request->all());
         $data = $request->all();
         if (isset($request->file)){
             $data['profile_picture']= $this->userService->uploadMedia($request->file);

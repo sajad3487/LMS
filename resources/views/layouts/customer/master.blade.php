@@ -213,8 +213,9 @@
 {{--@include('layouts.admin.StickySidebar')--}}
 
 
-<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
+{{--<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>--}}
 <!--begin::Global Config(global config for global JS scripts)-->
+
 <script>
     var KTAppSettings = {
         "breakpoints": {
@@ -497,6 +498,8 @@
 <!--begin::Page Scripts(used by this page)-->
 <script src="{{asset('js/pages/crud/forms/editors/ckeditor-classic.js')}}"></script>
 <!--end::Page Scripts-->
+
+
 </body>
 <!--end::Body-->
 </html>

@@ -42,7 +42,15 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{asset('css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css"/>        <!--end::Layout Themes-->
 
     <link rel="shortcut icon" href="{{asset('media/logos/favicon.png')}}"/>
-
+    <style>
+        #area-chart,
+        #line-chart,
+        #bar-chart,
+        #stacked,
+        #pie-chart{
+            min-height: 250px;
+        }
+    </style>
 </head>
 <!--end::Head-->
 

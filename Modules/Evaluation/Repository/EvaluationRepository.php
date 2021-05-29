@@ -18,7 +18,29 @@ class EvaluationRepository extends Repository
         return Evaluation::where('mentor_id',$mentor_id)
             ->where('parent_id',0)
             ->with('user')
+            ->with('active_circle')
             ->get();
+    }
+
+    public function getEvaluationById ($evaluation_id){
+        return Evaluation::where('id',$evaluation_id)
+            ->with('circles')
+            ->with('circles.answers')
+            ->with('circles.answers.answer_detail')
+            ->with('circles.answers.user')
+            ->with('circles.target')
+            ->first();
+    }
+
+    public function getClientEvaluation  ($client_id){
+        return Evaluation::where('user_id',$client_id)
+            ->with('circles')
+            ->with('circles.answers')
+            ->with('circles.answers.answer_detail')
+            ->with('circles.answers.user')
+            ->with('circles.target')
+            ->with('circles.report')
+            ->first();
     }
 
 }

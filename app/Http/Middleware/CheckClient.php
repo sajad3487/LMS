@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Services\UserService;
 use Closure;
 
-class CheckAdmin
+class CheckClient
 {
 
     /**
@@ -19,7 +19,6 @@ class CheckAdmin
     {
         $this->userService = $userService;
     }
-
     /**
      * Handle an incoming request.
      *
@@ -30,10 +29,10 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         $user = $this->userService->getUserById(auth()->id());
-        if ($user->user_type == 3){
+        if ($user->user_type == 2){
             return $next($request);
         }
-        elseif($user->user_type == 2){
+        elseif($user->user_type == 3){
             return redirect('/participant');
         }
         else{

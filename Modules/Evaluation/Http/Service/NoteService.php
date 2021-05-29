@@ -32,4 +32,12 @@ class NoteService
         return $this->noteRepo->delete($id);
     }
 
+    public function getReportOfCircle ($circle_id){
+        return $this->noteRepo->getReportByCircleId ($circle_id);
+    }
+
+    public function getAnswersForQuestionOfCircle ($circle_id){
+        return $this->noteRepo->getAllAnswersForQuestionOfCircle ($circle_id);
+    }
+
 }

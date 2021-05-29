@@ -36,7 +36,7 @@ Route::group(['middleware'=>'auth'],function (){
 
 Route::group(['middleware'=>'auth'],function (){
     Route::group(['middleware'=>'CheckAdmin'],function (){
-        Route::group(['prefix'=>'client'],function (){
+        Route::group(['prefix'=>'participant'],function (){
             Route::group(['prefix'=>'profile'],function (){
 
                 Route::post('/update','HomeController@updateProfile');

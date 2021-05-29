@@ -16,4 +16,8 @@ class Note extends Model
         'point',
         'status',
     ];
+
+    public function answers (){
+        return $this->hasMany(AnswerEvaluation::class,'not_id','id');
+    }
 }

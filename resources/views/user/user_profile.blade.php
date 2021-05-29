@@ -1,8 +1,8 @@
-@extends('layouts.client.master')
+@extends('layouts.user.master')
 @section('content')
     <!--begin::Profile Email Settings-->
     <div class="d-flex flex-row">
-        @include('layouts.client.sidebar')
+        @include('layouts.user.sidebar')
 
         <!--begin::Content-->
         <div class="flex-row-fluid ml-lg-8">
@@ -18,7 +18,7 @@
                 </div>
                 <!--end::Header-->
                 <!--begin::Form-->
-                <form class="form" action="{{url("client/profile/update")}}" method="post" enctype="multipart/form-data">
+                <form class="form" action="{{url("participant/profile/update")}}" method="post" enctype="multipart/form-data">
                     @csrf
 {{--                    @method('PUT')--}}
                     <div class="card-body row">
@@ -28,18 +28,18 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label text-right">Name :</label>
                                 <div class="col-lg-3">
-                                    <input type="text" name="name" class="form-control" placeholder="Enter your name" value="{{$client->name  ?? ''}}" required/>
+                                    <input type="text" name="name" class="form-control" placeholder="Enter your name" value="{{$user->name  ?? ''}}" required/>
                                 </div>
                                 <label class="col-lg-2 col-form-label text-right">Company :</label>
                                 <div class="col-lg-3">
-                                    <input type="text" name="business_name" class="form-control" placeholder="Enter your business name" value="{{$client->business_name  ?? ''}}" disabled/>
+                                    <input type="text" name="business_name" class="form-control" placeholder="Enter your business name" value="{{$user->business_name  ?? ''}}" disabled/>
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label text-right">Email :</label>
                                 <div class="col-lg-3">
-                                    <input type="text" name="email" class="form-control" placeholder="Enter your email" value="{{$client->email  ?? ''}}" disabled/>
+                                    <input type="text" name="email" class="form-control" placeholder="Enter your email" value="{{$user->email  ?? ''}}" disabled/>
                                 </div>
                                 <label class="col-lg-2 col-form-label text-right">Password :</label>
                                 <div class="col-lg-3">
@@ -50,7 +50,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label text-right">Position :</label>
                                 <div class="col-lg-3">
-                                    <input type="text" name="business_name" class="form-control" placeholder="Enter your business name" value="{{$client->position  ?? ''}}" required/>
+                                    <input type="text" name="position" class="form-control" placeholder="Enter your business name" value="{{$user->position  ?? ''}}" required/>
                                 </div>
                                 <label class="col-lg-2 col-form-label text-right">Profile Picture :</label>
                                 <div class="col-lg-3">
@@ -70,7 +70,7 @@
                         <div class="row">
                             <div class="col-lg-5"></div>
                             <div class="col-lg-7">
-                                <a href="{{url('/admin/users')}}" type="reset" class="btn btn-secondary col-md-2 mr-2">Back</a>
+                                <a href="{{url('/participant')}}" type="reset" class="btn btn-secondary col-md-2 mr-2">Back</a>
                                 <button type="submit" class="btn btn-success col-md-2">Save</button>
                             </div>
                         </div>

@@ -30,7 +30,11 @@ class CheckUser
         $user = $this->userService->getUserById(auth()->id());
         if ($user->user_type == 1){
             return $next($request);
-        }else{
+        }
+        elseif($user->user_type == 3){
+            return redirect('/participant');
+        }
+        else{
             return redirect('/client');
         }
     }

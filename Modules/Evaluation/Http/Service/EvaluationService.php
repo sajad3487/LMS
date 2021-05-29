@@ -25,11 +25,25 @@ class EvaluationService
     }
 
     public function getEvaluationById ($id){
-        return $this->evaluationRepo->getById($id);
+        return $this->evaluationRepo->getEvaluationById($id);
     }
 
     public function getAllEvaluationsOfMentor ($mentor_id){
         return $this->evaluationRepo->getAllEvaluationsOfMentor ($mentor_id);
+    }
+
+    public function addCircleToEvaluation ($evaluation_id,$circle_id){
+        $evaluation = $this->evaluationRepo->getEvaluationById($evaluation_id);
+//        dd($evaluation);
+        if ($evaluation->status == 1){
+            $data['active_circle_id'] = $circle_id;
+            $data['status'] = 2;
+            $this->evaluationRepo->update($data,$evaluation_id);
+        }
+    }
+
+    public function getEvaluationOfClient ($client_id){
+        return $this->evaluationRepo->getClientEvaluation ($client_id);
     }
 
 }
