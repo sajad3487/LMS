@@ -147,7 +147,77 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{asset('media/chart.jpg')}}" alt="" width="700">
+                                                <div class="row p-8">
+                                                    <canvas id="myChart" width="400" height="200"></canvas>
+                                                    <script>
+                                                        var ctx = document.getElementById('myChart').getContext('2d');
+                                                        var myChart = new Chart(ctx, {
+                                                            type: 'line',
+                                                            data: {
+                                                                labels: [
+                                                                    @foreach($behaviours as $month=>$score)
+
+                                                                        '{{$month}}',
+                                                                        @endforeach
+
+                                                                ],
+                                                                datasets: [{
+                                                                    label: '# of Votes',
+                                                                    data: [
+                                                                        @foreach($behaviours as $score)
+                                                                        {{$score}},
+                                                                        @endforeach
+                                                                    ],
+                                                                    backgroundColor: [
+                                                                        'rgba(255, 99, 132, 0.2)',
+                                                                        'rgba(54, 162, 235, 0.2)',
+                                                                        'rgba(255, 206, 86, 0.2)',
+                                                                        'rgba(75, 192, 192, 0.2)',
+                                                                        'rgba(153, 102, 255, 0.2)',
+                                                                        'rgba(255, 159, 64, 0.2)'
+                                                                    ],
+                                                                    borderColor: [
+                                                                        'rgba(255, 99, 132 , 1)',
+                                                                        'rgba(255, 99, 132 , 1)',
+                                                                        'rgba(255, 99, 132 , 1)',
+                                                                        'rgba(255, 99, 132 , 1)',
+                                                                        'rgba(255, 99, 132 , 1)',
+                                                                        'rgba(255, 99, 132 , 1)'
+                                                                    ],
+                                                                    borderWidth: 1
+                                                                },{
+                                                                    label: '# of color',
+                                                                    data: [10, 17, 8, 9, 12, 6],
+                                                                    backgroundColor: [
+                                                                        'rgba(255, 99, 132, 0.2)',
+                                                                        'rgba(54, 162, 235, 0.2)',
+                                                                        'rgba(255, 206, 86, 0.2)',
+                                                                        'rgba(75, 192, 192, 0.2)',
+                                                                        'rgba(153, 102, 255, 0.2)',
+                                                                        'rgba(255, 159, 64, 0.2)'
+                                                                    ],
+                                                                    borderColor: [
+                                                                        'rgba(10, 255, 10 , 1)',
+                                                                        'rgba(10, 255, 10 , 1)',
+                                                                        'rgba(10, 255, 10 , 1)',
+                                                                        'rgba(10, 255, 10 , 1)',
+                                                                        'rgba(10, 255, 10 , 1)',
+                                                                        'rgba(10, 255, 10 , 1)'
+                                                                    ],
+                                                                    borderWidth: 1
+                                                                }]
+                                                            },
+                                                            options: {
+                                                                scales: {
+                                                                    y: {
+                                                                        beginAtZero: true
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    </script>
+
+                                                </div>
                                             </div>
 
                                         </div>
@@ -168,10 +238,13 @@
                                         </g>
                                     </svg><!--end::Svg Icon-->
                                 </span>
-                                <a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">
-                                    Action Items
+                                <a href="#" class="text-danger font-weight-bold font-size-h6 mt-2"  data-toggle="modal" data-target="#journal">
+                                    Journal
                                 </a>
+
                             </div>
+
+
                             <div class="col bg-light-success px-6 py-8 rounded-xl">
                                 <span class="svg-icon svg-icon-3x svg-icon-success d-block my-2"><!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Urgent-mail.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -196,13 +269,16 @@
                                                         <!--begin::Dropdown Menu-->
                                                         <div class="dropdown dropdown-inline">
                                                             <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="svg-icon svg-icon-lg"><!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon points="0 0 24 0 24 24 0 24"/>
-        <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-        <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
-    </g>
-</svg><!--end::Svg Icon--></span>                            </button>
+                                                                <span class="svg-icon svg-icon-lg"><!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <polygon points="0 0 24 0 24 24 0 24"/>
+                                                                            <path d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                                                            <path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
+                                                                        </g>
+                                                                    </svg>
+                                            <!--end::Svg Icon--></span>
+                                                            </button>
                                                             <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-md">
                                                                 <!--begin::Navigation-->
                                                                 <ul class="navi navi-hover py-5">
@@ -223,8 +299,8 @@
                                                                             <span class="navi-icon"><i class="flaticon2-rocket-1"></i></span>
                                                                             <span class="navi-text">Groups</span>
                                                                             <span class="navi-link-badge">
-                <span class="label label-light-primary label-inline font-weight-bold">new</span>
-            </span>
+                                                                                <span class="label label-light-primary label-inline font-weight-bold">new</span>
+                                                                            </span>
                                                                         </a>
                                                                     </li>
                                                                     <li class="navi-item">
@@ -253,8 +329,8 @@
                                                                             <span class="navi-icon"><i class="flaticon2-bell-2"></i></span>
                                                                             <span class="navi-text">Privacy</span>
                                                                             <span class="navi-link-badge">
-                <span class="label label-light-danger label-rounded font-weight-bold">5</span>
-            </span>
+                                                                                <span class="label label-light-danger label-rounded font-weight-bold">5</span>
+                                                                            </span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>
@@ -587,16 +663,103 @@
                                             <!--begin: Items-->
                                             <div class="d-flex align-items-center flex-wrap">
                                                 <!--begin: Item-->
-                                            {{--                                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">--}}
-                                            {{--                                                    <span class="mr-4">--}}
-                                            {{--                                                        <i class="flaticon2-hourglass-1 icon-2x text-muted font-weight-bold"></i>--}}
-                                            {{--                                                    </span>--}}
-                                            {{--                                                    <div class="d-flex flex-column text-dark-75">--}}
-                                            {{--                                                        <span class="font-weight-bolder font-size-sm">Total Circle</span>--}}
-                                            {{--                                                        <span class="font-weight-bolder font-size-h5">4 Circle</span>--}}
-                                            {{--                                                    </div>--}}
-                                            {{--                                                </div>--}}
-                                            <!--end: Item-->
+                                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                                    <span class="mr-4">
+                                                        <i class="flaticon-calendar-3 icon-2x text-muted font-weight-bold"></i>
+                                                    </span>
+                                                    <div class="d-flex flex-column text-dark-75">
+{{--                                                        <span class="font-weight-bolder font-size-sm">Total Circle</span>--}}
+                                                        <span class="font-weight-bolder font-size-h5"><a href="" class="" data-toggle="modal" data-target="#journal{{$key}}">Journal</a></span>
+                                                    </div>
+                                                </div>
+                                                <!--end: Item-->
+                                                <!--begin::Modal-->
+                                                <div class="modal fade" id="journal{{$key}}" role="dialog"  aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Journal</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+
+
+                                                                <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle" id="accordionExample7">
+                                                                    @foreach($circle->journal as $journal_key=>$journal)
+                                                                    <div class="card">
+                                                                        <div class="card-header" id="headingOne7">
+                                                                            <div class="card-title collapsed" data-toggle="collapse" data-target="#journal-{{$journal_key}}">
+                                                                                <span class="svg-icon svg-icon-primary">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                                                            <path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                                                            <path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) "></path>
+                                                                                        </g>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <div class="card-label pl-4">{{$journal->title ?? ''}}</div>
+                                                                                <div class="card-label text-muted pl-4">{{\Carbon\Carbon::parse($journal->created_at)->format('Y-m-d') ?? ''}}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="journal-{{$journal_key}}" class="collapse" data-parent="#accordionExample7">
+                                                                            <div class="card-body pl-12">
+                                                                                {!! $journal->description ?? '' !!}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endforeach
+                                                                    {{--                                                    <div class="card">--}}
+                                                                    {{--                                                        <div class="card-header" id="headingTwo7">--}}
+                                                                    {{--                                                            <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo7">--}}
+                                                                    {{--                                                            <span class="svg-icon svg-icon-primary">--}}
+                                                                    {{--                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">--}}
+                                                                    {{--                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">--}}
+                                                                    {{--                                                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>--}}
+                                                                    {{--                                                                        <path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z" fill="#000000" fill-rule="nonzero"></path>--}}
+                                                                    {{--                                                                        <path d="M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) "></path>--}}
+                                                                    {{--                                                                    </g>--}}
+                                                                    {{--                                                                </svg>--}}
+                                                                    {{--                                                            </span>--}}
+                                                                    {{--                                                                <div class="card-label pl-4">Order Statistics</div>--}}
+                                                                    {{--                                                            </div>--}}
+                                                                    {{--                                                        </div>--}}
+                                                                    {{--                                                        <div id="collapseTwo7" class="collapse" data-parent="#accordionExample7">--}}
+                                                                    {{--                                                            <div class="card-body pl-12">--}}
+                                                                    {{--                                                                ...--}}
+                                                                    {{--                                                            </div>--}}
+                                                                    {{--                                                        </div>--}}
+                                                                    {{--                                                    </div>--}}
+                                                                </div>
+                                                            @include('fragment.error')
+                                                            <!--begin::Form-->
+                                                                <form class="form" action="{{url('client/journal/store')}}" method="post">
+                                                                    @csrf
+                                                                    <div class="card-body">
+                                                                        <div class="form-group">
+                                                                            <label>Name</label>
+                                                                            <input type="text" name="title" class="form-control" required placeholder="Please enter name of your co-worker"/>
+                                                                            <input type="number" name="circle_id" class="d-none" value="{{$circle->id}}"/>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="exampleTextarea">Report of conversation</label>
+                                                                            <textarea class="form-control" required name="description" rows="3"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer">
+                                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                                                                    </div>
+                                                                </form>
+                                                                <!--end::Form-->
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end::Modal-->
 
                                             {{--                                                <!--begin: Item-->--}}
                                             {{--                                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">--}}
@@ -778,51 +941,6 @@
 
     </div>
     <!--end::Row-->
-    <script>
-        var data = [
-                { y: '2014', a: 50, b: 90},
-                { y: '2015', a: 65,  b: 75},
-                { y: '2016', a: 50,  b: 50},
-                { y: '2017', a: 75,  b: 60},
-                { y: '2018', a: 80,  b: 65},
-                { y: '2019', a: 90,  b: 70},
-                { y: '2020', a: 100, b: 75},
-                { y: '2021', a: 115, b: 75},
-                { y: '2022', a: 120, b: 85},
-                { y: '2023', a: 145, b: 85},
-                { y: '2024', a: 160, b: 95}
-            ],
-            config = {
-                data: data,
-                xkey: 'y',
-                ykeys: ['a', 'b'],
-                labels: ['Total Income', 'Total Outcome'],
-                fillOpacity: 0.6,
-                hideHover: 'auto',
-                behaveLikeLine: true,
-                resize: true,
-                pointFillColors:['#ffffff'],
-                pointStrokeColors: ['black'],
-                lineColors:['gray','red']
-            };
-        config.element = 'area-chart';
-        Morris.Area(config);
-        config.element = 'line-chart';
-        Morris.Line(config);
-        config.element = 'bar-chart';
-        Morris.Bar(config);
-        config.element = 'stacked';
-        config.stacked = true;
-        Morris.Bar(config);
-        Morris.Donut({
-            element: 'pie-chart',
-            data: [
-                {label: "Friends", value: 30},
-                {label: "Allies", value: 15},
-                {label: "Enemies", value: 45},
-                {label: "Neutral", value: 10}
-            ]
-        });
-    </script>
+
 
     @endsection

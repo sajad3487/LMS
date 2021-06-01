@@ -20,24 +20,37 @@ class NoteService
         $this->noteRepo = $noteRepository;
     }
 
-    public function createNote ($data){
+    public function createNote($data)
+    {
         return $this->noteRepo->create($data);
     }
 
-    public function updateNote ($data,$id){
-        return $this->noteRepo->update($data,$id);
+    public function updateNote($data, $id)
+    {
+        return $this->noteRepo->update($data, $id);
     }
 
-    public function deleteNote ($id){
+    public function deleteNote($id)
+    {
         return $this->noteRepo->delete($id);
     }
 
-    public function getReportOfCircle ($circle_id){
-        return $this->noteRepo->getReportByCircleId ($circle_id);
+    public function getReportOfCircle($circle_id)
+    {
+        return $this->noteRepo->getReportByCircleId($circle_id);
     }
 
-    public function getAnswersForQuestionOfCircle ($circle_id){
-        return $this->noteRepo->getAllAnswersForQuestionOfCircle ($circle_id);
+    public function getAnswersForQuestionOfCircle($circle_id)
+    {
+        return $this->noteRepo->getAllAnswersForQuestionOfCircle($circle_id);
+    }
+
+    public function getQuestions (){
+        return $this->noteRepo->getAllQuestions ();
+    }
+
+    public function getTemplateByType ($type){
+        return $this->noteRepo->getTempateWithType ($type);
     }
 
 }

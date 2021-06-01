@@ -29,6 +29,7 @@ class EvaluationRepository extends Repository
             ->with('circles.answers.answer_detail')
             ->with('circles.answers.user')
             ->with('circles.target')
+            ->with('circles.journal')
             ->first();
     }
 
@@ -40,6 +41,7 @@ class EvaluationRepository extends Repository
             ->with('circles.answers.user')
             ->with('circles.target')
             ->with('circles.report')
+            ->with('circles.journal')
             ->first();
     }
 

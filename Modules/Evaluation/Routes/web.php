@@ -11,8 +11,15 @@ Route::group(['middleware'=>'auth'],function(){
             Route::put('/{quiz_id}/update','EvaluationController@update');
             Route::get('/{quiz_id}/edit','EvaluationController@edit');
 
+            Route::group(['prefix'=>'setting'],function (){
+                Route::get('email_template','NoteController@email_template_edit');
+                Route::post('email_template/{note_id}/update','NoteController@email_template_update');
+                Route::post('email_template/store','NoteController@email_template_store');
+            });
+
 
             Route::get('/{quiz_id}/copy','QuizController@copy');
+
 
         });
 
@@ -33,7 +40,8 @@ Route::group(['middleware'=>'auth'],function(){
         Route::group(['prefix'=>'evaluation_result'],function(){
 
             Route::get('{evaluation_id}/show','EvaluationController@show');
-            Route::get('{evaluation_id}/send_user','EvaluationController@send_user');
+            Route::get('{circle_id}/edit_email','EvaluationController@edit_email');
+            Route::get('{circle_id}/send_user','EvaluationController@send_user');
             Route::get('report/{circle_id}/show','CircleController@show_report');
             Route::post('report/{circle_id}/store','CircleController@store_report');
             Route::post('report/{report_id}/update','CircleController@update_report');
@@ -71,6 +79,10 @@ Route::group(['middleware'=>'CheckClient'],function (){
         Route::get('profile','EvaluationController@client_profile');
         Route::get('circle/{circle_id}/view','EvaluationController@client_circle');
         Route::post('/{circle_id}/submit','AnswerEvaluationController@store');
+
+        Route::group(['prefix'=>'journal'],function (){
+            Route::post('store','NoteController@store_journal');
+        });
 
     });
 });

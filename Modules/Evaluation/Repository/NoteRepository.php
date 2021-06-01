@@ -32,4 +32,15 @@ class NoteRepository extends Repository
             ->get();
     }
 
+    public function getAllQuestions (){
+        return Note::where('type','question')
+            ->groupBy('title')
+            ->get();
+    }
+
+    public function getTempateWithType ($type){
+        return Note::where('type',$type)
+            ->first();
+    }
+
 }

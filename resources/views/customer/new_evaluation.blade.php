@@ -107,12 +107,12 @@
 {{--                                                                </div>--}}
 {{--                                                            </div>--}}
                                                             <div class="form-group row">
-                                                                <label class="col-form-label text-right col-lg-2 col-sm-12">Select User</label>
+                                                                <label class="col-form-label text-right col-lg-2 col-sm-12">Coaching Executive:</label>
                                                                 <div class="col-lg-4 col-md-10 col-sm-12">
                                                                     <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
 {{--                                                                        <option value="">Select</option>--}}
                                                                         @foreach($targets as $target)
-                                                                        <option value="{{$target->id}}">{{$target->name ?? ''}} - {{$target->email ?? ''}}</option>
+                                                                        <option value="{{$target->id}}" @if($target->id == $evaluation->user_id) selected @endif >{{$target->name ?? ''}} - {{$target->email ?? ''}}</option>
                                                                             @endforeach
                                                                     </select>
                                                                     <span class="form-text text-muted">Select user of evaluation</span>
@@ -123,7 +123,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6 col-lg-6">
-                                                                    <label>Starting Time</label>
+                                                                    <label>Coaching Timeline:</label>
                                                                     <input type="date" name="start" value="{{$evaluation->start ?? ''}}" class="form-control form-control-solid" />
                                                                 </div>
                                                                 <div class="form-group col-md-6 col-lg-6">
@@ -319,13 +319,17 @@
                                                                                                     </div>
                                                                                                     <form class="form" action="{{url("circle/new_question")}}" method="post">
                                                                                                         <div class="modal-body">
-
+                                                                                                            <div class="form-group">
+                                                                                                                <label for="browser">Choose your browser from the list:</label>
+                                                                                                                <input list="browsers" name="title" class="form-control form-control-solid" id="browser" autocomplete="off">
+                                                                                                                <datalist id="browsers">
+                                                                                                                    @foreach($all_questions as $pre_question)
+                                                                                                                    <option value="{{$pre_question->title ?? ''}}">
+                                                                                                                    @endforeach
+                                                                                                                </datalist>
+                                                                                                            </div>
                                                                                                             <!--begin::Form-->
                                                                                                             @csrf
-                                                                                                                <div class="form-group">
-                                                                                                                    <label>Question:</label>
-                                                                                                                    <input type="text" name="title" class="form-control form-control-solid" placeholder="Enter the body of question" required/>
-                                                                                                                </div>
                                                                                                                 <div class="form-group row">
                                                                                                                     <div class="col-md-6">
                                                                                                                         <label>Status :</label>
@@ -446,6 +450,7 @@
                                                                                                                 @method('PUT')
                                                                                                                 <!--begin::Form-->
                                                                                                                 @csrf
+
                                                                                                                 <div class="form-group">
                                                                                                                     <label>Body:</label>
                                                                                                                     <input type="text" name="title" class="form-control form-control-solid" value="{{$question->title ?? ''}}" placeholder="Enter body of the scroller" required/>

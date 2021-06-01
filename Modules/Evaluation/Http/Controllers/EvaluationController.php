@@ -11,6 +11,7 @@ use Modules\Evaluation\Http\Requests\EvaluationRequest;
 use Modules\Evaluation\Http\Service\AnswerEvaluationService;
 use Modules\Evaluation\Http\Service\CircleService;
 use Modules\Evaluation\Http\Service\EvaluationService;
+use Modules\Evaluation\Http\Service\NoteService;
 
 class EvaluationController extends Controller
 {
@@ -30,18 +31,24 @@ class EvaluationController extends Controller
      * @var AnswerEvaluationService
      */
     private $answerEvaluationService;
+    /**
+     * @var NoteService
+     */
+    private $noteService;
 
     public function __construct(
         EvaluationService $evaluationService,
         UserService $userService,
         CircleService $circleService,
-        AnswerEvaluationService $answerEvaluationService
+        AnswerEvaluationService $answerEvaluationService,
+        NoteService $noteService
     )
     {
         $this->evaluationService = $evaluationService;
         $this->userService = $userService;
         $this->circleService = $circleService;
         $this->answerEvaluationService = $answerEvaluationService;
+        $this->noteService = $noteService;
     }
 
     public function index()
@@ -77,7 +84,14 @@ class EvaluationController extends Controller
         $targets = $this->userService->getUserByType(2);
         $circles = $this->circleService->getCirclesOfEvaluations($id);
         $users = $this->userService->getUserByType(3);
-        return view('customer.new_evaluation', compact('evaluation', 'active', 'targets', 'circles', 'users'));
+        $all_questions = $this->noteService->getQuestions();
+        return view('customer.new_evaluation', compact('evaluation', 'active', 'targets', 'circles', 'users','all_questions'));
+    }
+
+    public function update (EvaluationRequest $request,$evaluation_id){
+        $data = $request->all();
+        $this->evaluationService->updateEvaluation($data,$evaluation_id);
+        return back();
     }
 
     public function participant_panel()
@@ -104,7 +118,6 @@ class EvaluationController extends Controller
         $active_circle = $this->circleService->getCircleById($circle_id);
         $user = $this->userService->getUserById(auth()->id());
         $user_answer = $this->answerEvaluationService->getCircleAnswerOfUser(auth()->id(), $circle_id);
-//        dd($client_answer);
         if ($user_answer == null) {
             return view('user.user_quiz', compact('active_circle', 'user'));
         } else {
@@ -118,6 +131,12 @@ class EvaluationController extends Controller
         $active = 6;
 //        dd($evaluation);
         return view('customer.result_evaluation', compact('evaluation', 'active'));
+    }
+
+    public function edit_email ($circle_id){
+        $email_template = $this->noteService->getTemplateByType ('circle_invitation');
+        dd($email_template);
+        return view('customer.send_email',compact('email_template'));
     }
 
     public function send_user($circle_id)
@@ -141,9 +160,11 @@ class EvaluationController extends Controller
     {
         $evaluation = $this->evaluationService->getEvaluationOfClient(auth()->id());
         $users = $this->userService->getUserByType(3);
-
+        $behaviours = ['jan'=>3,'Jul'=>4,'Oct'=>2];
 //        dd($evaluation);
-        return view('client.client_panel', compact('evaluation', 'users'));
+        return view('client.client_panel', compact('evaluation', 'users','behaviours'));
 
     }
+
+
 }

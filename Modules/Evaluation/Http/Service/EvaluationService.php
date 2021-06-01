@@ -24,6 +24,10 @@ class EvaluationService
         return $this->evaluationRepo->create($data);
     }
 
+    public function updateEvaluation($data,$id){
+        return $this->evaluationRepo->update($data,$id);
+    }
+
     public function getEvaluationById ($id){
         return $this->evaluationRepo->getEvaluationById($id);
     }

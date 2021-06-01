@@ -14,7 +14,8 @@ License: You must have a valid license purchased only from themeforest(the above
 -->
 <html lang="en">
 <!--begin::Head-->
-<head><base href="../../">
+<head>
+    <base href="{{url('/')}}">
     <meta charset="utf-8"/>
     <title>Nour Group</title>
     <meta name="description" content="No aside layout examples"/>
@@ -40,6 +41,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="{{asset('css/themes/layout/header/menu/light.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('css/themes/layout/brand/light.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css"/>        <!--end::Layout Themes-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <link rel="shortcut icon" href="{{asset('media/logos/favicon.png')}}"/>
     <style>
@@ -51,6 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
             min-height: 250px;
         }
     </style>
+
 </head>
 <!--end::Head-->
 
@@ -206,6 +209,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin::Page Scripts(used by this page)-->
 <script src="{{asset('js/pages/widgets.js')}}"></script>
+<script src="{{asset('js/pages/custom/inbox/inbox.js')}}"></script>
+
 <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

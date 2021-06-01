@@ -12,6 +12,8 @@
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
                         <h3 class="card-label font-weight-bolder text-dark">{{$user_answer->circle->title ?? ''}}</h3>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">{{$user_answer->circle->target->name ?? ''}} 360' Evaluation</span>
+
                     </div>
                 </div>
                 <!--end::Header-->

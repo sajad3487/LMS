@@ -24,6 +24,7 @@ class AnswerEvaluationRepository extends Repository
             ->where('circle_id',$circle_id)
             ->where('parent_id',0)
             ->with('circle')
+            ->with('circle.target')
             ->with('answer_detail')
             ->with('answer_detail.not')
             ->first();

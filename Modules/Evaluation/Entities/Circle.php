@@ -37,4 +37,8 @@ class Circle extends Model
         return $this->hasOne(Note::class,'circle_id','id')->where('type','report');
     }
 
+    public function journal (){
+        return $this->hasMany(Note::class,'circle_id','id')->where('type','journal');
+    }
+
 }
