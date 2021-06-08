@@ -72,7 +72,7 @@
                                         {{--                                    <td>{{$evaluation->average_percentage ?? ''}}</td>--}}
                                         <td>
                                             <a href="{{url("evaluation/$evaluation->id/edit")}}" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Edit</a>
-                                            <a href="{{url("evaluation_result/$evaluation->id/show")}}" class="btn btn-sm btn-info font-weight-bolder text-uppercase">Results</a>
+                                            <a href="{{url("evaluation_result/$evaluation->id/show")}}" class="btn btn-sm btn-info font-weight-bolder text-uppercase">Results @if($evaluation->new_message != 0) <span class="label label-sm label-rounded label-danger ml-1">{{$evaluation->new_message ?? ''}}</span> @endif </a>
 
                                         </td>
                                     </tr>

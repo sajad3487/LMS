@@ -60,4 +60,5 @@ class UserService
         return $this->userRepo->getUserWithAllCircles ($id);
     }
 
+
 }

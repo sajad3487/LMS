@@ -18,6 +18,7 @@ class EvaluationRepository extends Repository
         return Evaluation::where('mentor_id',$mentor_id)
             ->where('parent_id',0)
             ->with('user')
+            ->with('circles')
             ->with('active_circle')
             ->get();
     }
@@ -30,6 +31,8 @@ class EvaluationRepository extends Repository
             ->with('circles.answers.user')
             ->with('circles.target')
             ->with('circles.journal')
+            ->with('behaviors')
+            ->with('user')
             ->first();
     }
 

@@ -53,4 +53,16 @@ class NoteService
         return $this->noteRepo->getTempateWithType ($type);
     }
 
+    public function getTemplateOfCircle ($type,$circle_id){
+        return $this->noteRepo->getUserTemplateOfCircle ($type,$circle_id);
+    }
+
+    public function getNotesOfCircleByType ($type,$circle_id){
+        return $this->noteRepo->getAllNotesOfCircleByType ($type,$circle_id);
+    }
+
+    public function getBehaviorTemplateOfEvaluation ($evaluation_id){
+        return $this->noteRepo->getBehaviorTemplateByEvaluationId ($evaluation_id);
+    }
+
 }

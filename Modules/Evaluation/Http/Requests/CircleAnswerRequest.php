@@ -14,7 +14,8 @@ class CircleAnswerRequest extends FormRequest
     public function rules()
     {
         return [
-            'answer'=>'required|array',
+            'answer'=>'nullable|array',
+            'scroller_answer'=>'nullable|array',
         ];
     }
 

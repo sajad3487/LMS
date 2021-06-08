@@ -27,6 +27,8 @@ class AnswerEvaluationRepository extends Repository
             ->with('circle.target')
             ->with('answer_detail')
             ->with('answer_detail.not')
+            ->with('answer_detail.message')
+            ->with('answer_detail.message.owner')
             ->first();
     }
 

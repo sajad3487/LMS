@@ -1,113 +1,5 @@
 @extends('layouts.customer.master')
 @section('content')
-{{--    <!--begin::Content-->--}}
-{{--    <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">--}}
-
-{{--        <!--begin::Entry-->--}}
-{{--        <div class="d-flex flex-column-fluid">--}}
-{{--            <!--begin::Container-->--}}
-{{--            <div class=" container ">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-lg-12">--}}
-{{--                        <!--begin::Card-->--}}
-{{--                        <div class="card card-custom">--}}
-{{--                            <div class="card-header">--}}
-{{--                                <h3 class="card-title">--}}
-{{--                                    {{$circle->title}}--}}
-{{--                                </h3>--}}
-{{--                            </div>--}}
-{{--                            <div class="card-body">--}}
-{{--                                <!--begin::Form-->--}}
-{{--                                <form class="form" action="{{url("/profile/update")}}" method="post" enctype="multipart/form-data">--}}
-{{--                                    @csrf--}}
-{{--                                    <div class="card-body row">--}}
-{{--                                        <div class="col-lg-12">--}}
-{{--                                            @if(isset($report) && $report != null)--}}
-{{--                                                <div class="alert alert-custom alert-light-success fade show mb-5" role="alert">--}}
-{{--                                                    <div class="alert-icon"><i class="flaticon2-checkmark"></i></div>--}}
-{{--                                                    <div class="alert-text">You sent the report to the client before</div>--}}
-{{--                                                    <div class="alert-close">--}}
-{{--                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
-{{--                                                            <span aria-hidden="true"><i class="ki ki-close"></i></span>--}}
-{{--                                                        </button>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            @endif--}}
-{{--                                            <h6 class="m-0">Create a Report for the client</h6>--}}
-{{--                                            @include('fragment.error')--}}
-{{--                                            <textarea name="description" id="kt-ckeditor-1">--}}
-{{--                                                @foreach($questions as $question_key=>$question)--}}
-{{--                                                <h4 class="font-weight-bold">{{$question_key +1}}) {{$question->title ?? ''}}</h4>--}}
-{{--                                                <ul>--}}
-{{--                                                    @foreach($question->answers as $answer_key=>$answer)--}}
-{{--                                                        @if($answer->body != "")--}}
-{{--                                                        <li>{{$answer->body ?? ''}}</li>--}}
-{{--                                                        @endif--}}
-{{--                                                    @endforeach--}}
-{{--                                                </ul>--}}
-{{--                                                @endforeach--}}
-
-{{--                                                {{$circle->title}}--}}
-{{--                                            </textarea>--}}
-
-{{--                                            <div class="row mt-3">--}}
-{{--                                                <a href="{{url("evaluation_result/$circle->evaluation_id/show")}}" class="btn btn-light-warning ml-auto mr-3 w-100px">Back</a>--}}
-{{--                                                <button type="submit" class="btn btn-success mr-auto">--}}
-{{--                                                    @if(isset($report) && $report != null)--}}
-{{--                                                        Send Again--}}
-{{--                                                    @else--}}
-{{--                                                    Send to Client--}}
-{{--                                                        @endif--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-
-
-
-{{--                                    </div>--}}
-{{--                                </form>--}}
-{{--                                <!--end::Form-->--}}
-{{--                                <div class="col-12">--}}
-{{--                                    <table class="table table-separate table-head-custom table-checkable text-center" id="kt_datatable">--}}
-{{--                                        <thead>--}}
-{{--                                        <tr>--}}
-{{--                                            <th>#</th>--}}
-{{--                                            <th>Name</th>--}}
-{{--                                            <th>Answer</th>--}}
-{{--                                            <th>Action</th>--}}
-{{--                                        </tr>--}}
-{{--                                        </thead>--}}
-
-{{--                                        <tbody>--}}
-{{--                                        @foreach($circle->answers as $answer_key=>$answer)--}}
-{{--                                            <tr class="text-center">--}}
-{{--                                                <td>{{$answer_key+1 ?? ''}}</td>--}}
-{{--                                                <td>{{$answer->user->name ?? ''}}</td>--}}
-{{--                                                <td><input type="text" class="form-control" value="{{$answer->body ?? ''}}" id="myInput-{{$answer_key}}"></td>--}}
-{{--                                                <td>--}}
-{{--                                                    <button class="btn btn-light-success" onclick="addToReport('{{$answer_key}}')">Copy</button>--}}
-
-
-{{--                                                </td>--}}
-{{--                                            </tr>--}}
-{{--                                        @endforeach--}}
-
-{{--                                        </tbody>--}}
-
-{{--                                    </table>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <!--end::Card-->--}}
-
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <!--end::Container-->--}}
-{{--        </div>--}}
-{{--        <!--end::Entry-->--}}
-{{--    </div>--}}
-{{--    <!--end::Content-->--}}
 
     <!--begin::Content-->
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
@@ -126,6 +18,8 @@
                                 <h3 class="card-title">
                                     {{$circle->title ?? ''}}
                                 </h3>
+                                <a href="{{url("evaluation_result/$circle->evaluation_id/show")}}" class="btn btn-light-warning ml-auto mr-6 w-100px h-40px mt-5">Back</a>
+
                             </div>
                             <div class="card-body">
                                 <!--begin::Example-->
@@ -208,12 +102,12 @@
                                                                             @foreach($questions as $question_key=>$question)
                                                                                 <h4 class="font-weight-bold">{{$question_key +1}}) {{$question->title ?? ''}}</h4>
                                                                                 <ul>
-                                                                            @foreach($question->answers as $answer_key=>$answer)
+                                                                                    @foreach($question->answers as $answer_key=>$answer)
                                                                                         @if($answer->body != "")
                                                                                             <li>{{$answer->body ?? ''}}</li>
                                                                                         @endif
                                                                                     @endforeach
-                                                                        </ul>
+                                                                                </ul>
                                                                             @endforeach
                                                                         @else
                                                                             {{$report->description}}
@@ -228,7 +122,7 @@
                                                                                 @endif
                                                                             @endforeach
                                                                         </ul>
-                                                                @endforeach
+                                                                        @endforeach
                                                                     @endif
                                                                     {{--                                                {{$circle->title}}--}}
                                                                 </textarea>
@@ -237,11 +131,7 @@
                                                                     <a href="{{url("evaluation_result/$circle->evaluation_id/show")}}" class="btn btn-light-warning ml-auto mr-6 w-100px">Back</a>
                                                                     <button type="submit" class="btn btn-light-success mr-6 w-100px">Save</button>
                                                                     <button type="submit" formaction="{{url("evaluation_result/report/$circle->id/send_client")}}" class="btn btn-primary mr-auto">
-                                                                        @if(isset($report) && $report != null)
-                                                                            Send Again
-                                                                        @else
                                                                             Send to Client
-                                                                        @endif
                                                                     </button>
                                                                 </div>
                                                             </div>

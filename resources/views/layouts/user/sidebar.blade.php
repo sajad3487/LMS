@@ -123,6 +123,9 @@
                                     </span>
                                 </span>
                             <span class="navi-text font-size-lg">{{$circle->title ?? ''}}</span>
+                            @if(isset($circle->new_message) && $circle->new_message != 0)
+                            <span class="label label-sm label-rounded label-danger">{{$circle->new_message}}</span>
+                            @endif
 {{--                            <span class="navi-label">--}}
 {{--                                <span class="label label-light-danger label-inline font-weight-bold">new</span>--}}
 {{--                            </span>--}}

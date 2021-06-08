@@ -28,7 +28,4 @@ class AnswerEvaluationService
         return $this->answerEvaluationRepo->getAnswersOfUserToCircle ($user_id,$circle_id);
     }
 
-
-
-
 }

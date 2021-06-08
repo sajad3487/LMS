@@ -24,6 +24,8 @@ class CircleRepository extends Repository
         return Circle::where('evaluation_id',$evaluation_id)
             ->with('questions')
             ->with('users')
+            ->with('scrollers')
+            ->with('scrollers.behavior')
             ->get();
     }
 
@@ -31,9 +33,15 @@ class CircleRepository extends Repository
         return Circle::where('id',$id)
             ->with('questions')
             ->with('answers')
+            ->with('answers.user')
             ->with('answers.answer_detail')
             ->with('answers.answer_detail.not')
+            ->with('answers.answer_detail.message')
+            ->with('answers.answer_detail.new_message')
             ->with('users')
+            ->with('scrollers')
+            ->with('scrollers.behavior')
+            ->with('target')
             ->first();
     }
 

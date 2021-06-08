@@ -18,7 +18,7 @@ class Circle extends Model
     ];
 
     public function questions (){
-        return $this->hasMany(Note::class,'circle_id','id')->where('type','question')->orWhere('type','scroller');
+        return $this->hasMany(Note::class,'circle_id','id')->where('type','question');
     }
 
     public function users (){
@@ -39,6 +39,10 @@ class Circle extends Model
 
     public function journal (){
         return $this->hasMany(Note::class,'circle_id','id')->where('type','journal');
+    }
+
+    public function scrollers (){
+        return $this->hasMany(Scroller::class,'circle_id','id')->where('type','behavior');
     }
 
 }

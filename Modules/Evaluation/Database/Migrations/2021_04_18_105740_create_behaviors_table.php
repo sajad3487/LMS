@@ -15,6 +15,12 @@ class CreateBehaviorsTable extends Migration
     {
         Schema::create('behaviors', function (Blueprint $table) {
             $table->id();
+            $table->integer('evaluation_id');
+            $table->integer('user_id');
+            $table->string('body');
+            $table->integer('first_score')->nullable();
+            $table->integer('average_score')->nullable();
+            $table->integer('status')->default(1);
 
             $table->timestamps();
         });

@@ -12,7 +12,7 @@
                 <div class="card-header py-3">
                     <div class="card-title align-items-start flex-column">
                         <h3 class="card-label font-weight-bolder text-dark">{{$active_circle->title ?? ''}}</h3>
-                        <span class="text-muted font-weight-bold font-size-sm mt-1">{{$user_answer->circle->target->name ?? ''}} 360' Evaluation</span>
+                        <span class="text-muted font-weight-bold font-size-sm mt-1">{{$active_circle->target->name ?? ''}} 360' Evaluation</span>
                     </div>
                 </div>
                 <!--end::Header-->
@@ -28,7 +28,21 @@
                                 </label>
                                 <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
                                 <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer" required/>
+
                             </div>
+                            @endforeach
+                            @foreach($active_circle->scrollers as $scroller_key=>$scroller)
+
+                                <div class="form-group col-6  px-10 m-0 mb-2 mt-5">
+                                    <label>{{$scroller->behavior->body ?? ''}}</label>
+                                    <div class="text-muted">{{$scroller->description ?? ''}}</div>
+                                    <input type="range" name="scroller_answer[{{$scroller->id}}]" class="custom-range" min="{{$scroller->min ?? ''}}" max="{{$scroller->max ?? ''}}" id="customRange2" required/>
+                                    <div class="justify-content-between row px-5">
+                                        <div class="">{{$scroller->min ?? ''}}</div>
+                                        <div class="">0</div>
+                                        <div class="">{{$scroller->max ?? ''}}</div>
+                                    </div>
+                                </div>
                             @endforeach
 
 

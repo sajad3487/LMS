@@ -30,6 +30,7 @@
     <link href="{{asset('css/themes/layout/brand/light.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('css/themes/layout/aside/light.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('css/upload.css')}}" rel="stylesheet" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!--end::Layout Themes-->
 

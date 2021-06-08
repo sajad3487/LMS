@@ -43,14 +43,14 @@ class NoteController extends Controller
         return back();
     }
 
-    public function new_scroller(ScrollerRequest $request)
-    {
-        $data = $request->all();
-        $data['type'] = "scroller";
-        $scroller = $this->noteService->createNote($data);
-        $this->circleService->changeStatusOfCircle($data['circle_id'], 2);
-        return back();
-    }
+//    public function new_scroller(ScrollerRequest $request)
+//    {
+//        $data = $request->all();
+//        $data['type'] = "scroller";
+//        $scroller = $this->noteService->createNote($data);
+//        $this->circleService->changeStatusOfCircle($data['circle_id'], 2);
+//        return back();
+//    }
 
     public function edit_question(QuestionRequest $request, $question_id)
     {
@@ -80,13 +80,13 @@ class NoteController extends Controller
     }
 
     public function email_template_edit (){
-        $email_template = $this->noteService->getTemplateByType ('circle_invitation');
+        $email_template = $this->noteService->getTemplateByType ('user_invitation_template');
         return view('customer.evaluation_email_template',compact('email_template'));
     }
 
     public function email_template_store (EmailTemplateRequest $request){
         $data['description'] = $request->description;
-        $data['type'] = 'circle_invitation';
+        $data['type'] = 'user_invitation_template';
         $data['circle_id'] = 0;
         $data['title'] = 'invitation email template for users';
         $this->noteService->createNote($data);
@@ -95,9 +95,38 @@ class NoteController extends Controller
 
     public function email_template_update (EmailTemplateRequest $request,$note_id){
         $data['description'] = $request->description;
-        $data['type'] = 'circle_invitation';
+        $data['type'] = 'user_invitation_template';
         $data['circle_id'] = 0;
         $data['title'] = 'invitation email template for users';
+        $this->noteService->updateNote($data,$note_id);
+        return back();
+    }
+
+    public function circle_email_temp (EmailTemplateRequest $request,$circle_id){
+        $temp = $this->noteService->getTemplateOfCircle('circle_invitation',$circle_id);
+        $data['description'] = $request->description;
+        $data['type'] = 'circle_invitation';
+        $data['circle_id'] = $circle_id;
+        $data['title'] = 'invitation email template for users';
+        if ($temp == null){
+            $this->noteService->createNote($data);
+        }else{
+            $this->noteService->updateNote($data,$temp->id);
+        }
+        return back();
+    }
+
+    public function store_behavior_template (Request $request,$evaluation_id){
+        $data['description'] = $request->description;
+        $data['type'] = 'behavior_template';
+        $data['circle_id'] = $evaluation_id;
+        $data['title'] = 'Behavior template to send client';
+        $this->noteService->createNote($data);
+        return back();
+    }
+
+    public function update_behavior_template (Request $request,$note_id){
+        $data['description'] = $request->description;
         $this->noteService->updateNote($data,$note_id);
         return back();
     }

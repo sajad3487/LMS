@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotesTable extends Migration
+class CreateScrollersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('scrollers', function (Blueprint $table) {
             $table->id();
             $table->integer('circle_id');
+            $table->integer('behavior_id')->nullable();
+            $table->integer('min');
+            $table->integer('max');
             $table->string('type');
             $table->string('title');
             $table->text('description')->nullable();
@@ -32,6 +35,6 @@ class CreateNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('scrollers');
     }
 }

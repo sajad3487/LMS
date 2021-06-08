@@ -8,13 +8,14 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('/','EvaluationController@index');
             Route::get('/create','EvaluationController@create');
             Route::post('/store','EvaluationController@store');
-            Route::put('/{quiz_id}/update','EvaluationController@update');
-            Route::get('/{quiz_id}/edit','EvaluationController@edit');
+            Route::put('/{evaluation_id}/update','EvaluationController@update');
+            Route::get('/{evaluation_id}/edit','EvaluationController@edit');
 
             Route::group(['prefix'=>'setting'],function (){
                 Route::get('email_template','NoteController@email_template_edit');
                 Route::post('email_template/{note_id}/update','NoteController@email_template_update');
                 Route::post('email_template/store','NoteController@email_template_store');
+                Route::post('/{circle_id}/update','NoteController@circle_email_temp');
             });
 
 
@@ -28,10 +29,12 @@ Route::group(['middleware'=>'auth'],function(){
             Route::post('store','CircleController@store');
             Route::post('new_user','CircleController@new_user');
             Route::post('delete_user','CircleController@delete_user');
+            Route::post('{circle_id}/duplicate','CircleController@duplicate');
             Route::post('new_question','NoteController@new_question');
-            Route::post('new_scroller','NoteController@new_scroller');
+            Route::post('new_scroller','ScrollerController@store');
+            Route::put('{scroller_id}/edit_scroller','ScrollerController@update');
+            Route::get('{scroller_id}/delete_scroller','ScrollerController@destroy');
             Route::put('{question_id}/edit_question','NoteController@edit_question');
-            Route::put('{question_id}/edit_scroller','NoteController@edit_scroller');
             Route::get('{question_id}/delete','NoteController@destroy');
 
         });
@@ -41,18 +44,31 @@ Route::group(['middleware'=>'auth'],function(){
 
             Route::get('{evaluation_id}/show','EvaluationController@show');
             Route::get('{circle_id}/edit_email','EvaluationController@edit_email');
-            Route::get('{circle_id}/send_user','EvaluationController@send_user');
-            Route::get('report/{circle_id}/show','CircleController@show_report');
-            Route::post('report/{circle_id}/store','CircleController@store_report');
-            Route::post('report/{report_id}/update','CircleController@update_report');
-            Route::post('report/{circle_id}/send_client','CircleController@send_report');
+            Route::post('{circle_id}/send_user','EvaluationController@send_user');
+
+            Route::group(['prefix'=>'report'],function (){
+                Route::get('{circle_id}/show','CircleController@show_report');
+                Route::post('{circle_id}/store','CircleController@store_report');
+                Route::post('{report_id}/update','CircleController@update_report');
+                Route::post('{circle_id}/send_client','CircleController@send_report');
+            });
+
+            Route::group(['prefix'=>'answers'],function (){
+                Route::get('{circle_id}/show','CircleController@show_answers');
+            });
+
+            Route::group(['prefix'=>'message'],function(){
+                Route::post('/store','MessageController@store');
+            });
+
+            Route::group(['prefix'=>'behavior'],function (){
+                Route::post('/store','BehaviorController@store');
+                Route::post('/template/{evaluation_id}/store','NoteController@store_behavior_template');
+                Route::post('/template/{note_id}/update','NoteController@update_behavior_template');
+            });
+
 
         });
-
-
-
-
-
 
     });
 });
@@ -67,6 +83,7 @@ Route::group(['middleware'=>'CheckAdmin'],function (){
         Route::get('circle/{circle_id}/view','EvaluationController@participant_circle');
         Route::post('/{circle_id}/submit','AnswerEvaluationController@store');
 
+        Route::post('message/store','MessageController@store');
     });
 });
 
@@ -83,6 +100,8 @@ Route::group(['middleware'=>'CheckClient'],function (){
         Route::group(['prefix'=>'journal'],function (){
             Route::post('store','NoteController@store_journal');
         });
+
+        Route::post('message/store','MessageController@store');
 
     });
 });

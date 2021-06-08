@@ -32,4 +32,8 @@ class Evaluation extends Model
     public function active_circle (){
         return $this->hasOne(Circle::class,'id','active_circle_id');
     }
+
+    public function behaviors (){
+        return $this->hasMany(Behavior::class,'evaluation_id','id');
+    }
 }

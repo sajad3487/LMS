@@ -11,9 +11,6 @@ class Note extends Model
         'type',
         'title',
         'description',
-        'min_range',
-        'max_range',
-        'point',
         'status',
     ];
 

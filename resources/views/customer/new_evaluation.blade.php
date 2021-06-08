@@ -18,7 +18,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     @if(isset($evaluation))
-                                        <h3 class="card-label">Evaluation No: {{$evaluation->id ?? ''}}
+                                        <h3 class="card-label">Evaluation of : {{$evaluation->user->name ?? ''}}
                                             <span
                                                 class="d-block text-muted pt-2 font-size-sm">Evaluation Name : {{$evaluation->name ?? ''}}</span>
                                         </h3>
@@ -26,6 +26,26 @@
                                         <h3 class="card-label">New Evaluation </h3>
                                     @endif
                                 </div>
+                                <div class="card-toolbar">
+                                    @if(isset($evaluation))
+                                    <!--begin::Button-->
+                                    <a href="{{url("/evaluation_result/$evaluation->id/show")}}" class="btn btn-light-info font-weight-bolder ml-3">
+                                        <span class="svg-icon svg-icon-md"><!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg--><svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                    <path d="M4.88230018,17.2353996 L13.2844582,0.431083506 C13.4820496,0.0359007077 13.9625881,-0.12427877 14.3577709,0.0733126292 C14.5125928,0.15072359 14.6381308,0.276261584 14.7155418,0.431083506 L23.1176998,17.2353996 C23.3152912,17.6305824 23.1551117,18.1111209 22.7599289,18.3087123 C22.5664522,18.4054506 22.3420471,18.4197165 22.1378777,18.3482572 L14,15.5 L5.86212227,18.3482572 C5.44509941,18.4942152 4.98871325,18.2744737 4.84275525,17.8574509 C4.77129597,17.6532815 4.78556182,17.4288764 4.88230018,17.2353996 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.000087, 9.191034) rotate(-315.000000) translate(-14.000087, -9.191034) "/>
+                                                </g>
+                                            </svg><!--end::Svg Icon-->
+                                        </span>
+                                        Result
+                                    </a>
+                                        <!--end::Button-->
+                                    @endif
+                                </div>
+
                             </div>
                             <div class="card-body">
                                 <!--begin::Example-->
@@ -112,7 +132,7 @@
                                                                     <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
 {{--                                                                        <option value="">Select</option>--}}
                                                                         @foreach($targets as $target)
-                                                                        <option value="{{$target->id}}" @if($target->id == $evaluation->user_id) selected @endif >{{$target->name ?? ''}} - {{$target->email ?? ''}}</option>
+                                                                        <option value="{{$target->id}}" @if(isset($evaluation) && $target->id == $evaluation->user_id) selected @endif >{{$target->name ?? ''}} - {{$target->email ?? ''}}</option>
                                                                             @endforeach
                                                                     </select>
                                                                     <span class="form-text text-muted">Select user of evaluation</span>
@@ -208,7 +228,7 @@
                                                     <div class="row">
                                                         <div class="btn-group ml-auto">
                                                             <div class="row">
-                                                                <a href="" class="btn btn-light-info font-weight-bold mb-3 mr-8" data-toggle="modal" data-target="#new_circle">Add New Circle</a>
+                                                                <a href="" class="btn btn-light-success font-weight-bold mb-3 mr-8" data-toggle="modal" data-target="#new_circle">Add New Circle</a>
                                                             </div>
                                                             <!--begin::Modal-->
                                                             <div class="modal fade" id="new_circle" role="dialog"  aria-hidden="true">
@@ -302,13 +322,13 @@
                                                                         <div class="card-body">
                                                                             <div class="overflow-auto">
                                                                             @include('fragment.error')
-                                                                                <div class="btn-group">
+                                                                                <div class=" row">
 
-                                                                                        <div class="row">
-                                                                                            <a href="" class="btn btn-light-success font-weight-bold mb-3 mr-3 ml-5" data-toggle="modal" data-target="#new_question{{$key}}">Add New Question</a>
-                                                                                        </div>
-                                                                                        <!--begin::Modal-->
-                                                                                        <div class="modal fade" id="new_question{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                    <div class="">
+                                                                                        <a href="" class="btn btn-light-success font-weight-bold mb-3 mr-3 ml-5" data-toggle="modal" data-target="#new_question{{$key}}">Add New Question</a>
+                                                                                    </div>
+                                                                                    <!--begin::Modal-->
+                                                                                    <div class="modal fade" id="new_question{{$key}}" role="dialog"  aria-hidden="true">
                                                                                             <div class="modal-dialog modal-lg" role="document">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
@@ -352,12 +372,12 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <!--end::Modal-->
-                                                                                        <div class="row">
-                                                                                            <a href="" class="btn btn-light-warning font-weight-bold mb-3 mr-3 ml-8" data-toggle="modal" data-target="#new_scroller{{$key}}">Add New Scroller</a>
-                                                                                        </div>
-                                                                                        <!--begin::Modal-->
-                                                                                        <div class="modal fade" id="new_scroller{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                    <!--end::Modal-->
+                                                                                    <div class="">
+                                                                                        <a href="" class="btn btn-light-warning font-weight-bold mb-3 mr-3 ml-3" data-toggle="modal" data-target="#new_scroller{{$key}}">Add New Scroller</a>
+                                                                                    </div>
+                                                                                    <!--begin::Modal-->
+                                                                                    <div class="modal fade" id="new_scroller{{$key}}" role="dialog"  aria-hidden="true">
                                                                                             <div class="modal-dialog modal-lg" role="document">
                                                                                                 <div class="modal-content">
                                                                                                     <div class="modal-header">
@@ -378,11 +398,21 @@
                                                                                                                 <div class="form-group row">
                                                                                                                     <div class="col-md-6">
                                                                                                                         <label>Minimum :</label>
-                                                                                                                        <input type="number" name="min_range" class="form-control form-control-solid" placeholder="Enter minimum" required/>
+                                                                                                                        <input type="number" name="min" class="form-control form-control-solid" placeholder="Enter minimum" required/>
                                                                                                                     </div>
                                                                                                                     <div class="col-md-6">
                                                                                                                         <label>Maximum :</label>
-                                                                                                                        <input type="number" name="max_range" class="form-control form-control-solid" placeholder="Enter maximum" required/>
+                                                                                                                        <input type="number" name="max" class="form-control form-control-solid" placeholder="Enter maximum" required/>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="form-group row">
+                                                                                                                    <div class="col-md-6">
+                                                                                                                        <label>Behaviors :</label>
+                                                                                                                        <select name="behavior_id" class="form-control form-control-solid" required>
+                                                                                                                            @foreach($evaluation->behaviors as $behavior)
+                                                                                                                            <option value="{{$behavior->id ?? ''}}">{{$behavior->body ?? ''}}</option>
+                                                                                                                            @endforeach
+                                                                                                                        </select>
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                                 <input type="number" name="circle_id" value="{{$circle->id ?? ''}}" class="d-none">
@@ -398,9 +428,67 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <!--end::Modal-->
+                                                                                    <!--end::Modal-->
+                                                                                    <a href="" class="btn btn-light-danger font-weight-bold mb-3 mr-5 ml-auto" data-toggle="modal" data-target="#duplicate{{$key}}">Duplicate Circle</a>
+                                                                                    <!--begin::Modal-->
+                                                                                    <div class="modal fade" id="duplicate{{$key}}" role="dialog"  aria-hidden="true">
+                                                                                        <div class="modal-dialog modal-lg" role="document">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h5 class="modal-title">Duplicate Circle</h5>
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <form class="form" action="{{url("circle/$circle->id/duplicate")}}" method="post">
+                                                                                                    <div class="modal-body">
+
+                                                                                                        <!--begin::Form-->
+                                                                                                        @csrf
+                                                                                                        <div class="card-body">
+                                                                                                            <div class="form-group">
+                                                                                                                <label>Circle Title:</label>
+                                                                                                                <input type="text" name="title" class="form-control form-control-solid" value="{{$circle->title ?? ''}}" required/>
+                                                                                                            </div>
+                                                                                                            <div class="row">
+                                                                                                                <div class="form-group col-md-6 col-lg-6">
+                                                                                                                    <label>Starting Time</label>
+                                                                                                                    <input type="date" name="start_date" class="form-control form-control-solid" required/>
+                                                                                                                </div>
+                                                                                                                <div class="form-group col-md-6 col-lg-6">
+                                                                                                                    <label>Deadline</label>
+                                                                                                                    <input type="date" name="end_date" class="form-control form-control-solid" required/>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="form-group row">
+                                                                                                                <div class="col-md-6">
+                                                                                                                    <label>Status :</label>
+                                                                                                                    <select name="status" class="form-control form-control-solid">
+                                                                                                                        <option value="1">Active</option>
+                                                                                                                        <option value="0">Schedule</option>
+                                                                                                                    </select>
+                                                                                                                </div>
+                                                                                                            </div>
+
+                                                                                                            <input type="number" name="evaluation_id" value="{{$evaluation->id ?? ''}}" class="d-none">
+                                                                                                            <input type="number" name="user_id" value="{{$evaluation->user_id ?? ''}}" class="d-none">
+                                                                                                        </div>
+                                                                                                        <div class="card-footer">
+                                                                                                            <button type="submit" class="btn btn-primary mr-2">Save</button>
+                                                                                                            {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
+                                                                                                        </div>
+                                                                                                        <!--end::Form-->
+
+                                                                                                    </div>
+
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!--end::Modal-->
 
                                                                                 </div>
+
                                                                                 <table class="table table-bordered table-checkable" id="kt_datatable">
                                                                                     <thead>
                                                                                     <tr>
@@ -422,20 +510,16 @@
                                                                                             <td class="text-center">{{$question->status ?? ''}}</td>
 
                                                                                             <td class="text-center">
-                                                                                                @if($question->type == "scroller")
-                                                                                                 {{$question->min_range}} / {{$question->max_range}}
-                                                                                                    @else
                                                                                                 -
-                                                                                                @endif
                                                                                             </td>
                                                                                             <td class="text-center" style='white-space: nowrap'>
-                                                                                                <a href="#" data-toggle="modal" data-target="#question{{$question_key}}"><i
+                                                                                                <a href="#" data-toggle="modal" data-target="#question-{{$key}}-{{$question_key}}"><i
                                                                                                         class="far fa-edit text-warning mr-5"></i></a>
                                                                                                 <a href="{{url("circle/$question->id/delete")}}"><i
                                                                                                         class="fas fa-trash-alt text-danger mr-5"></i></a>
                                                                                             </td>
                                                                                             <!--begin::Modal-->
-                                                                                            <div class="modal fade" id="question{{$question_key}}" role="dialog"  aria-hidden="true">
+                                                                                            <div class="modal fade" id="question-{{$key}}-{{$question_key}}" role="dialog"  aria-hidden="true">
                                                                                                 <div class="modal-dialog modal-lg" role="document">
                                                                                                     <div class="modal-content">
                                                                                                         <div class="modal-header">
@@ -471,24 +555,58 @@
                                                                                                                 <!--end::Form-->
                                                                                                             </div>
                                                                                                         </form>
-                                                                                                            @elseif($question->type == 'scroller')
-                                                                                                            <form class="form" action="{{url("circle/$question->id/edit_scroller")}}" method="post">
+
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!--end::Modal-->
+                                                                                        </tr>
+                                                                                        @endforeach
+                                                                                    @foreach($circle->scrollers as $scroller_key=>$scroller)
+                                                                                        <tr>
+                                                                                            <td class="text-center">-</td>
+                                                                                            <td class="text-center">{{$scroller->title ?? ''}}</td>
+                                                                                            <td class="text-center">{{$scroller->type ?? ''}} - {{$scroller->behavior->body ?? ''}}</td>
+                                                                                            <td class="text-center">{{$scroller->status ?? ''}}</td>
+
+                                                                                            <td class="text-center">
+                                                                                                    {{$scroller->min}} / {{$scroller->max}}
+                                                                                            </td>
+                                                                                            <td class="text-center" style='white-space: nowrap'>
+                                                                                                <a href="#" data-toggle="modal" data-target="#scroller-{{$key}}-{{$scroller_key}}"><i
+                                                                                                        class="far fa-edit text-warning mr-5"></i></a>
+                                                                                                <a href="{{url("circle/$scroller->id/delete_scroller")}}"><i
+                                                                                                        class="fas fa-trash-alt text-danger mr-5"></i></a>
+                                                                                            </td>
+                                                                                            <!--begin::Modal-->
+                                                                                            <div class="modal fade" id="scroller-{{$key}}-{{$scroller_key}}" role="dialog"  aria-hidden="true">
+                                                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title">Edit</h5>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        @if($scroller->type == 'behavior')
+                                                                                                            <form class="form" action="{{url("circle/$scroller->id/edit_scroller")}}" method="post">
                                                                                                                 <div class="modal-body">
-                                                                                                                    @method('PUT')
-                                                                                                                    <!--begin::Form-->
+                                                                                                                @method('PUT')
+                                                                                                                <!--begin::Form-->
                                                                                                                     @csrf
                                                                                                                     <div class="form-group">
                                                                                                                         <label>Body:</label>
-                                                                                                                        <input type="text" name="title" class="form-control form-control-solid"  value="{{$question->title ?? ''}}" placeholder="Enter body of the scroller" required/>
+                                                                                                                        <input type="text" name="title" class="form-control form-control-solid"  value="{{$scroller->title ?? ''}}" placeholder="Enter body of the scroller" required/>
                                                                                                                     </div>
                                                                                                                     <div class="form-group row">
                                                                                                                         <div class="col-md-6">
                                                                                                                             <label>Minimum :</label>
-                                                                                                                            <input type="number" name="min_range" class="form-control form-control-solid"  value="{{$question->min_range ?? ''}}" placeholder="Enter minimum" required/>
+                                                                                                                            <input type="number" name="min" class="form-control form-control-solid"  value="{{$scroller->min ?? ''}}" placeholder="Enter minimum" required/>
                                                                                                                         </div>
                                                                                                                         <div class="col-md-6">
                                                                                                                             <label>Maximum :</label>
-                                                                                                                            <input type="number" name="max_range" class="form-control form-control-solid"  value="{{$question->max_range ?? ''}}" placeholder="Enter maximum" required/>
+                                                                                                                            <input type="number" name="max" class="form-control form-control-solid"  value="{{$scroller->max ?? ''}}" placeholder="Enter maximum" required/>
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                     <div class="card-footer">
@@ -507,7 +625,7 @@
                                                                                             </div>
                                                                                             <!--end::Modal-->
                                                                                         </tr>
-                                                                                        @endforeach
+                                                                                    @endforeach
                                                                                     </tbody>
 
                                                                                 </table>
@@ -516,7 +634,7 @@
 
                                                                                 <div class="btn-group">
                                                                                         <div class="row">
-                                                                                            <a href="" class="btn btn-light-primary font-weight-bold mb-3 mr-3 ml-5" data-toggle="modal" data-target="#new_user{{$key}}">Add New User</a>
+                                                                                            <a href="" class="btn btn-light-primary font-weight-bold mt-3 mb-3 mr-3 ml-5" data-toggle="modal" data-target="#new_user{{$key}}">Add New User</a>
                                                                                         </div>
                                                                                         <!--begin::Modal-->
                                                                                         <div class="modal fade" id="new_user{{$key}}" role="dialog"  aria-hidden="true">
@@ -538,8 +656,8 @@
                                                                                                                 <div class="col-lg-4 col-md-10 col-sm-12">
                                                                                                                     <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
                                                                                                                         {{--                                                                        <option value="">Select</option>--}}
-                                                                                                                        @foreach($users as $user)
-                                                                                                                            <option value="{{$user->id}}">{{$user->name ?? ''}} - {{$user->email ?? ''}}</option>
+                                                                                                                        @foreach($users as $participant)
+                                                                                                                            <option value="{{$participant->id}}">{{$participant->name ?? ''}} - {{$participant->email ?? ''}}</option>
                                                                                                                         @endforeach
                                                                                                                     </select>
                                                                                                                     <span class="form-text text-muted">Select user of evaluation</span>
@@ -626,16 +744,16 @@
                                                                                     </thead>
 
                                                                                     <tbody>
-                                                                                    @foreach($circle->users as $users_key=>$user)
+                                                                                    @foreach($circle->users as $users_key=>$circle_user)
                                                                                         <tr>
                                                                                             <td class="text-center">{{$users_key+1 ?? ''}}</td>
-                                                                                            <td class="text-center">{{$user->name ?? ''}}</td>
-                                                                                            <td class="text-center">{{$user->email ?? ''}}</td>
-                                                                                            <td class="text-center">{{$user->business_name ?? ''}}</td>
+                                                                                            <td class="text-center">{{$circle_user->name ?? ''}}</td>
+                                                                                            <td class="text-center">{{$circle_user->email ?? ''}}</td>
+                                                                                            <td class="text-center">{{$circle_user->business_name ?? ''}}</td>
                                                                                             <td class="text-center" style='white-space: nowrap'>
                                                                                                 <form action="{{url("circle/delete_user")}}" method="post">
                                                                                                     @csrf
-                                                                                                    <input type="number" value="{{$user->id}}" name="user_id" class="d-none">
+                                                                                                    <input type="number" value="{{$circle_user->id}}" name="user_id" class="d-none">
                                                                                                     <input type="number" value="{{$circle->id}}" name="circle_id" class="d-none">
                                                                                                     <button class="btn btn-link" type="submit"><i class="fas fa-trash-alt text-danger mr-5"></i></button>
                                                                                                 </form>

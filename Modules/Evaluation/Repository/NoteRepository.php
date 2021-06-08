@@ -27,8 +27,10 @@ class NoteRepository extends Repository
 
     public function getAllAnswersForQuestionOfCircle ($circle_id){
         return Note::where('circle_id',$circle_id)
+            ->where('type','question')
             ->with('answers')
             ->with('answers.user')
+            ->with('answers.message')
             ->get();
     }
 
@@ -43,4 +45,22 @@ class NoteRepository extends Repository
             ->first();
     }
 
+    public function getUserTemplateOfCircle ($type,$circle_id){
+        return Note::where('type',$type)
+            ->where('circle_id',$circle_id)
+            ->first();
+
+    }
+
+    public function getAllNotesOfCircleByType ($type,$circle_id){
+        return Note::where('circle_id',$circle_id)
+            ->where('type',$type)
+            ->get();
+    }
+
+    public function getBehaviorTemplateByEvaluationId  ($evaluation_id){
+        return Note::where('circle_id',$evaluation_id)
+            ->where('type','behavior_template')
+            ->first();
+    }
 }

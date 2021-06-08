@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Evaluation\Entities\AnswerEvaluation;
 use Modules\Evaluation\Entities\Circle;
 
 class User extends Authenticatable
@@ -41,4 +42,5 @@ class User extends Authenticatable
     public function circles (){
         return $this->belongsToMany(Circle::class)->where('status','>','2');
     }
+
 }

@@ -32,4 +32,13 @@ class AnswerEvaluation extends Model
     public function user (){
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+    public function message (){
+        return $this->hasMany(Message::class,'destination_id','id')->where('type','question_comment');
+    }
+
+    public function new_message (){
+        return $this->hasMany(Message::class,'destination_id','id')->where('type','question_comment')->where('status',1)->where('owner_id','!=',auth()->id());
+    }
+
 }

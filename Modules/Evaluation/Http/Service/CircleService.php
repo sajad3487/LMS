@@ -46,6 +46,10 @@ class CircleService
                 $data['status'] = 2;
                 $this->circleRepo->update($data,$circle_id);
             }
+            if ($circle->scrollers->count() != 0){
+                $data['status'] = 2;
+                $this->circleRepo->update($data,$circle_id);
+            }
         }elseif ($circle->status == 2 && $next_level == 3){
             $data['status'] = 3;
             $this->circleRepo->update($data,$circle_id);
@@ -56,6 +60,19 @@ class CircleService
             $data['status'] = 5;
             $this->circleRepo->update($data,$circle_id);
         }
+    }
+
+    public function countCircleNeMessage ($circle_id){
+        $circle = $this->circleRepo->getCircleById($circle_id);
+        $counter = 0;
+        foreach ($circle->answers as $answer){
+            $counter_detail = 0;
+            foreach ($answer->answer_detail as $answer_detail){
+                $counter_detail += $answer_detail->new_message->count();
+            }
+            $counter += $counter_detail;
+        }
+        return $counter;
     }
 
 }
