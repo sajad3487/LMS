@@ -246,7 +246,6 @@ class EvaluationController extends Controller
         $this->messageService->makeReadMessagesOfClientChat($evaluation->user_id);
         $user = $this->userService->getUserById(auth()->id());
         return view('client.client_panel', compact('evaluation', 'users', 'behaviors', 'behavior_template', 'messages','user'));
-
     }
 
 
