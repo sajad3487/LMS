@@ -22,6 +22,7 @@ class QuizRepository extends Repository
     public function getAllUserQuizzes ($user_id){
         return Quiz::where('user_id',$user_id)
             ->where('type','quiz')
+            ->orWhere('type','private')
             ->with('question')
             ->get();
     }
@@ -30,6 +31,7 @@ class QuizRepository extends Repository
         return Quiz::where('id',$id)
             ->with('question')
             ->with('question.option')
+            ->with('question.answer')
             ->first();
     }
 
@@ -57,6 +59,23 @@ class QuizRepository extends Repository
             ->with('segment')
             ->with('quiz.segment')
             ->first();
+    }
+
+    public function getActiveUserQuizzes ($user){
+        return Quiz::Where(function($query) use ($user)
+            {
+                $query->where('status',1)
+                    ->where('type','quiz')
+                    ->where('parent_id',0);
+            })
+            ->orWhere(function($query) use ($user)
+            {
+                $query->Where("type",'private')
+                    ->Where("parent_id",$user->company_id);
+            })
+            ->with('question')
+            ->with('question.option')
+            ->get();
     }
 
 }

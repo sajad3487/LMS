@@ -50,6 +50,13 @@ class QuestionController extends Controller
     public function store(QuestionRequest $request)
     {
         $data = $request->all();
+        if (isset($request->video_path) && $request->video_path != null){
+            $data['media'] = $request->video_path;
+        }elseif (isset($request->file) && $request->file != null){
+            $data['media'] = $this->questionService->uploadMedia($request->file);
+        }
+        unset($data['video_path']);
+        unset($data['file']);
         $data['position'] = $this->questionService->getLastPosition($data['form_id']);
         $question = $this->questionService->createQuestion($data);
         $quiz = $this->quizService->getQuiz($question->form_id);
@@ -82,6 +89,11 @@ class QuestionController extends Controller
         }
         if (!isset($data['additional_info'])) {
             $data['additional_info'] = 0;
+        }
+        if (isset($request->video_path) && $request->video_path != null){
+            $data['media'] = $request->video_path;
+        }elseif (isset($request->file) && $request->file != null){
+            $data['media'] = $this->questionService->uploadMedia($request->file);
         }
         $this->questionService->updateQuestion($data, $id);
         $quiz = $this->quizService->getQuiz($quiz_id);
@@ -127,5 +139,12 @@ class QuestionController extends Controller
         $section = $this->questionService->getQuestion($section_id);
         $quiz = $this->quizService->getQuiz($section->form_id);
         return view('customer.new_question', compact('active', 'user', 'quiz','section'));
+    }
+
+    public function remove_media ($question_id){
+        $question = $this->questionService->getQuestion($question_id)->toArray();
+        $question['media'] = null;
+        $this->questionService->updateQuestion($question,$question_id);
+        return back();
     }
 }

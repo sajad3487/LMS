@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\Evaluation\Entities\AnswerEvaluation;
 use Modules\Evaluation\Entities\Circle;
+use Modules\Evaluation\Entities\Company;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','business_name', 'email', 'password','tel','user_type','profile_picture','address','zip_code','position'
+        'name','business_name', 'email', 'password','tel','user_type','profile_picture','address','zip_code','position','company_id'
     ];
 
     /**
@@ -41,6 +42,10 @@ class User extends Authenticatable
 
     public function circles (){
         return $this->belongsToMany(Circle::class)->where('status','>','2');
+    }
+
+    public function company (){
+        return $this->hasOne(Company::class,'id','company_id');
     }
 
 }

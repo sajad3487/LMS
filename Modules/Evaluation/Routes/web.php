@@ -70,13 +70,19 @@ Route::group(['middleware'=>'auth'],function(){
 
         });
 
+        Route::group(['prefix'=>'company'],function (){
+            Route::get('/','CompanyController@index');
+            Route::post('/store','CompanyController@store');
+            Route::put('/{company_id}/update','CompanyController@update');
+            Route::get('/{company_id}/delete','CompanyController@destroy');
+        });
     });
 });
 
 Route::group(['middleware'=>'CheckAdmin'],function (){
     Route::group(['prefix'=>'participant'],function(){
 
-        Route::get('/','EvaluationController@participant_panel');
+//        Route::get('/','EvaluationController@participant_panel');
         Route::get('quiz','EvaluationController@participant_quiz');
         Route::get('done_quiz','EvaluationController@done_quiz');
         Route::get('profile','EvaluationController@participant_profile');

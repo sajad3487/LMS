@@ -153,44 +153,69 @@
                             </g>
                         </svg><!--end::Svg Icon--></span><span class="menu-text">Evaluations</span></a>
                 </li>
-                <li class="menu-item @if(isset($active) && $active == 7)menu-item-active @endif" aria-haspopup="true"><a href="{{url('/evaluation/setting/email_template')}}" class="menu-link "><span
-                            class="svg-icon menu-icon">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg
+
+                <li class="menu-item  menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover"><a
+                        href="javascript:;" class="menu-link menu-toggle"><span class="svg-icon menu-icon"><!--begin::Svg Icon | path:assets/media/svg/icons/Files/Upload.svg--><svg
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24"/>
-                                <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3"/>
-                                <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000"/>
-                                <rect fill="#000000" opacity="0.3" x="10" y="9" width="7" height="2" rx="1"/>
-                                <rect fill="#000000" opacity="0.3" x="7" y="9" width="2" height="2" rx="1"/>
-                                <rect fill="#000000" opacity="0.3" x="7" y="13" width="2" height="2" rx="1"/>
-                                <rect fill="#000000" opacity="0.3" x="10" y="13" width="7" height="2" rx="1"/>
-                                <rect fill="#000000" opacity="0.3" x="7" y="17" width="2" height="2" rx="1"/>
-                                <rect fill="#000000" opacity="0.3" x="10" y="17" width="7" height="2" rx="1"/>
-                            </g>
-                        </svg><!--end::Svg Icon--></span><span class="menu-text">Evaluation setting</span></a>
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <path d="M7,3 L17,3 C19.209139,3 21,4.790861 21,7 C21,9.209139 19.209139,11 17,11 L7,11 C4.790861,11 3,9.209139 3,7 C3,4.790861 4.790861,3 7,3 Z M7,9 C8.1045695,9 9,8.1045695 9,7 C9,5.8954305 8.1045695,5 7,5 C5.8954305,5 5,5.8954305 5,7 C5,8.1045695 5.8954305,9 7,9 Z" fill="#000000"/>
+                                    <path d="M7,13 L17,13 C19.209139,13 21,14.790861 21,17 C21,19.209139 19.209139,21 17,21 L7,21 C4.790861,21 3,19.209139 3,17 C3,14.790861 4.790861,13 7,13 Z M17,19 C18.1045695,19 19,18.1045695 19,17 C19,15.8954305 18.1045695,15 17,15 C15.8954305,15 15,15.8954305 15,17 C15,18.1045695 15.8954305,19 17,19 Z" fill="#000000" opacity="0.3"/>
+                                </g>
+                            </svg><!--end::Svg Icon--></span><span class="menu-text">Evaluation Setting</span><i class="menu-arrow"></i></a>
+                    <div class="menu-submenu "><i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item @if(isset($active) && $active == 7)menu-item-active @endif" aria-haspopup="true">
+                                <a href="{{url('/evaluation/setting/email_template')}}" class="menu-link "><span
+                                        class="svg-icon menu-icon">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"/>
+                                            <path d="M21,12.0829584 C20.6747915,12.0283988 20.3407122,12 20,12 C16.6862915,12 14,14.6862915 14,18 C14,18.3407122 14.0283988,18.6747915 14.0829584,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,8 C3,6.8954305 3.8954305,6 5,6 L19,6 C20.1045695,6 21,6.8954305 21,8 L21,12.0829584 Z M18.1444251,7.83964668 L12,11.1481833 L5.85557487,7.83964668 C5.4908718,7.6432681 5.03602525,7.77972206 4.83964668,8.14442513 C4.6432681,8.5091282 4.77972206,8.96397475 5.14442513,9.16035332 L11.6444251,12.6603533 C11.8664074,12.7798822 12.1335926,12.7798822 12.3555749,12.6603533 L18.8555749,9.16035332 C19.2202779,8.96397475 19.3567319,8.5091282 19.1603533,8.14442513 C18.9639747,7.77972206 18.5091282,7.6432681 18.1444251,7.83964668 Z" fill="#000000"/>
+                                            <circle fill="#000000" opacity="0.3" cx="19.5" cy="17.5" r="2.5"/>
+                                        </g>
+                                    </svg><!--end::Svg Icon--></span><span class="menu-text">Email Template</span>
+                                </a>
+                            </li>
+                            <li class="menu-item @if(isset($active) && $active == 8)menu-item-active @endif" aria-haspopup="true">
+                                <a href="{{url('/company/')}}" class="menu-link "><span
+                                        class="svg-icon menu-icon">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"/>
+                                            <path d="M12.7442084,3.27882877 L19.2473374,6.9949025 C19.7146999,7.26196679 20.003129,7.75898194 20.003129,8.29726722 L20.003129,15.7027328 C20.003129,16.2410181 19.7146999,16.7380332 19.2473374,17.0050975 L12.7442084,20.7211712 C12.2830594,20.9846849 11.7169406,20.9846849 11.2557916,20.7211712 L4.75266256,17.0050975 C4.28530007,16.7380332 3.99687097,16.2410181 3.99687097,15.7027328 L3.99687097,8.29726722 C3.99687097,7.75898194 4.28530007,7.26196679 4.75266256,6.9949025 L11.2557916,3.27882877 C11.7169406,3.01531506 12.2830594,3.01531506 12.7442084,3.27882877 Z M12,14.5 C13.3807119,14.5 14.5,13.3807119 14.5,12 C14.5,10.6192881 13.3807119,9.5 12,9.5 C10.6192881,9.5 9.5,10.6192881 9.5,12 C9.5,13.3807119 10.6192881,14.5 12,14.5 Z" fill="#000000"/>
+                                        </g>
+                                    </svg><!--end::Svg Icon--></span><span class="menu-text">Companies</span>
+                                </a>
+                            </li>
+                            <li class="menu-item @if(isset($active) && $active == 9)menu-item-active @endif" aria-haspopup="true">
+                                <a href="{{url('/user/')}}" class="menu-link "><span
+                                        class="svg-icon menu-icon">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg
+                                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24"/>
+                                            <path d="M12.7442084,3.27882877 L19.2473374,6.9949025 C19.7146999,7.26196679 20.003129,7.75898194 20.003129,8.29726722 L20.003129,15.7027328 C20.003129,16.2410181 19.7146999,16.7380332 19.2473374,17.0050975 L12.7442084,20.7211712 C12.2830594,20.9846849 11.7169406,20.9846849 11.2557916,20.7211712 L4.75266256,17.0050975 C4.28530007,16.7380332 3.99687097,16.2410181 3.99687097,15.7027328 L3.99687097,8.29726722 C3.99687097,7.75898194 4.28530007,7.26196679 4.75266256,6.9949025 L11.2557916,3.27882877 C11.7169406,3.01531506 12.2830594,3.01531506 12.7442084,3.27882877 Z M12,14.5 C13.3807119,14.5 14.5,13.3807119 14.5,12 C14.5,10.6192881 13.3807119,9.5 12,9.5 C10.6192881,9.5 9.5,10.6192881 9.5,12 C9.5,13.3807119 10.6192881,14.5 12,14.5 Z" fill="#000000"/>
+                                        </g>
+                                    </svg><!--end::Svg Icon--></span><span class="menu-text">Users</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
-{{--                <li class="menu-item @if(isset($active) && $active == 7)menu-item-active @endif" aria-haspopup="true"><a href="{{url('super_result')}}" class="menu-link "><span--}}
-{{--                            class="svg-icon menu-icon">--}}
-{{--                            <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg--}}
-{{--                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"--}}
-{{--                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">--}}
-{{--                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">--}}
-{{--                                <rect x="0" y="0" width="24" height="24"/>--}}
-{{--                                <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3"/>--}}
-{{--                                <path d="M10.875,15.75 C10.6354167,15.75 10.3958333,15.6541667 10.2041667,15.4625 L8.2875,13.5458333 C7.90416667,13.1625 7.90416667,12.5875 8.2875,12.2041667 C8.67083333,11.8208333 9.29375,11.8208333 9.62916667,12.2041667 L10.875,13.45 L14.0375,10.2875 C14.4208333,9.90416667 14.9958333,9.90416667 15.3791667,10.2875 C15.7625,10.6708333 15.7625,11.2458333 15.3791667,11.6291667 L11.5458333,15.4625 C11.3541667,15.6541667 11.1145833,15.75 10.875,15.75 Z" fill="#000000"/>--}}
-{{--                                <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000"/>--}}
-{{--                            </g>--}}
-{{--                        </svg><!--end::Svg Icon--></span><span class="menu-text">Assessments Results</span></a>--}}
-{{--                </li>--}}
 
                 <li class="menu-section ">
                     <h4 class="menu-text">Account</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
-                <li class="menu-item @if(isset($active) && $active == 8)menu-item-active @endif" aria-haspopup="true"><a href="{{url('profile')}}" class="menu-link "><span
+                <li class="menu-item @if(isset($active) && $active == 9)menu-item-active @endif" aria-haspopup="true"><a href="{{url('profile')}}" class="menu-link "><span
                             class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg--><svg
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

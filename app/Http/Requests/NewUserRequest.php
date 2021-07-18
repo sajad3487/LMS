@@ -27,9 +27,12 @@ class NewUserRequest extends FormRequest
             'name' => 'required', 'string', 'max:255',
             'business_name' => 'nullable|string|max:255',
             'position' => 'nullable|string|max:255',
+            'tel' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
             'user_type' => 'nullable|numeric|max:20',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+            'company_id'=>'nullable|numeric|exists:companies,id',
         ];
     }
 }

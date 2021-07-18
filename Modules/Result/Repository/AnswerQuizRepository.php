@@ -68,5 +68,18 @@ class AnswerQuizRepository extends Repository
             ->delete();
     }
 
+    public function getAllAnswersOfUser ($user_id){
+        return answerQuiz::where('user_id',$user_id)
+            ->get();
+    }
+
+    public function getAnswerOfUser ($quiz_id,$user_id){
+        return answerQuiz::where('user_id',$user_id)
+            ->where('form_id',$quiz_id)
+            ->with('question_answer')
+            ->with('question_answer.question')
+            ->first();
+    }
+
 
 }

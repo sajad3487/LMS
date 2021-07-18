@@ -6,6 +6,7 @@ use App\Http\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Evaluation\Http\Service\CompanyService;
 use Modules\Quiz\Http\Requests\QuizRequest;
 use Modules\Quiz\Http\Service\OptionService;
 use Modules\Quiz\Http\Service\QuestionService;
@@ -44,6 +45,10 @@ class QuizController extends Controller
      * @var AnswerQuestionService
      */
     private $answerQuestionService;
+    /**
+     * @var CompanyService
+     */
+    private $companyService;
 
     public function __construct(
         UserService $userService,
@@ -52,7 +57,8 @@ class QuizController extends Controller
         OptionService $optionService,
         ResultService $resultService,
         AnswerQuizService $answerQuizService,
-        AnswerQuestionService $answerQuestionService
+        AnswerQuestionService $answerQuestionService,
+        CompanyService $companyService
     )
     {
         $this->userService = $userService;
@@ -62,6 +68,7 @@ class QuizController extends Controller
         $this->resultService = $resultService;
         $this->answerQuizService = $answerQuizService;
         $this->answerQuestionService = $answerQuestionService;
+        $this->companyService = $companyService;
     }
 
     public function index()
@@ -69,6 +76,11 @@ class QuizController extends Controller
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
         $quizzes = $this->quizService->getUserQuizzes(auth()->id());
+        foreach ($quizzes as $quiz){
+            if ($quiz->type == 'private'){
+                $quiz->owner = $this->companyService->getCompanyById($quiz->parent_id);
+            }
+        }
         return view('customer.quizzes', compact('active', 'user', 'quizzes'));
     }
 
@@ -77,13 +89,21 @@ class QuizController extends Controller
     {
         $active = 2;
         $user = $this->userService->getUserById(auth()->id());
-        return view('customer.new_quiz', compact('active', 'user'));
+        $companies = $this->companyService->getAllCompanies();
+        return view('customer.new_quiz', compact('active', 'user','companies'));
     }
 
 
     public function store(QuizRequest $request)
     {
         $data = $request->all();
+        if($data['status'] == 'public'){
+            $data['status'] = 1;
+        }else{
+            $data['parent_id'] = $data['status'];
+            $data['status']= 2;
+            $data['type']= "private";
+        }
         if (isset($request->file)){
             $data['banner'] =$this->quizService->uploadMedia($request->file);
             unset($data['file']);
@@ -114,18 +134,25 @@ class QuizController extends Controller
         $quiz = $this->quizService->getQuiz($id);
         $sections = $this->questionService->getSectionsOfQuiz($id);
         $questions = $this->questionService->getQuestionsWithoutTitle($id);
-//        dd($sections);
         if ($quiz->type == 'super'){
             $active = 4;
             return view('customer.new_super_quiz', compact('active', 'user', 'quiz','questions','sections'));
         }
-        return view('customer.new_quiz', compact('active', 'user', 'quiz','questions','sections'));
+        $companies = $this->companyService->getAllCompanies();
+        return view('customer.new_quiz', compact('active', 'user', 'quiz','questions','sections','companies'));
     }
 
 
     public function update(QuizRequest $request, $id)
     {
         $data = $request->all();
+        if($data['status'] == 'public'){
+            $data['status'] = 1;
+        }else{
+            $data['parent_id'] = $data['status'];
+            $data['status']= 2;
+            $data['type']= "private";
+        }
         if (isset($request->file)){
             $data['banner'] =$this->quizService->uploadMedia($request->file);
             unset($data['file']);
@@ -169,7 +196,7 @@ class QuizController extends Controller
     {
         $super_quiz = $this->quizService->getSuperQuiz($id);
         if ($super_quiz->type == 'quiz') {
-            return redirect("quiz/$super_quiz->id/iew");
+            return redirect("quiz/$super_quiz->id/view");
         }
         return view('super_quiz', compact('super_quiz'));
     }

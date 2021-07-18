@@ -49,13 +49,11 @@
                             <table class="table table-separate table-head-custom table-checkable text-center" id="kt_datatable">
                                 <thead>
                                 <tr>
-                                    <th>Quiz ID</th>
+                                    <th>#</th>
                                     <th>Quiz Title</th>
                                     <th>Date Created</th>
-                                    <th>Status</th>
+                                    <th>Owner</th>
                                     <th>Taken</th>
-{{--                                    <th>Average Score</th>--}}
-{{--                                    <th>Average Percentage</th>--}}
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -69,11 +67,11 @@
                                     <td>
                                         @if($quiz->status == 1)
                                             <span class="label label-lg font-weight-bold label-light-primary label-inline">
-                                                Active
+                                                Public
                                             </span>
-                                        @elseif($quiz->status == 0)
+                                        @elseif($quiz->status == 2)
                                             <span class="label label-lg font-weight-bold label-light-success label-inline">
-                                                Deactivated
+                                                {{$quiz->owner->name ?? ''}}
                                             </span>
                                         @endif
                                     </td>

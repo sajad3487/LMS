@@ -36,7 +36,7 @@ class UserService
         return $this->userRepo->getAdmins();
     }
 
-    public function deleteAdmin ($id){
+    public function deleteUser ($id){
         return $this->userRepo->delete($id);
     }
 
@@ -49,7 +49,7 @@ class UserService
     }
 
     public function uploadMedia ($file) {
-        $destination = base_path() . '/public/media/image/';
+        $destination = base_path() . '/public_html/media/image/';
         $filename = rand(1111111, 99999999);
         $newFileName = $filename . $file->getClientOriginalName();
         $file->move($destination, $newFileName);
@@ -59,6 +59,8 @@ class UserService
     public function getClientWithCircles ($id){
         return $this->userRepo->getUserWithAllCircles ($id);
     }
+
+
 
 
 }

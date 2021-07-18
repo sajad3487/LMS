@@ -6,7 +6,7 @@
         <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
             <!--begin::Header Menu-->
             <div id="kt_header_menu" class="header-menu header-menu-mobile  header-menu-layout-default ">
-                <a href="{{url('/home')}}" class="brand-logo mt-5">
+                <a href="{{url('/participant')}}" class="brand-logo mt-5">
                     <img alt="Logo" src="{{asset('media/logos/logo-transperant-1.png')}}" style="width: 80%"/>
                 </a>
             </div>

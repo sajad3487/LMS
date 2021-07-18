@@ -33,6 +33,8 @@ class EvaluationRepository extends Repository
             ->with('circles.journal')
             ->with('behaviors')
             ->with('user')
+            ->with('company')
+            ->with('company.users')
             ->first();
     }
 

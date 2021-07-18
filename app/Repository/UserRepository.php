@@ -30,12 +30,14 @@ class UserRepository extends Repository
 
     public function getAllUsersByType ($type){
         return User::where('user_type',$type)
+            ->with('company')
             ->get();
     }
 
     public function getUserWithAllCircles ($id){
         return User::where('id',$id)
             ->with('circles')
+            ->with('circles.evaluation')
             ->first();
     }
 

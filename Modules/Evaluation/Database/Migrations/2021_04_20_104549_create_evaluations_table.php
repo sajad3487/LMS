@@ -20,7 +20,7 @@ class CreateEvaluationsTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('company')->nullable();
+            $table->integer('company_id');
             $table->string('target')->nullable();
             $table->date('start')->nullable();
             $table->date('deadline')->nullable();

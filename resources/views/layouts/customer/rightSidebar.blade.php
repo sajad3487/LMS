@@ -60,7 +60,15 @@
         <!--begin::Nav-->
         <div class="navi navi-spacer-x-0 p-0">
             <!--begin::Item-->
-            <a href="{{url('/profile')}}" class="navi-item">
+            <a href="
+            @if($user->user_type == 1)
+            {{url('/profile')}}
+            @elseif($user->user_type == 3)
+            {{url('/participant/profile')}}
+            @elseif($user->user_type == 2)
+            {{url('/client/profile')}}
+            @endif
+            " class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">

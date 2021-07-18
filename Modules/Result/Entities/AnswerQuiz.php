@@ -10,6 +10,7 @@ class answerQuiz extends Model
     protected $fillable = [
         'form_id',
         'parent_id',
+        'user_id',
         'first_name',
         'last_name',
         'email',

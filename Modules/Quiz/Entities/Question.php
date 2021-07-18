@@ -17,6 +17,7 @@ class question extends Model
         'additional_info',
         'status',
         'requirement',
+        'media',
     ];
 
     public function option (){

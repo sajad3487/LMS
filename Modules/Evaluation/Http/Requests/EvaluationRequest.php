@@ -17,7 +17,7 @@ class EvaluationRequest extends FormRequest
             'parent_id' => 'nullable|numeric|exist:evaluation,id',
             'name' => 'required|string|between:2,250',
             'description' => 'nullable|string|between:2,2000',
-            'company' => 'nullable|string|between:2,250',
+            'company_id' => 'required|numeric|exists:companies,id',
             'contact' => 'nullable|string|between:2,250',
             'start' => 'nullable|date',
             'deadline' => 'nullable|date',

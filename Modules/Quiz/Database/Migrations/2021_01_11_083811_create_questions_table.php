@@ -24,6 +24,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('additional_info')->default(0);
             $table->integer('status')->default(1);
             $table->boolean('requirement')->default(1);
+            $table->string('media')->nullable();
 
             $table->timestamps();
         });

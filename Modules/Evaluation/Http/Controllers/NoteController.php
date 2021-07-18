@@ -2,6 +2,7 @@
 
 namespace Modules\Evaluation\Http\Controllers;
 
+use App\Http\Services\UserService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -22,14 +23,20 @@ class NoteController extends Controller
      * @var CircleService
      */
     private $circleService;
+    /**
+     * @var UserService
+     */
+    private $userService;
 
     public function __construct(
         NoteService $noteService,
-        CircleService $circleService
+        CircleService $circleService,
+        UserService $userService
     )
     {
         $this->noteService = $noteService;
         $this->circleService = $circleService;
+        $this->userService = $userService;
     }
 
     public function new_question(QuestionRequest $request)
@@ -81,7 +88,8 @@ class NoteController extends Controller
 
     public function email_template_edit (){
         $email_template = $this->noteService->getTemplateByType ('user_invitation_template');
-        return view('customer.evaluation_email_template',compact('email_template'));
+        $user = $this->userService->getUserById(auth()->id());
+        return view('customer.evaluation_email_template',compact('email_template','user'));
     }
 
     public function email_template_store (EmailTemplateRequest $request){

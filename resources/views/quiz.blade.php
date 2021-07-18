@@ -104,37 +104,43 @@
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel menu-item-active"
                                     data-menu-toggle="click" aria-haspopup="true"><a href="https://nourgroup.com/"
-                                                                                     class="menu-link menu-toggle"><span
+                                                                                     class="menu-link"><span
                                             class="menu-text">Home</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu" data-menu-toggle="click" aria-haspopup="true">
-                                    <a href="https://nourgroup.com/big-ideas/" class="menu-link menu-toggle"><span class="menu-text">Big Ideas</span><i
+                                    <a href="https://nourgroup.com/big-ideas/" class="menu-link"><span class="menu-text">Big Ideas</span><i
                                             class="menu-arrow"></i></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://nourgroup.com/advising/" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://nourgroup.com/advising/" class="menu-link"><span
                                             class="menu-text">Advising</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://nourgroup.com/coaching/" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://nourgroup.com/coaching/" class="menu-link"><span
                                             class="menu-text">Coaching</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://nourgroup.com/speaking//" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://nourgroup.com/speaking//" class="menu-link"><span
                                             class="menu-text">Speaking</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://nourgroup.com/resources/" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://nourgroup.com/resources/" class="menu-link"><span
                                             class="menu-text">Resources</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://nour-group.myshopify.com/" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://nour-group.myshopify.com/" class="menu-link"><span
                                             class="menu-text">Store</span></a>
                                 </li>
                                 <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="click"
-                                    aria-haspopup="true"><a href="https://forum.nourgroup.com/feed" class="menu-link menu-toggle"><span
+                                    aria-haspopup="true"><a href="https://forum.nourgroup.com/feed" class="menu-link"><span
                                             class="menu-text">ّForum</span></a>
                                 </li>
+                                @if(auth()->id() != null)
+                                    <li class="menu-item  menu-item-submenu menu-item-rel" >
+                                        <a href="{{url('/participant')}}" class="btn btn-light-primary "><span
+                                                class="menu-text">Dashboard</span></a>
+                                    </li>
+                                    @endif
                             </ul>
                             <!--end::Header Nav-->
                         </div>
@@ -256,9 +262,12 @@
                                     <fieldset class="section" id="sec{{$sectionKey}}">
                                         <div class="row">
                                             <button type="button" class="btn btn-outline-warning back align-bottom ml-6 p-3"> <i class="flaticon2-fast-back"></i></button>
-                                            <h3 class="mb-2 ml-5">{{$section_body->body ?? ''}}</h3>
+                                            <h3 class="mb-0 ml-5">{{$section_body->body ?? ''}}</h3>
                                         </div>
-                                        <p class="row m-0 ">{{$section_body->description ?? ''}}</p>
+                                        <p class="row m-0 ml-20">{{$section_body->description ?? ''}}</p>
+                                        <div class="overlay-wrapper rounded text-center">
+                                            <img src="{{asset($section_body->media)}}" alt="" class="max-w-50" />
+                                        </div>
                                         <hr>
 
                                         <div class="cf">

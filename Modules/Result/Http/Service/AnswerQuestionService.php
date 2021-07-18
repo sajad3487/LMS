@@ -43,5 +43,9 @@ class AnswerQuestionService
         return $this->answerQuestionRepo->deleteAllQuestionsOfAnswer ($answer_id);
     }
 
+    public function updateAnswerQuestion ($data,$id){
+        return $this->answerQuestionRepo->update($data,$id);
+    }
+
 
 }

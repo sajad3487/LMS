@@ -36,7 +36,7 @@
                                             </g>
                                     </svg><!--end::Svg Icon-->
                                 </span>
-                                    Client Chat
+                                    Executive Chat
                                     @if(isset($messages) && $messages != null && $messages->unread_message != 0)
                                         <span class="label label-sm label-rounded label-danger ml-1">{{$messages->unread_message}}</span>
 
@@ -184,7 +184,7 @@
                                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item">
                                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">
-                                                        <span class="nav-icon"><i class="flaticon-exclamation-square "></i></span>
+                                                        <span class="nav-icon"><i class="flaticon-clipboard"></i></span>
                                                         <span class="nav-text">Behaviors</span>
                                                     </a>
                                                 </li>
@@ -198,8 +198,8 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="profile-tab" data-toggle="tab"
                                                        href="#quant_change" aria-controls="profile">
-                                                        <span class="nav-icon"><i class="flaticon2-layers-1"></i></span>
-                                                        <span class="nav-text">Behaviors Report</span>
+                                                        <span class="nav-icon"><i class="flaticon-pie-chart"></i></span>
+                                                        <span class="nav-text">Behaviors Chart</span>
                                                     </a>
                                                 </li>
 
@@ -316,7 +316,7 @@
                                                                     <div class="row mt-3">
                                                                         <button type="submit" class="btn btn-light-success ml-auto mr-6 w-100px">Save</button>
                                                                         <button type="submit" formaction="{{url("evaluation_result/behavior/$evaluation->id/send_client")}}" class="btn btn-primary mr-auto">
-                                                                            Send to Client
+                                                                            Send behavior report
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -443,6 +443,27 @@
                                     <div class="card-header">
                                         <div class="card-title @if($key != 0) collapsed @endif" data-toggle="collapse" data-target="#collapseOne{{$key}}">
                                             {{$circle->title ?? ''}}
+                                            <div class="ml-10">
+                                                @if($circle->status == 1 )
+                                                    <span class="label font-weight-bold label-lg label-light-primary label-inline">Created</span>
+
+                                                @elseif($circle->status == 2)
+                                                    <span class="label font-weight-bold label-lg label-light-danger label-inline">Ready to Send</span>
+
+                                                @elseif($circle->status == 3)
+                                                    <span class="label font-weight-bold label-lg label-light-warning label-inline">User Answering </span>
+
+                                                @elseif($circle->status == 4)
+                                                    <span class="label font-weight-bold label-lg label-light-info label-inline">Ready to Send Report</span>
+
+                                                @elseif($circle->status == 5)
+                                                    <span class="label font-weight-bold label-lg label-light-dark label-inline">Report Sent</span>
+
+                                                @elseif($circle->status == 6)
+                                                    <span class="label font-weight-bold label-lg label-light-success label-inline">Client Checked</span>
+
+                                                @endif
+                                            </div>
                                             @if($circle->new_message != 0)
                                             <span class="label label-sm label-rounded label-danger ml-2">{{$circle->new_message ?? ''}}</span>
                                                 @endif
@@ -575,36 +596,41 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
+                                                                @if($circle->answers->count() == 0)
+                                                                    <h4 class="text-center text-muted">Nobody haven't answered this circle yet</h4>
+                                                                    @else
+                                                                    <div class="overflow-auto">
+                                                                        <!--begin: Datatable-->
+                                                                        <table class="table table-separate table-head-custom table-checkable text-center" id="kt_datatable">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th>Quiz ID</th>
+                                                                                <th>Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Answer</th>
+                                                                            </tr>
+                                                                            </thead>
 
+                                                                            <tbody>
+                                                                            @foreach($circle->answers as $answer_key=>$answer)
+                                                                                <tr class="text-center">
+                                                                                    <td>{{$answer_key+1 ?? ''}}</td>
+                                                                                    <td>{{$answer->user->name ?? ''}}</td>
+                                                                                    <td>{{$answer->user->email ?? ''}}</td>
+                                                                                    <td>{{$answer->body ?? ''}}</td>
+                                                                                </tr>
+                                                                            @endforeach
+
+                                                                            </tbody>
+
+                                                                        </table>
+                                                                        <!--end: Datatable-->
+                                                                    </div>
+
+                                                                @endif
                                                                 <!--begin::Form-->
                                                                 @csrf
-                                                                <div class="overflow-auto">
-                                                                    <!--begin: Datatable-->
-                                                                    <table class="table table-separate table-head-custom table-checkable text-center" id="kt_datatable">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>Quiz ID</th>
-                                                                            <th>Name</th>
-                                                                            <th>Email</th>
-                                                                            <th>Answer</th>
-                                                                        </tr>
-                                                                        </thead>
 
-                                                                        <tbody>
-                                                                        @foreach($circle->answers as $answer_key=>$answer)
-                                                                            <tr class="text-center">
-                                                                                <td>{{$answer_key+1 ?? ''}}</td>
-                                                                                <td>{{$answer->user->name ?? ''}}</td>
-                                                                                <td>{{$answer->user->email ?? ''}}</td>
-                                                                                <td>{{$answer->body ?? ''}}</td>
-                                                                            </tr>
-                                                                        @endforeach
-
-                                                                        </tbody>
-
-                                                                    </table>
-                                                                    <!--end: Datatable-->
-                                                                </div>
 
 
                                                             </div>
@@ -636,8 +662,10 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
+                                                                @if($circle->journal->count() == 0)
+                                                                    <h4 class="text-center text-muted">The journal is empty</h4>
 
-
+                                                                    @endif
                                                                 <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle" id="accordionExample7">
                                                                     @foreach($circle->journal as $journal_key=>$journal)
                                                                         <div class="card">

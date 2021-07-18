@@ -54,6 +54,13 @@ Route::group(['middleware'=>'auth'],function(){
     });
 });
 
+Route::group(['middleware'=>'CheckAdmin'],function (){
+    Route::group(['prefix'=>'participant'],function(){
+
+        Route::put('edit_answer/{answer_id}/update_answer','AnswerQuestionController@participant_update_answer');
+
+    });
+});
 
 Route::group(['prefix'=>'quiz'],function (){
 

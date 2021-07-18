@@ -13,7 +13,7 @@ class Evaluation extends Model
         'user_id',
         'name',
         'description',
-        'company',
+        'company_id',
         'target',
         'active_circle_id',
         'status',
@@ -35,5 +35,9 @@ class Evaluation extends Model
 
     public function behaviors (){
         return $this->hasMany(Behavior::class,'evaluation_id','id');
+    }
+
+    public function company (){
+        return $this->hasOne(Company::class,'id','company_id');
     }
 }

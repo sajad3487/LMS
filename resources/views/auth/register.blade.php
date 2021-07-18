@@ -168,11 +168,11 @@
                                     </span>
                             @enderror
                         </div>
-                        <!--end::Form group-->
-                            <div class="form-group">
-                                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="{{ __('Business Name') }}" name="business_name"  autocomplete="off" value="{{ old('business_name') }}"/>
-                            </div>
-                        <!--begin::Form group-->
+{{--                        <!--end::Form group-->--}}
+{{--                            <div class="form-group">--}}
+{{--                                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="{{ __('Business Name') }}" name="business_name"  autocomplete="off" value="{{ old('business_name') }}"/>--}}
+{{--                            </div>--}}
+{{--                        <!--begin::Form group-->--}}
                         <div class="form-group">
                             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 " type="email" placeholder="{{ __('E-Mail Address') }}" name="email"  value="{{ old('email') }}"  autocomplete="off"/>
                         </div>

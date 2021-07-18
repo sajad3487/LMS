@@ -21,7 +21,7 @@ class MediaService
     }
 
     public function uploadMedia ($file) {
-        $destination = base_path() . '/public/media/video/';
+        $destination = base_path() . '/public_html/media/video/';
         $filename = rand(1111111, 99999999);
         $newFileName = $filename . $file->getClientOriginalName();
         $file->move($destination, $newFileName);

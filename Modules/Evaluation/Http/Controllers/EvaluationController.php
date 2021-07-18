@@ -13,9 +13,11 @@ use Modules\Evaluation\Http\Service\AnswerEvaluationService;
 use Modules\Evaluation\Http\Service\AnswerScrollerService;
 use Modules\Evaluation\Http\Service\BehaviorService;
 use Modules\Evaluation\Http\Service\CircleService;
+use Modules\Evaluation\Http\Service\CompanyService;
 use Modules\Evaluation\Http\Service\EvaluationService;
 use Modules\Evaluation\Http\Service\MessageService;
 use Modules\Evaluation\Http\Service\NoteService;
+use Modules\Quiz\Http\Service\QuizService;
 
 class EvaluationController extends Controller
 {
@@ -51,6 +53,14 @@ class EvaluationController extends Controller
      * @var BehaviorService
      */
     private $behaviorService;
+    /**
+     * @var CompanyService
+     */
+    private $companyService;
+    /**
+     * @var QuizService
+     */
+    private $quizService;
 
     public function __construct(
         EvaluationService $evaluationService,
@@ -60,7 +70,9 @@ class EvaluationController extends Controller
         NoteService $noteService,
         MessageService $messageService,
         AnswerScrollerService $answerScrollerService,
-        BehaviorService $behaviorService
+        BehaviorService $behaviorService,
+        CompanyService $companyService,
+        QuizService $quizService
     )
     {
         $this->evaluationService = $evaluationService;
@@ -71,6 +83,8 @@ class EvaluationController extends Controller
         $this->messageService = $messageService;
         $this->answerScrollerService = $answerScrollerService;
         $this->behaviorService = $behaviorService;
+        $this->companyService = $companyService;
+        $this->quizService = $quizService;
     }
 
     public function index()
@@ -95,7 +109,8 @@ class EvaluationController extends Controller
         $active = 6;
         $targets = $this->userService->getUserByType(2);
         $user = $this->userService->getUserById(auth()->id());
-        return view('customer.new_evaluation', compact('active', 'targets','user'));
+        $companies = $this->companyService->getAllCompanies();
+        return view('customer.new_evaluation', compact('active', 'targets','user','companies'));
     }
 
     public function store(EvaluationRequest $request)
@@ -118,7 +133,8 @@ class EvaluationController extends Controller
         $users = $this->userService->getUserByType(3);
         $all_questions = $this->noteService->getQuestions();
         $user = $this->userService->getUserById(auth()->id());
-        return view('customer.new_evaluation', compact('evaluation', 'active', 'targets', 'circles', 'users', 'all_questions','user'));
+        $companies = $this->companyService->getAllCompanies();
+        return view('customer.new_evaluation', compact('evaluation', 'active', 'targets', 'circles', 'users', 'all_questions','user','companies'));
     }
 
     public function update(EvaluationRequest $request, $evaluation_id)
@@ -156,7 +172,8 @@ class EvaluationController extends Controller
         $user_scroller_answer = $this->answerScrollerService->getCircleAnswerScrollerOfUser(auth()->id(), $circle_id);
 //        dd($user_scroller_answer,auth()->id());
         if ($user_answer == null && $user_scroller_answer == null) {
-            return view('user.user_quiz', compact('active_circle', 'user'));
+            $quizzes = $this->quizService->getQuizzesOfUserWithAnswersInfo(auth()->id());
+            return view('user.user_quiz', compact('active_circle', 'user','quizzes'));
         } else {
             if (isset($user_answer->answer_detail)) {
                 foreach ($user_answer->answer_detail as $answer) {
@@ -172,7 +189,8 @@ class EvaluationController extends Controller
             }
 
             $scroller_answers = $this->answerScrollerService->getClientAnswersByCircleId($circle_id, auth()->id());
-            return view('user.user_answer', compact('active_circle', 'user_answer', 'user', 'scroller_answers'));
+            $quizzes = $this->quizService->getQuizzesOfUserWithAnswersInfo(auth()->id());
+            return view('user.user_answer', compact('active_circle', 'user_answer', 'user', 'scroller_answers','quizzes'));
         }
     }
 
@@ -248,5 +266,10 @@ class EvaluationController extends Controller
         return view('client.client_panel', compact('evaluation', 'users', 'behaviors', 'behavior_template', 'messages','user'));
     }
 
+    public function client_profile()
+    {
+        $user = $this->userService->getUserById(auth()->id());
+        return view('client.client_profile', compact('user'));
+    }
 
 }

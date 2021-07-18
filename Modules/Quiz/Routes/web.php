@@ -33,6 +33,7 @@ Route::group(['middleware'=>'auth'],function(){
             Route::put('/{question_id}/update','QuestionController@update');
             Route::get('/{question_id}/delete','QuestionController@destroy');
             Route::get('/{question_id}/copy','QuestionController@copy');
+            Route::get('/{question_id}/remove_media','QuestionController@remove_media');
 
             Route::get('/{quiz_id}/createTitle','QuestionController@create_title');
             Route::get('/{quiz_id}/editTitle','QuestionController@edit_title');

@@ -96,12 +96,11 @@
                                                                 <div class="col-lg-8">
                                                                     <input type="text" name="name" class="form-control"
                                                                            placeholder="Enter evaluation Name"
-                                                                           value="{{$evaluation->name  ?? ''}}"/>
+                                                                           value="{{$evaluation->name  ?? ''}}" required/>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label class="col-lg-2 col-form-label text-right"
-                                                                       for="exampleTextarea">Description :</label>
+                                                                <label class="col-lg-2 col-form-label text-right" for="exampleTextarea">Description :</label>
                                                                 <div class="col-lg-8">
                                                                     {{--                                                                    <textarea class="form-control" name="description" id="exampleTextarea" rows="3">{{$quiz->description  ?? ''}}</textarea>--}}
                                                                     <textarea name="description" id="kt-ckeditor-1">
@@ -110,11 +109,16 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label class="col-lg-2 col-form-label text-right">Company:</label>
-                                                                <div class="col-lg-8">
-                                                                    <input type="text" name="company" class="form-control"
-                                                                           placeholder="Enter company name"
-                                                                           value="{{$evaluation->company  ?? ''}}"/>
+                                                                <label class="col-form-label text-right col-lg-2 col-sm-12">Company:</label>
+                                                                <div class="col-lg-4 col-md-10 col-sm-12">
+                                                                    <select  name="company_id" class="form-control selectpicker" data-size="7" data-live-search="true" required>
+                                                                        {{--                                                                        <option value="">Select</option>--}}
+                                                                        @if(isset($companies) && $companies != null)
+                                                                            @foreach($companies as $company)
+                                                                                <option value="{{$company->id}}" @if(isset($evaluation) && $company->id == $evaluation->company_id) selected @endif >{{$company->name ?? ''}} </option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
                                                                 </div>
                                                             </div>
 
@@ -138,7 +142,6 @@
                                                                     <span class="form-text text-muted">Select user of evaluation</span>
                                                                     <a href="#" class="btn btn-outline-success mx-auto" data-toggle="modal" data-target="#new_user_target">Add New User
                                                                     </a>
-
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -188,21 +191,21 @@
                                                                 <div class="form-group row">
                                                                     <div class="col-md-6">
                                                                         <label>Name:</label>
-                                                                        <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                        <input type="text" name="name" class="form-control form-control-solid" placeholder="Enter name of user" required/>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <label>Email</label>
-                                                                        <input type="email" name="email" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                        <input type="email" name="email" class="form-control form-control-solid" placeholder="Enter the user email" required/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <div class="col-md-6">
                                                                         <label>Position:</label>
-                                                                        <input type="text" name="position" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                        <input type="text" name="position" class="form-control form-control-solid" placeholder="Enter position of the user" required/>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <label>Password:</label>
-                                                                        <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
+                                                                        <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter password for the user account" required/>
                                                                     </div>
                                                                 </div>
                                                                 <input type="text" name="business_name" value="{{$evaluation->company ?? ''}}" class="d-none">
@@ -656,7 +659,7 @@
                                                                                                                 <div class="col-lg-4 col-md-10 col-sm-12">
                                                                                                                     <select  name="user_id" class="form-control selectpicker" data-size="7" data-live-search="true">
                                                                                                                         {{--                                                                        <option value="">Select</option>--}}
-                                                                                                                        @foreach($users as $participant)
+                                                                                                                        @foreach($evaluation->company->users as $participant)
                                                                                                                             <option value="{{$participant->id}}">{{$participant->name ?? ''}} - {{$participant->email ?? ''}}</option>
                                                                                                                         @endforeach
                                                                                                                     </select>
@@ -672,9 +675,7 @@
                                                                                                                 {{--                                                                        <button type="reset" class="btn btn-secondary">Cancel</button>--}}
                                                                                                             </div>
                                                                                                             <!--end::Form-->
-
                                                                                                         </div>
-
                                                                                                     </form>
                                                                                                     <!--begin::Modal-->
                                                                                                     <div class="modal fade" id="new_user_client{{$key}}" role="dialog"  aria-hidden="true">

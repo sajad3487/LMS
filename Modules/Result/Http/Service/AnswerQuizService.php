@@ -106,4 +106,8 @@ class AnswerQuizService
         return $this->answerQuizRepo->delete($answer_id);
     }
 
+    public function getAnswerOfQuizForUser ($quiz_id,$user_id){
+        return $this->answerQuizRepo->getAnswerOfUser ($quiz_id,$user_id);
+    }
+
 }

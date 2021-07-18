@@ -173,5 +173,13 @@ class QuestionService
         }
     }
 
+    public function uploadMedia ($file) {
+        $destination = base_path() . '/public_html/media/image/';
+        $filename = rand(1111111, 99999999);
+        $newFileName = $filename . $file->getClientOriginalName();
+        $file->move($destination, $newFileName);
+        return '/media/image/' . $newFileName;
+    }
+
 
 }

@@ -21,6 +21,8 @@ class QuestionRequest extends FormRequest
             'description'=>'nullable|string|between:2,1000',
             'requirement'=>'nullable|boolean',
             'additional_info'=>'nullable|boolean',
+            'video_path'=>'nullable|string|between:2,250',
+            'file' => 'nullable|max:20000|mimes:png,jpeg,jpg',
         ];
     }
 

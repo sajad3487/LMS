@@ -50,7 +50,7 @@ class HomeController extends Controller
     }
 
     public function profile (){
-        $active = 4;
+        $active = 8;
         $quizzes = $this->quizService->getUserQuizzes(auth()->id());
         $user = $this->userService->getUserById(auth()->id());
         return view('customer.profile',compact('active','quizzes','user'));
@@ -73,14 +73,8 @@ class HomeController extends Controller
 
     public function add_user (NewUserRequest $request){
         $data = $request->all();
-        $user = User::create([
-            'name' => $data['name'],
-            'business_name' => $data['business_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'position' => $data['position'],
-            'user_type' => $data['user_type'],
-        ]);
+        $data['password'] = Hash::make($data['password']);
+        $user = User::create($data);
         return back();
     }
 

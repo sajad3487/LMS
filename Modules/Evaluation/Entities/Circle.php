@@ -45,4 +45,8 @@ class Circle extends Model
         return $this->hasMany(Scroller::class,'circle_id','id')->where('type','behavior');
     }
 
+    public function evaluation (){
+        return $this->belongsTo(Evaluation::class,'evaluation_id','id');
+    }
+
 }

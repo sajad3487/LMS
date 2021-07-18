@@ -93,6 +93,17 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
+                                                                <label class="col-lg-2 col-form-label text-right">Company:</label>
+                                                                <div class="col-lg-4">
+                                                                    <select  name="status" class="form-control selectpicker" data-size="7" data-live-search="true">
+                                                                        <option value="public" selected>Public Quiz</option>
+                                                                        @foreach($companies as $company)
+                                                                            <option value="{{$company->id}}" @if(isset($quiz) && $quiz->type == 'private' && $company->id == $quiz->parent_id) selected @endif >{{$company->name ?? ''}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
                                                                 <label class="col-lg-2 col-form-label text-right">Banner
                                                                     image:</label>
                                                                 <div class="col-lg-4">

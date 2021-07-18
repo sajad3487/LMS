@@ -102,7 +102,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <!--begin::Content-->
             <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
-
+                @yield('banner')
 
                 <!--begin::Entry-->
                 <div class="d-flex flex-column-fluid">

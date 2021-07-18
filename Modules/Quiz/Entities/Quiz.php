@@ -43,7 +43,7 @@ class quiz extends Model
     }
 
     public function quiz (){
-        return $this->hasMany(quiz::class,'parent_id','id');
+        return $this->hasMany(quiz::class,'parent_id','id')->where('type','subquiz');
     }
 
     public function segment (){
@@ -51,7 +51,7 @@ class quiz extends Model
     }
 
     public function parent (){
-        return $this->belongsTo(quiz::class,'parent_id','id');
+        return $this->belongsTo(quiz::class,'parent_id','id')->where('type','super');
     }
 
 }

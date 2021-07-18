@@ -28,14 +28,19 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/home', 'HomeController@index')->name('home');
 
-
         Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
             Route::get('/', 'HomeController@profile');
             Route::post('/update', 'HomeController@updateProfile');
         });
+
         Route::group(['prefix' => 'user'], function () {
+            Route::get('/','UserController@index');
+            Route::get('/{user_id}/delete','UserController@destroy');
+            Route::put('/{user_id}/update','UserController@update');
+            Route::put('/{user_id}/add_company','UserController@add_company');
             Route::post('store', 'HomeController@add_user');
         });
+
     });
 });
 
@@ -43,14 +48,30 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'CheckAdmin'], function () {
         Route::group(['prefix' => 'participant'], function () {
             Route::group(['prefix' => 'profile'], function () {
-
                 Route::post('/update', 'HomeController@updateProfile');
+            });
+            Route::get('/','UserController@participant_dash');
+            Route::get('/{quiz_id}/done_quiz','UserController@participant_done_quiz');
+        });
+    });
+});
 
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'CheckClient'], function () {
+        Route::group(['prefix' => 'client'], function () {
+            Route::group(['prefix' => 'profile'], function () {
+                Route::post('/update', 'HomeController@updateProfile');
             });
         });
 
     });
 });
+
+Route::group(['prefix'=>'participant'],function (){
+    Route::get('/login','UserController@participant_login');
+});
+
 
 Route::get('/', function () {
     return view('welcome');

@@ -98,6 +98,9 @@ class AnswerQuizController extends Controller
         if (isset($request->date_info)) {
             $data['date_info'] = $request->date_info;
         }
+        if (auth()->id() != null){
+            $data['user_id'] = auth()->id();
+        }
         $answer = $this->answerQuizService->createAnswer($data);
         $additional_info = $request->additional_info;
         $i = 0 ;

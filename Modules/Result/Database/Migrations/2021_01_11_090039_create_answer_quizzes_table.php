@@ -17,6 +17,7 @@ class CreateAnswerQuizzesTable extends Migration
             $table->id();
             $table->integer('form_id');
             $table->integer('parent_id')->default(0);
+            $table->integer('user_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->nullable();
