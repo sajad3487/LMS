@@ -195,6 +195,7 @@ class CircleController extends Controller
         $active = 6;
         $questions = $this->noteService->getAnswersForQuestionOfCircle($circle_id);
         $user = $this->userService->getUserById(auth()->id());
+//        dd($questions);
         return view('customer.answers_evaluation', compact('circle', 'active', 'questions','user'));
     }
 

@@ -278,8 +278,8 @@
                                                 <i aria-hidden="true" class="ki ki-close"></i>
                                             </button>
                                         </div>
-                                        @if($questions->answers->count() == 0)
-                                            <h4 class="text-center text-muted mt-10">Nobody haven't answered this question yet</h4>
+                                        @if($question->answers->count() == 0)
+                                            <h4 class="text-center text-muted my-10">Nobody haven't answered this question yet</h4>
                                         @else
                                         <form class="form" action="{{url("circle/new_scroller")}}" method="post">
                                             <div class="modal-body">

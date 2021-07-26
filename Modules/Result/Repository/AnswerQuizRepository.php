@@ -78,6 +78,7 @@ class AnswerQuizRepository extends Repository
             ->where('form_id',$quiz_id)
             ->with('question_answer')
             ->with('question_answer.question')
+            ->with('quiz')
             ->first();
     }
 

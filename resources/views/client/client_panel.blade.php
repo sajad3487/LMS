@@ -90,7 +90,7 @@
                                                 </button>
                                             </div>
                                                 <div class="modal-body">
-                                                    @if(isset($behavior) && $behavior != null)
+                                                    @if(isset($behaviors) && $behaviors != null)
                                                     {!! $behavior_template->description ?? '' !!}
                                                     @foreach($behaviors as $behavior)
                                                         <h4>{{$behavior->body ?? ''}}</h4>

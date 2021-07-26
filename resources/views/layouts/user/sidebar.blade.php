@@ -54,12 +54,12 @@
 
                                             <!--begin::Text-->
                                             <div class="d-flex flex-column flex-grow-1">
-                                                <a href="{{url("quiz/$quiz->id/view")}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">{{$quiz->title ?? ''}}</a>
+                                                <a href="{{url("quiz/$quiz->id/view")}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder" target="_blank">{{$quiz->title ?? ''}}</a>
                                                 {{--                                        <span class="text-muted font-weight-bold">Successful Fellas</span>--}}
                                             </div>
                                             <!--end::Text-->
 
-                                            <a href="{{url("quiz/$quiz->id/view")}}" class="btn btn-icon btn-light-danger pulse pulse-danger mr-2 p-6">
+                                            <a href="{{url("quiz/$quiz->id/view")}}" class="btn btn-icon btn-light-danger pulse pulse-danger mr-2 p-6" target="_blank">
                                                 New
                                                 <span class="pulse-ring">New</span>
                                             </a>

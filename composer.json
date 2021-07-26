@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-http": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -17,7 +18,7 @@
         "laravel/ui": "^2.3",
         "mews/captcha": "^3.2",
         "nwidart/laravel-modules": "^7.2",
-      "ext-http": "*"
+        "uxweb/sweet-alert": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

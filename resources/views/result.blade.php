@@ -182,9 +182,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                     @if($score !=0)
                                     <h4>Description :</h4>
                                     @endif
-                                    <p>
-                                        {!! $segment->result_body ?? '' !!}
-                                    </p>
+                                        <p>
+                                            {!! $segment->result_body ?? '' !!}
+                                        </p>
+                                        <p>
+                                            Click <a href="{{url('/participant')}}">HERE</a> to see your completed {{$quiz->title ?? ''}} answers in your personal assessment panel.
+                                        </p>
+
 
                                 </div>
                             </div>

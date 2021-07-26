@@ -343,7 +343,7 @@
                                                                                                     <form class="form" action="{{url("circle/new_question")}}" method="post">
                                                                                                         <div class="modal-body">
                                                                                                             <div class="form-group">
-                                                                                                                <label for="browser">Choose your browser from the list:</label>
+                                                                                                                <label for="browser">Choose your question from the list or enter your new question (It will save on the list):</label>
                                                                                                                 <input list="browsers" name="title" class="form-control form-control-solid" id="browser" autocomplete="off">
                                                                                                                 <datalist id="browsers">
                                                                                                                     @foreach($all_questions as $pre_question)
@@ -713,7 +713,8 @@
                                                                                                                                 <input type="password" name="password" class="form-control form-control-solid" placeholder="Enter body of the scroller" required/>
                                                                                                                             </div>
                                                                                                                         </div>
-                                                                                                                        <input type="text" name="business_name" value="{{$evaluation->company ?? ''}}" class="d-none">
+                                                                                                                        <input type="text" name="business_name" value="{{$evaluation->company->name ?? ''}}" class="d-none">
+                                                                                                                        <input type="text" name="company_id" value="{{$evaluation->company->id ?? ''}}" class="d-none">
                                                                                                                         <input type="number" name="user_type" value="3" class="d-none">
                                                                                                                         <div class="card-footer">
                                                                                                                             <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -38,9 +38,9 @@
                                     <div class="text-muted">{{$scroller->description ?? ''}}</div>
                                     <input type="range" name="scroller_answer[{{$scroller->id}}]" class="custom-range" min="{{$scroller->min ?? ''}}" max="{{$scroller->max ?? ''}}" id="customRange2" required/>
                                     <div class="justify-content-between row px-5">
-                                        <div class="">{{$scroller->min ?? ''}}</div>
-                                        <div class="">0</div>
-                                        <div class="">{{$scroller->max ?? ''}}</div>
+                                        @for($i= $scroller->min; $i <= $scroller->max ;$i++)
+                                        <div class="@if($i >= 0) ml-3 @endif">{{$i ?? ''}}</div>
+                                            @endfor
                                     </div>
                                 </div>
                             @endforeach

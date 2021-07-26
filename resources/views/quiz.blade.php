@@ -266,7 +266,7 @@
                                         </div>
                                         <p class="row m-0 ml-20">{{$section_body->description ?? ''}}</p>
                                         <div class="overlay-wrapper rounded text-center">
-                                            <img src="{{asset($section_body->media)}}" alt="" class="max-w-50" />
+                                            <img src="{{asset($section_body->media)}}" alt="" class="max-w-50 mt-5" />
                                         </div>
                                         <hr>
 
@@ -286,7 +286,6 @@
                                                                 @foreach($question->option as $option)
                                                                     <label class="radio radio-outline radio-outline-2x radio-primary">
                                                                         <input type="radio" value="{{$option->id}}" name="question[{{$question->id}}]" @if($question->requirement) required @endif/>
-                                                                        <span></span>
                                                                         {{$option->body ?? ''}}
                                                                     </label>
                                                                 @endforeach
@@ -319,8 +318,7 @@
 
                                                 @elseif($question->type == 'text')
                                                     <div class="form-group px-10 m-0 mb-2">
-                                                        <label class="row col-form-label h6">{{$i++}}) {{$question->body ?? ''}}
-                                                            @if($question->requirement) <span class="text-danger ml-1"> * </span> @endif
+                                                        <label class="row col-form-label h6 ml-2">{{$i++}}) {{$question->body ?? ''}}
                                                         </label>
                                                         <p class="row text-muted m-0 ">{{$question->description ?? ''}}</p>
                                                         <input type="text" name="answer[{{$question->id}}]" style="width: 100%" class="form-control mt-2"  placeholder="Answer" @if($question->requirement) required @endif/>
