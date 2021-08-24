@@ -79,8 +79,8 @@
                                                         <!--end::Image-->
 
                                                         <!--begin::Details-->
-                                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                            <a href="{{url("quiz/$quiz->id/view")}}" class="font-size-h5 font-weight-bolder text-dark-75 text-hover-primary mb-1">{{$quiz->title ?? ''}}</a>
+                                                        <div class=" mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
+                                                            <a href="{{url("quiz/$quiz->id/view")}}" class="font-size-h5 font-weight-bolder text-center text-dark-75 text-hover-primary mb-1">{{$quiz->title ?? ''}}</a>
                                                             <span class="font-size-lg">{!! $quiz->description ?? ''!!}</span>
                                                         </div>
                                                         <!--end::Details-->
@@ -92,13 +92,11 @@
                                             <!--end::Product-->
                                         @endif
                                     @endforeach
-
                                 @endif
                         </div>
                         <!--end::Products-->
                     </div>
                     <!--end::Section-->
-
                 </div>
             </div>
             <!--end::Card-->
