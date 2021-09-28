@@ -24,7 +24,8 @@
                             fill="#000000" fill-rule="nonzero" opacity="0.3"
                             transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999) "/>
                     </g>
-                </svg><!--end::Svg Icon--></span></button>
+                </svg><!--end::Svg Icon--></span>
+        </button>
         <!--end::Toolbar-->
     </div>
     <!--end::Brand-->
